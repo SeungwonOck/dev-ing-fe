@@ -4,6 +4,7 @@ import thumbnail from '../asset/img/post-img-01.jpg'
 import { Button } from 'react-bootstrap';
 
 const AccountPage = () => {
+  
   return (
     <div className='account-container'>
       <div className='title'>내 계정 정보</div>
