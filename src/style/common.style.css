@@ -38,11 +38,31 @@ body { font-family: 'Pretendard'; }
 
 
 .green-btn {
+    display: inline-block;
     padding: 10px 14px;
     background-color: #28a745;
     border-radius: 8px;
     color: #fff;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+.green-btn:hover {
+    background-color: #078124;
+}
+.white-btn {
+    display: inline-block;
+    padding: 10px 14px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #28a745;
+    color: #28a745;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.white-btn:hover {
+    background-color: #e6f5e9;
 }
 .coral { color: #F24E1E; }
 .green { color: #28a745; }

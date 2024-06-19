@@ -2,10 +2,11 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
 
 const Home = lazy(() => import('../page/Home'));
-const PostAll = lazy(() => import('../page/PostAll'));
 const Login = lazy(() => import('../page/Login'));
 const Register = lazy(() => import('../page/Register'));
+const PostAll = lazy(() => import('../page/PostAll'));
 const PostDetail = lazy(() => import('../page/PostDetail'));
+const PostWrite = lazy(() => import('../page/PostWrite'));
 const Qna = lazy(() => import('../page/Qna'));
 const QnaDetail = lazy(() => import('../page/QnaDetail'));
 const MeetUp = lazy(() => import('../page/MeetUp'));
@@ -29,6 +30,7 @@ const AppRouter = () => {
         <Route element={<PrivateRoute permissionLevel="developer" />}>
           <Route path="/post" element={<PostAll />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/post/write" element={<PostWrite />} />
           <Route path="/qna" element={<Qna />} />
           <Route path="/qna/:id" element={<QnaDetail />} />
           <Route path="/meetup" element={<MeetUp />} />
