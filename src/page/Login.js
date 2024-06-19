@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/login.style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, error, loading } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // user가 있으면 메인 페이지로 이동 - 이미 로그인한 유저는 로그인 페이지에 못 들어오게 막기 위함
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(userActions.clearError());
+  //   };
+  // }, [dispatch]);
 
   const loginWithEmail = (event) => {
     event.preventDefault();
