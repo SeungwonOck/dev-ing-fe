@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
 
+const Home = lazy(() => import('../page/Home'));
 const PostAll = lazy(() => import('../page/PostAll'));
 const Login = lazy(() => import('../page/Login'));
 const Register = lazy(() => import('../page/Register'));
@@ -22,11 +23,12 @@ const AppRouter = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route path="/" element={<PostAll />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/post/:id" element={<PostDetail />} />
         <Route element={<PrivateRoute permissionLevel="developer" />}>
+          <Route path="/post" element={<PostAll />} />
+          <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/qna" element={<Qna />} />
           <Route path="/qna/:id" element={<QnaDetail />} />
           <Route path="/meetup" element={<MeetUp />} />

@@ -1,6 +1,6 @@
 .nav-header {
     width: 100%;
-    max-width: 1920px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -21,6 +21,10 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.nav-logo {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

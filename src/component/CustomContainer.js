@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/CustomContainer.style.css';
+import '../style/customContainer.style.css';
 
 const CustomContainer = ({ children }) => {
   return (
