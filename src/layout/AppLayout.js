@@ -6,16 +6,17 @@ import Navbar from "../component/Navbar";
 import CustomContainer from "../component/CustomContainer";
 import ToastMessage from "../component/ToastMessage";
 import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../action/userAction";
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  
-// 토큰이 있다면 로그인 상태로 넘겨주기
-//   useEffect(() => {
-//     dispatch(userActions.loginWithToken());
-//   }, []);
+
+  // 토큰이 있다면 로그인 상태로 넘겨주기
+  useEffect(() => {
+    dispatch(userActions.loginWithToken());
+  }, []);
 
   return (
     <div>
