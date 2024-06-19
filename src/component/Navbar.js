@@ -12,13 +12,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
-import '../style/Navbar.style.css'
+import '../style/navbar.style.css'
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   // const [ showSearchBox, setShowSearchBox ] = useState(false);
-  const menuList = [ "MEETUP", "QNA", "MY DEV" ];
+  const menuList = [ "POST", "MEETUP", "QNA", "MY DEV" ];
   let [ width, setWidth ] = useState(0);
   let navigate = useNavigate();
 
@@ -93,6 +93,9 @@ const Navbar = ({ user }) => {
 
         {/* Nav menuList */}
         <div className="nav-menu">
+          <div onClick={() => navigate("/post")} className="nav-icon">
+            <span style={{ cursor: "pointer" }}>POST</span>
+          </div>
           <div onClick={() => navigate("/meetup")} className="nav-icon">
             <span style={{ cursor: "pointer" }}>MEETUP</span>
           </div>

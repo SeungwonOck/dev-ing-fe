@@ -1,7 +1,16 @@
 @font-face {
     font-family: 'Pretendard';
-    src: url('../asset/font/PretendardVariable.woff2');
+    src: url('../asset/font/PretendardVariable.woff2') format('woff');
 }
+@font-face {
+    font-family: 'NewsReaderItalic';
+    src: url('../asset/font/Newsreader-Italic.ttf');
+}
+@font-face {
+    font-family: 'NewsReader';
+    src: url('../asset/font/Newsreader.ttf');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -33,7 +42,12 @@ body { font-family: 'Pretendard'; }
     background-color: #28a745;
     border-radius: 8px;
     color: #fff;
+    cursor: pointer;
 }
+.coral { color: #F24E1E; }
+.green { color: #28a745; }
+
+.small-text { font-size: 14px; color: #999; }
 
 @media screen and (max-width: 768px) {
     .green-btn {

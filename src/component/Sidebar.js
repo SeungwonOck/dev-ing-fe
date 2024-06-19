@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Offcanvas, Navbar, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import '../style/Sidebar.style.css';
+import '../style/sidebar.style.css';
 
 const Sidebar = () => {
   const navigate = useNavigate();
