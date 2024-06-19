@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/login.style.css";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { userActions } from "../action/userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
-    name: "",
+    userName: "",
     password: "",
     confirmPassword: "",
     policy: false,
   });
   const [passwordError, setPasswordError] = useState("");
   const [policyError, setPolicyError] = useState(false);
+  const { error, loading } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    return () => {
+      dispatch(userActions.clearError());
+    };
+  }, [dispatch]);
 
   const register = (event) => {
     event.preventDefault();
-    const { name, email, password, confirmPassword, policy } = formData;
+    const { userName, email, password, confirmPassword, policy } = formData;
 
     // 비번 중복확인 일치하는지 확인
     if (password !== confirmPassword) {
       setPasswordError("비밀번호가 일치하지 않습니다.");
       return;
+    }
+    else {
+      setPasswordError("");
     }
 
     // 이용약관에 체크했는지 확인
@@ -29,11 +43,14 @@ const Register = () => {
       setPolicyError(true);
       return;
     }
-
-    // 회원가입 버튼 작동 확인용
-    if (window.confirm("회원가입 하시겠습니까?")) {
-      console.log("회원가입 성공!");
+    else {
+      setPolicyError(false);
     }
+
+    setPasswordError("");
+    setPolicyError(false);
+    console.log("e, n, p", email, userName, password);
+    dispatch(userActions.register({ email, userName, password }, navigate));
   };
 
   const handleChange = (event) => {
@@ -55,13 +72,13 @@ const Register = () => {
       <div className='login-title'>JOIN MEMBER</div>
       <div className="login-line" />
       <Container className="register-container">
-        {/* {error && (
+        {error && (
           <div>
             <Alert variant="danger" className="error-message">
               {error}
             </Alert>
           </div>
-        )} */}
+        )}
         <Form onSubmit={register}>
           <Form.Group className="mb-3">
             <Form.Label className="login-form-label">이메일 아이디<a style={{ color: "#28A745" }}>*</a></Form.Label>
@@ -79,7 +96,7 @@ const Register = () => {
             <Form.Control
               className="login-form-input"
               type="text"
-              id="name"
+              id="userName"
               placeholder="ex)홍길동"
               onChange={handleChange}
               required
