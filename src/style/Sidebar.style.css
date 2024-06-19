@@ -16,6 +16,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
+    cursor: pointer;
 }
 
 .landing-search-box {
@@ -132,6 +133,7 @@
   width: 120px;
   color: #fff;
   font-size: 30px;
+  position: relative;
 }
 
 .side-menu .closebtn {
@@ -150,10 +152,20 @@
   align-items: center;
 }
 
-.side-menu-list button:hover {
-  background-color: beige;
-  border-radius: 3px;
-} 
+.side-menu-list > button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background-color: white;
+  transition: width 0.5s ease;
+}
+
+.side-menu-list>button:hover::after {
+  width: 100%;
+}
 
 
 #sidebar-wrapper {
@@ -167,11 +179,14 @@
     font-weight: bold;
     padding: 20px 10px;
     list-style-type: none;
+    margin-top: 20px;
 }
 .sidebar-item:hover{
   color:white;
-  background-color: red;
+  background-color: #28a745;
   font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .sidebar-area {
@@ -210,13 +225,14 @@
   }
   .mobile-sidebar-toggle {
     display:block;
+    margin: 15px;
   }
   .sidebar {
     max-width: 100%;
     padding:0px;
   }
   .mobile-sidebar {
-    max-height: 104px;
+    max-height: 80px;
   }
 }
 .display-flex {

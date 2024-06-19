@@ -21,7 +21,29 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    position: relative;
 }
+
+.nav-icon:hover {
+    color: black;
+}
+
+.nav-icon::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: black;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-icon:hover::after {
+    width: 100%;
+    left: 0;
+}
+
 
 .nav-logo {
     cursor: pointer;
