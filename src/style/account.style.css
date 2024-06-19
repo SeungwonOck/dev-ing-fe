@@ -1,0 +1,25 @@
+.account-container {
+    width: 100%; 
+    max-width: 768px;
+    margin: 0 auto;
+    border: 1px solid #28A745;
+    padding: 30px;
+    border-radius: 30px;
+}
+.account-container > .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #28A745;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #28A745;
+}
+.account-container > .main-info { display: flex; justify-content: center; gap: 30px; border-bottom: 1px solid #eee; padding: 30px 0; }
+.account-container > .main-info > .left > .img { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; }
+.account-container > .main-info > .left > .img > img { width: 100%; height: 100%; object-fit: cover; }
+.account-container > .main-info > .right { display: flex; flex-direction: column; gap: 10px; }
+.account-container > .other-info { padding: 30px 0; }
+.account-container > .other-info > .rank { padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.account-container > .other-info > .rank > span { display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: burlywood; }
+.account-container > .other-info > .specs { display: flex; align-items: center; gap: 10px; }
+.account-container > .other-info > .specs > div { display: flex; gap: 10px; }
