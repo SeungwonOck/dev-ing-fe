@@ -1,8 +1,13 @@
 import React from 'react'
+import PostCard from '../component/PostCard'
 
 const PostAll = () => {
   return (
-    <div>PostAll</div>
+    <div>
+      <PostCard/>
+      <PostCard/>
+      <PostCard/>
+    </div>
   )
 }
 
