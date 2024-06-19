@@ -1,21 +1,7 @@
 
 /* 누나쇼핑몰에서 가져온 App.css */
 
-/* .nav-header {
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 20px;
-  margin-top: 40px;
-}
-
-.nav-header .nav-icon {
-  margin-right: 20px;
-}
-.nav-icon span{
-  margin-left: 10px;
-}
-.menu {
+/* .menu {
   display: flex;
   list-style-type: none;
   padding: 20px;
@@ -24,32 +10,21 @@
   text-decoration: none;
   color:black;
   margin-left:20px;
+} */
+
+.burger-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
-.nav-logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-size: 50px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.nav-menu-area {
-  display: flex;
-  justify-content: center;
-}
-.burger-menu{
-  margin-left: 20px;
-}
-
-.landing-search-box{
+.landing-search-box {
   right: 20px;
   position: absolute;
 
 }
-.sidebar{
-  max-width: 500px;
+.sidebar {
+    max-width: 500px;
 }
 
 .search-box{
@@ -131,39 +106,38 @@
   transform: scale(1.1);
   z-index: 1;
 }
-.hide{
-  visibility:hidden
+.hide {
+    visibility: hidden;
 }
-
 
 .side-menu {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: burlywood;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  z-index:2;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #28a745;
+    overflow-x: hidden;
+    transition: 0.5s ease;
+    padding-top: 60px;
+    z-index: 2;
 }
 
 
-.side-menu-list button {
-  margin: 5px;
+.side-menu-list > button {
+  margin: 10px 5px;
   border: none;
   background: none;
   width: 120px;
+  color: #fff;
+  font-size: 30px;
 }
 
 .side-menu .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 20px;
   font-size: 36px;
   margin-left: 50px;
   border: none;
@@ -182,63 +156,62 @@
 } 
 
 
-#sidebar-wrapper{
-  min-height: 100vh !important;
-  background-color: red;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+#sidebar-wrapper {
+    min-height: 100vh !important;
+    background-color: red;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.sidebar-item{
-  color:black;
-  font-weight: bold;
-  padding: 20px 10px;
-  list-style-type: none;
-  
 
-  
+.sidebar-item {
+    color:black;
+    font-weight: bold;
+    padding: 20px 10px;
+    list-style-type: none;
 }
 .sidebar-item:hover{
   color:white;
   background-color: red;
   font-weight: bold;
 }
-.sidebar-area{
-  padding-left: 0;
+
+.sidebar-area {
+    padding-left: 0;
 }
-.sidebar{
-  max-width: 300px;
-  padding:20px;
-  background-color: rgb(248,249,250);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  padding-left: 40px;
+.sidebar {
+    max-width: 300px;
+    padding:20px;
+    background-color: rgb(248,249,250);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding-left: 40px;
 }
-.mobile-sidebar-toggle{
-  display:none;
+.mobile-sidebar-toggle {
+    display:none;
 }
 
 
-@media screen and (max-width: 63rem) {
+@media screen and (max-width: 768px) {
   .hide {
-    visibility:visible;
+    visibility: visible;
   }
   .menu {
     display: none;
   }
  
-  .nav-icon:last-child{
+  .nav-icon:last-child {
     margin-right: 0px;
   }
-  .nav-header{
+  .nav-header {
     margin-top: 20px;
     margin-bottom:30px
   }
 
-  .sidebar-toggle{
+  .sidebar-toggle {
     display: none;
   }
-  .mobile-sidebar-toggle{
+  .mobile-sidebar-toggle {
     display:block;
   }
-  .sidebar{
+  .sidebar {
     max-width: 100%;
     padding:0px;
   }
@@ -266,4 +239,4 @@
   margin-top: 20px;
   margin-right: 20px;
 }
- */
+
