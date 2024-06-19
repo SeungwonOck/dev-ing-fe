@@ -16,21 +16,33 @@ const Sidebar = () => {
     return (
       <div>
         <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <img width={100} src="/img/logo.png" alt="dev-ing-logo.png" />
         </Link>
         <div className="sidebar-item">Admin Account</div>
         <ul className="sidebar-area">
           <li
             className="sidebar-item"
-            onClick={() => handleSelectMenu("/admin/product?page=1")}
+            onClick={() => handleSelectMenu("/admin/post")}
           >
-            product
+            Post
           </li>
           <li
             className="sidebar-item"
-            onClick={() => handleSelectMenu("/admin/order?page=1")}
+            onClick={() => handleSelectMenu("/admin/qna")}
           >
-            order
+            Qna
+          </li>
+          <li
+            className="sidebar-item"
+            onClick={() => handleSelectMenu("/admin/meetup")}
+          >
+            MeetUp
+          </li>
+          <li
+            className="sidebar-item"
+            onClick={() => handleSelectMenu("/admin/report")}
+          >
+            Report
           </li>
         </ul>
       </div>
@@ -42,7 +54,7 @@ const Sidebar = () => {
 
       <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
         <Container fluid>
-          <img width={80} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <img width={80} src="/img/logo.png" alt="dev-ing-logo.png" />
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle
             aria-controls={`offcanvasNavbar-expand`}
@@ -55,7 +67,7 @@ const Sidebar = () => {
             className="sidebar"
             show={show}
           >
-            <Offcanvas.Header closeButton></Offcanvas.Header>
+            <Offcanvas.Header closeButton onClick={() => setShow(false)}></Offcanvas.Header>
             <Offcanvas.Body>{NavbarContent()}</Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

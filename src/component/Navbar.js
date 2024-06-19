@@ -66,7 +66,14 @@ const Navbar = ({ user }) => {
 
         <div className="side-menu-list" id="menu-list">
           {menuList.map((menu, index) => (
-            <button key={index}>{menu}</button>
+            <button
+              key={index}
+              onClick={() => {
+                setWidth(0);
+                navigate(`/${menu.toLowerCase()}`);
+              }}
+            >{menu}
+            </button>
           ))}
         </div>
       </div>
