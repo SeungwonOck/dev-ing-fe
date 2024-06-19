@@ -51,7 +51,6 @@ const Register = () => {
 
     setPasswordError("");
     setPolicyError(false);
-    console.log("e, n, p", email, userName, password);
     dispatch(userActions.register({ email, userName, password }, navigate));
   };
 

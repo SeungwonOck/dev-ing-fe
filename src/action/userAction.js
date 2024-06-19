@@ -4,32 +4,43 @@ import { commonUiActions } from "./commonUiAction";
 import * as commonTypes from "../constants/commonUI.constants";
 
 const loginWithToken = () => async (dispatch) => {
-  //   try {
-  //     dispatch({type: types.TOKEN_LOGIN_REQUEST})
-  //     const res = await api.get('/user/me');
-  //     if(res.status !== 200) throw new Error('Invalid token');
-  //     dispatch({type: types.TOKEN_LOGIN_SUCCESS, payload: res.data})
-  //   } catch (error) {
-  //     dispatch({type: types.TOKEN_LOGIN_FAIL, payload: error.error})
-  //     dispatch(logout())
-  //   }
+  try {
+    dispatch({ type: types.TOKEN_LOGIN_REQUEST })
+    const res = await api.get('/user');
+    if (res.status !== 200) {
+      throw new Error('Invalid token');
+    }
+    else {
+      dispatch({ type: types.TOKEN_LOGIN_SUCCESS, payload: res.data })
+    }
+
+  } catch (error) {
+    dispatch({ type: types.TOKEN_LOGIN_FAIL, payload: error.message })
+    dispatch(logout())
+  }
 };
 
 const clearError = () => async (dispatch) => {
   dispatch({ type: types.CLEAR_ERROR });
 };
 
-const loginWithEmail = ({ email, password }, navigate) => async (dispatch) => {
-  // try {
-  //   dispatch({type: types.LOGIN_REQUEST})
-  //   const res = await api.post('/user/login', {email, password})
-  //   if(res.status !== 200) throw new Error(res.error)
-  //   dispatch({type: types.LOGIN_SUCCESS, payload: res.data})
-  //   sessionStorage.setItem('token', res.data.token)
-  //   dispatch(commonUiActions.showToastMessage("로그인을 완료했습니다.", "success"))
-  // } catch (error) {
-  //   dispatch({type: types.LOGIN_FAIL, payload: error.error})
-  // }
+const loginWithEmail = ({ email, password }) => async (dispatch) => {
+  try {
+    dispatch({ type: types.LOGIN_REQUEST })
+    const res = await api.post('/auth/login', { email, password })
+    console.log("loginWithEmail response", res);
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    }
+    else {
+      dispatch({ type: types.LOGIN_SUCCESS, payload: res.data })
+      sessionStorage.setItem('token', res.data.token)
+      dispatch(commonUiActions.showToastMessage(`${res.data.user.userName}님 환영합니다`, "success"))
+    }
+
+  } catch (error) {
+    dispatch({ type: types.LOGIN_FAIL, payload: error.message })
+  }
 };
 
 const logout = () => async (dispatch) => {
@@ -38,25 +49,11 @@ const logout = () => async (dispatch) => {
 };
 
 const loginWithGoogle = (token) => async (dispatch) => {
-  // try {
-  //     dispatch({type: types.GOOGLE_LOGIN_REQUEST});
-  //     const res = await api.post('/user/google', {token});
-  //     if(res.status === 200) {
-  //         sessionStorage.setItem('token', res.data.token)
-  //         dispatch({type: types.GOOGLE_LOGIN_SUCCESS, payload: res.data})
-  //     } else if (res.status === 400) {
-  //         throw new Error(res.error)
-  //     }
-  // } catch (error) {
-  //   dispatch({type: types.GOOGLE_LOGIN_FAIL, payload: error.error})
-  //   dispatch(commonUiActions.showToastMessage(error.error, "error"))
-  // }
 };
 
 const register = ({ email, userName, password }, navigate) => async (dispatch) => {
   try {
     dispatch({ type: types.REGISTER_REQUEST })
-    console.log("e, n, p - dispat", email, userName, password);
     const res = await api.post('/user', { email, userName, password })
     console.log("register response", res);
     if (res.status !== 200) {
