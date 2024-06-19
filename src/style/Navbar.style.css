@@ -24,11 +24,7 @@
     position: relative;
 }
 
-.nav-icon:hover {
-    color: black;
-}
-
-.nav-icon::after {
+.nav-icon:not(:last-child)::after {
     content: "";
     position: absolute;
     width: 0;
@@ -39,7 +35,7 @@
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-.nav-icon:hover::after {
+.nav-icon:hover:not(:last-child)::after {
     width: 100%;
     left: 0;
 }
