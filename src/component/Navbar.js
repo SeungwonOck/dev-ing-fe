@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowCircleDown,
-  faArrowCircleUp,
-  faBars,
-  faCalendarDays,
-  faCircleQuestion,
-  faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +11,7 @@ const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   // const [ showSearchBox, setShowSearchBox ] = useState(false);
-  const menuList = [ "POST", "MEETUP", "QNA", "MY DEV" ];
+  const menuList = [ "POST", "MEETUP", "QNA" ];
   let [ width, setWidth ] = useState(0);
   let navigate = useNavigate();
 
@@ -95,25 +88,31 @@ const Navbar = ({ user }) => {
       <div className="nav-header">
         {/* 메인 로고 */}
         <div className="nav-logo" onClick={() => navigate("/")}> 
-          <img width={isMobile ? 150: 200} src="/img/logo.png" alt="logo.png" />
+          <img width={150} src="/img/logo.png" alt="logo.png" />
         </div>
 
         {/* Nav menuList */}
         <div className="nav-menu">
-          <div onClick={() => navigate("/post")} className="nav-icon">
-            <span style={{ cursor: "pointer" }}>POST</span>
-          </div>
-          <div onClick={() => navigate("/meetup")} className="nav-icon">
-            <span style={{ cursor: "pointer" }}>MEETUP</span>
-          </div>
-          <div onClick={() => navigate("/qna")} className="nav-icon">
-            <span style={{ cursor: "pointer" }}>QNA</span>
-          </div>
+          {!isMobile && (<>
+            <div onClick={() => navigate("/post")} className="nav-icon">
+              <span style={{ cursor: "pointer" }}>POST</span>
+            </div>
+            <div onClick={() => navigate("/meetup")} className="nav-icon">
+              <span style={{ cursor: "pointer" }}>MEETUP</span>
+            </div>
+            <div onClick={() => navigate("/qna")} className="nav-icon">
+              <span style={{ cursor: "pointer" }}>QNA</span>
+            </div></>
+          )}
+
+          {user && 
+            <div onClick={() => navigate("/me")} className="nav-icon">
+              <span style={{ cursor: "pointer" }}>MY DEV</span>
+            </div>}
 
           {user && 
             <div onClick={() => navigate("/account")} className="nav-icon">
-              <FontAwesomeIcon icon={faUserAlt} />
-              {!isMobile && <span style={{ cursor: "pointer" }}>마이페이지</span>}
+              <span style={{ cursor: "pointer" }}>MY INFO</span>
             </div>}
 
           {user ? (

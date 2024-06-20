@@ -15,6 +15,7 @@ const Register = () => {
     userName: "",
     password: "",
     confirmPassword: "",
+    gender: "",
     policy: false,
   });
   const [passwordError, setPasswordError] = useState("");
@@ -29,7 +30,7 @@ const Register = () => {
 
   const register = (event) => {
     event.preventDefault();
-    const { userName, email, password, confirmPassword, policy } = formData;
+    const { userName, email, password, confirmPassword, gender, policy } = formData;
 
     // 비번 중복확인 일치하는지 확인
     if (password !== confirmPassword) {
@@ -51,7 +52,7 @@ const Register = () => {
 
     setPasswordError("");
     setPolicyError(false);
-    dispatch(userActions.register({ email, userName, password }, navigate));
+    dispatch(userActions.register({ email, userName, password, gender }, navigate));
   };
 
   const handleChange = (event) => {
@@ -132,6 +133,21 @@ const Register = () => {
                 <Form.Control.Feedback type="invalid">
                   {passwordError}
                 </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>성별<a style={{ color: "#28A745" }}>*</a></Form.Label>
+                <Form.Select
+                  defaultValue=""
+                  onChange={handleChange}
+                  id="gender"
+                  required
+                >
+                  <option value="" disabled hidden>
+                    성별 입력
+                  </option>
+                  <option value="male">남자</option>
+                  <option value="female">여자</option>
+                </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Check
