@@ -11,7 +11,7 @@ const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   // const [ showSearchBox, setShowSearchBox ] = useState(false);
-  const menuList = ["POST", "MEETUP", "QNA"];
+  const menuList = ["POST", "MEETUP", "Q&A"];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
 
@@ -63,7 +63,7 @@ const Navbar = ({ user }) => {
               key={index}
               onClick={() => {
                 setWidth(0);
-                navigate(`/${menu.toLowerCase()}`);
+                menu === "Q&A" ? navigate(`/qna`) : navigate(`/${menu.toLowerCase()}`);
               }}
             >{menu}
             </button>
@@ -101,7 +101,7 @@ const Navbar = ({ user }) => {
               <span style={{ cursor: "pointer" }}>MEETUP</span>
             </div>
             <div onClick={() => navigate("/qna")} className="nav-icon">
-              <span style={{ cursor: "pointer" }}>QNA</span>
+              <span style={{ cursor: "pointer" }}>Q&A</span>
             </div></>
           )}
 

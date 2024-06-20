@@ -24,7 +24,7 @@ const Sidebar = () => {
             onClick={() => handleSelectMenu("/admin")}
           >
             Admin Account
-          </li>          
+          </li>
           <li
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/post")}
@@ -35,7 +35,7 @@ const Sidebar = () => {
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/qna")}
           >
-            Qna
+            Q&A
           </li>
           <li
             className="sidebar-item"

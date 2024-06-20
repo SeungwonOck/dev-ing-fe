@@ -22,8 +22,8 @@ const QnaCard = () => {
                     <img className="qng-card-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fHww" /></Col>
             </Row>
             <div className='author'>
-                <img src="https://cdn-icons-png.flaticon.com/128/847/847969.png" />
-                <span>홍길동</span>
+                <span className='img'><img src="https://cdn-icons-png.flaticon.com/128/847/847969.png" /></span>
+                <span className='name'>홍길동</span>
             </div>
 
         </div>
