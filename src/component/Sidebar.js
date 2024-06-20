@@ -18,8 +18,13 @@ const Sidebar = () => {
         <Link to="/">
           <img width={100} src="/img/logo.png" alt="dev-ing-logo.png" />
         </Link>
-        <div className="sidebar-item">Admin Account</div>
         <ul className="sidebar-area">
+          <li
+            className="sidebar-item"
+            onClick={() => handleSelectMenu("/admin")}
+          >
+            Admin Account
+          </li>          
           <li
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/post")}
