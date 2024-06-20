@@ -1,3 +1,9 @@
+.qna-title {
+    color: #333333;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
 .qna-add-btn {
     display: flex;
     justify-content: end;
@@ -13,11 +19,12 @@
     box-sizing: border-box;
     position: relative;
     background: #FFFFFF;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #28A745;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     padding: 20px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .qna-card-container>.row>.col-md-8 {
@@ -27,7 +34,6 @@
 .qna-card-title {
     color: #28A745;
     font-size: 1.8rem;
-    font-weight: bold;
     margin-top: 10px;
 }
 

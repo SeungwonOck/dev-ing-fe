@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
 import ClipLoader from "react-spinners/ClipLoader";
+import QnaWrite from "../page/QnaWrite";
 
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
@@ -34,6 +35,7 @@ const AppRouter = () => {
           <Route path="/post/write" element={<PostWrite />} />
           <Route path="/qna" element={<Qna />} />
           <Route path="/qna/:id" element={<QnaDetail />} />
+          <Route path="/qna/write" element={<QnaWrite />} />
           <Route path="/meetup" element={<MeetUp />} />
           <Route path="/meetup/:id" element={<MeetUpDetail />} />
           <Route path="/me" element={<MyPage />} />

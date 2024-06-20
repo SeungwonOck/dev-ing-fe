@@ -1,11 +1,18 @@
 import React from 'react'
 import "../style/qna.style.css";
 import { Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const QnaCard = () => {
+    const navigate = useNavigate();
+
+    const showQnaDetail = () => {
+        //Q&A 디테일 페이지로 가기 - test를 위해 일단 1번으로
+        navigate(`/qna/1`);
+    }
 
     return (
-        <div className='qna-card-container'>
+        <div className='qna-card-container' onClick={() => showQnaDetail()}>
             <Row>
                 <Col md={10}>
                     <div className='qna-card-title'>ㅇㅇ 에러 관련 질문!</div>
