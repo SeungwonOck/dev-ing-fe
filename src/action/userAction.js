@@ -73,6 +73,18 @@ const register = ({ email, userName, password, gender }, navigate) => async (dis
 const loginWithGithub = () => async (dispatch) => { };
 const loginWithFacebook = () => async (dispatch) => { };
 
+const getUserList = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_USER_LIST_REQUEST })
+    const res = await api.get("/user/all")
+    console.log("userall response", res.data.data)
+    dispatch({type: types.GET_USER_LIST_SUCCESS, payload: res.data.data})
+
+  } catch (error){
+    dispatch({ type: types.GET_USER_LIST_FAIL, payload: error.message})
+  }
+}
+
 const updateUser = (userFormData) => async (dispatch) => {
   try {
     dispatch({ type: types.UPDATE_USER_REQUEST})
@@ -99,5 +111,6 @@ export const userActions = {
   logout,
   updateUser,
   register,
-  clearError
+  clearError,
+  getUserList,
 };
