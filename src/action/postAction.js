@@ -46,7 +46,7 @@ const createPost = (formData, navigate) => async (dispatch) => {
         }
     } catch (error) {
         dispatch({type: types.POST_CREATE_FAIL, payload: error.message})
-        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        // dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 

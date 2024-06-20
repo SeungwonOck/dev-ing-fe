@@ -15,7 +15,7 @@ const PostAll = () => {
   useEffect(() => {
     dispatch(postActions.getPostList())
   },[])
-
+  
   return (
     <div>
       <div className='post-btns'>
