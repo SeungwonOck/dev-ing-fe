@@ -16,8 +16,6 @@ const PostAll = () => {
     dispatch(postActions.getPostList())
   },[])
 
-  console.log(postList)
-
   return (
     <div>
       <div className='post-btns'>

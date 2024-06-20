@@ -2,7 +2,6 @@ import React from 'react';
 import '../style/postCard.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import thumbnail from '../asset/img/post-img-01.jpg'
 import { useNavigate } from 'react-router-dom';
 
 const PostCard = ({ post }) => {
@@ -25,9 +24,9 @@ const PostCard = ({ post }) => {
           <p>{post.content}</p>
         </div>
         <div className='author'>
-          <span className='img'><img src={thumbnail} alt=''/></span>
+          <span className='img'><img src={post.author.profileImage} alt=''/></span>
           <span className='user-page-name'>코딩 스토리</span>
-          <span className='user-name'>by 홍길동</span>
+          <span className='user-name'>by {post.author.userName}</span>
         </div>
       </div>
       <div className='thumbnail'>
