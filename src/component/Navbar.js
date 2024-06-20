@@ -11,8 +11,8 @@ const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   // const [ showSearchBox, setShowSearchBox ] = useState(false);
-  const menuList = [ "POST", "MEETUP", "QNA" ];
-  let [ width, setWidth ] = useState(0);
+  const menuList = ["POST", "MEETUP", "QNA"];
+  let [width, setWidth] = useState(0);
   let navigate = useNavigate();
 
   const onCheckEnter = (event) => {
@@ -23,11 +23,11 @@ const Navbar = ({ user }) => {
       navigate(`?name=${event.target.value}`);
     }
   };
-  
+
   const logout = () => {
     dispatch(userActions.logout());
   };
-  
+
   return (
     <div>
       {/* {showSearchBox && (
@@ -87,7 +87,7 @@ const Navbar = ({ user }) => {
       {/* 홈페이지 메인 Navbar */}
       <div className="nav-header">
         {/* 메인 로고 */}
-        <div className="nav-logo" onClick={() => navigate("/")}> 
+        <div className="nav-logo" onClick={() => navigate("/")}>
           <img width={150} src="/img/logo.png" alt="logo.png" />
         </div>
 
@@ -105,19 +105,25 @@ const Navbar = ({ user }) => {
             </div></>
           )}
 
-          {user && 
+          {user &&
             <div onClick={() => navigate("/me")} className="nav-icon">
               <span style={{ cursor: "pointer" }}>MY DEV</span>
             </div>}
 
-          {user && 
+          {user &&
             <div onClick={() => navigate("/account")} className="nav-icon">
               <span style={{ cursor: "pointer" }}>MY INFO</span>
             </div>}
 
+          {user &&
+            <div onClick={() => navigate("/account")}>
+              <img style={{ width: "25px" }} src={user.profileImage} />{" "}
+              <span>{user.userName}</span>
+            </div>}
+
           {user ? (
             <div onClick={logout} className="nav-icon green-btn">
-                <span style={{ cursor: "pointer" }}>로그아웃</span>
+              <span style={{ cursor: "pointer" }}>로그아웃</span>
             </div>
           ) : (
             <div onClick={() => navigate("/login")} className="nav-icon green-btn">
