@@ -42,11 +42,11 @@ const createPost = (formData, navigate) => async (dispatch) => {
         } else {
             dispatch({type: types.POST_CREATE_SUCCESS, payload: res.data.data})
             dispatch(commonUiActions.showToastMessage("새 글이 등록되었습니다.", "success"))
-            navigate(`/post/${res.data.data._id}`)
+            navigate(`/post/${res.data.data.post._id}`)
         }
     } catch (error) {
         dispatch({type: types.POST_CREATE_FAIL, payload: error.message})
-        // dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 
