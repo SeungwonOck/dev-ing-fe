@@ -1,0 +1,13 @@
+.write-form input {
+    border: none;
+    padding: 12px;
+}
+.write-form textarea {
+    margin-top: 10px;
+    padding: 12px;
+}
+.write-form > .write-title {
+    border-bottom: 1px solid #8d8d8d;
+}
+.write-form > .submit { border-top: 1px solid #eee; padding-top: 14px; display: flex; justify-content: center; }
+.write-form > .submit > button { width: 100px; }
