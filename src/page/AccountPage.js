@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import '../style/account.style.css';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userActions } from '../action/userAction';
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
-import api from '../utils/api';
 
 const initialFormData = {
   userName: '',
-  email: '',
+  description: '',
   originalPassword: '',
   newPassword: '',
   profileImage: '',
@@ -26,17 +25,13 @@ const AccountPage = () => {
     if(!user) {
       navigate('/login')
     } else {
-      setUserFormData({ ...initialFormData, userName:user.userName, email:user.email, specs:user.specs, profileImage:user.profileImage })
+      setUserFormData({ ...initialFormData, userName:user.userName, description:user.description, specs:user.specs, profileImage:user.profileImage })
     }
   },[user])
 
   const uploadedimage = (url) => {
       setUserFormData({ ...userFormData, profileImage: url })
   }
-
-  useEffect(()=>{
-    console.log(userFormData)
-  },[userFormData])
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
@@ -57,14 +52,6 @@ const AccountPage = () => {
                 <div className='img'>
                   <img id="uploadedimage" src={userFormData.profileImage} alt="uploadedimage"/>
                 </div>
-                {/* <Form.Label className='white-btn small-btn'>
-                  프로필 사진 변경
-                  <Form.Control
-                    className='display-none'
-                    type="file"
-                    onChange={handleProfileImg}
-                  />
-                </Form.Label> */}
                 <CloudinaryUploadWidget uploadImage={uploadedimage} />
             </Form.Group>
 
@@ -104,17 +91,17 @@ const AccountPage = () => {
               </Row>
             </Form.Group>
 
-            <Form.Group controlId="email">
+            <Form.Group controlId="description">
               <Row>
                 <Col md={2}>
-                  <Form.Label>이메일</Form.Label>
+                  <Form.Label>소개글</Form.Label>
                 </Col>
                 <Col md={10}>
                   <Form.Control
-                    type="email"
-                    placeholder="이메일을 입력해주세요"
+                    type="text"
+                    placeholder="소개글을 입력해주세요"
                     required
-                    value={userFormData.email}
+                    value={userFormData.description}
                     onChange={(e) => handleChange(e)}
                   />
                 </Col>

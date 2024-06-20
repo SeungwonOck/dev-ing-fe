@@ -5,3 +5,11 @@
     padding: 50px;
     /* background-color: lightyellow; */
 }
+
+@media screen and (max-width: 768px) {
+    .custom-container { padding: 30px; }
+}
+
+@media screen and (max-width: 540px) {
+    .custom-container { padding: 30px 10px; }
+}

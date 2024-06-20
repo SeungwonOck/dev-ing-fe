@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
@@ -22,7 +23,7 @@ const PrivateRoute = lazy(() => import('./PrivateRoute'));
 
 const AppRouter = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className='loading'><ClipLoader color="#28A745" loading={true} size={100} /></div>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
