@@ -11,14 +11,17 @@ function userReducer(state = initialState, action) {
     case types.REGISTER_REQUEST:
     case types.LOGIN_REQUEST:
     case types.TOKEN_LOGIN_REQUEST:
+    case types.UPDATE_USER_REQUEST:
       return { ...state, loading: true }
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
+    case types.UPDATE_USER_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false, error: "" }
     case types.LOGIN_FAIL:
     case types.REGISTER_FAIL:
+    case types.UPDATE_USER_FAIL:
       return { ...state, loading: false, error: payload };
     case types.TOKEN_LOGIN_FAIL:
       return { ...state, loading: false };

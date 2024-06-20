@@ -11,7 +11,7 @@ const loginWithToken = () => async (dispatch) => {
       throw new Error('Invalid token');
     }
     else {
-      dispatch({ type: types.TOKEN_LOGIN_SUCCESS, payload: res.data })
+      dispatch({ type: types.TOKEN_LOGIN_SUCCESS, payload: res.data.data })
     }
 
   } catch (error) {
@@ -73,6 +73,22 @@ const register = ({ email, userName, password, gender }, navigate) => async (dis
 const loginWithGithub = () => async (dispatch) => { };
 const loginWithFacebook = () => async (dispatch) => { };
 
+const updateUser = (userFormData) => async (dispatch) => {
+  try {
+    dispatch({ type: types.UPDATE_USER_REQUEST})
+    const res = await api.put('/user', userFormData);
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    }
+    else {
+      dispatch({ type: types.UPDATE_USER_SUCCESS, payload: res.data.data })
+      dispatch(commonUiActions.showToastMessage("정보 수정이 완료되었습니다.", "success"))
+    }
+  } catch (error) {
+    console.log(error)
+    dispatch({ type: types.UPDATE_USER_FAIL, payload: error.message })
+  }
+};
 
 export const userActions = {
   loginWithToken,
@@ -81,6 +97,7 @@ export const userActions = {
   loginWithGithub,
   loginWithFacebook,
   logout,
+  updateUser,
   register,
   clearError
 };
