@@ -116,7 +116,7 @@ const Navbar = ({ user }) => {
             </div>}
 
           {user &&
-            <div onClick={() => navigate("/account")}>
+            <div>
               <img style={{ width: "25px" }} src={user.profileImage} />{" "}
               <span>{user.userName}</span>
             </div>}
