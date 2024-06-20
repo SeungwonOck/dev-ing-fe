@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../style/account.style.css';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userActions } from '../action/userAction';
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
-import api from '../utils/api';
 
 const initialFormData = {
   userName: '',
