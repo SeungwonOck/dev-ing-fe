@@ -35,7 +35,7 @@ const loginWithEmail = ({ email, password }) => async (dispatch) => {
     else {
       dispatch({ type: types.LOGIN_SUCCESS, payload: res.data.data })
       sessionStorage.setItem('token', res.data.data.token)
-      dispatch(commonUiActions.showToastMessage(`${res.data.user.userName}님 환영합니다`, "success"))
+      dispatch(commonUiActions.showToastMessage(`${res.data.data.user.userName}님 환영합니다`, "success"))
     }
 
   } catch (error) {
@@ -51,10 +51,10 @@ const logout = () => async (dispatch) => {
 const loginWithGoogle = (token) => async (dispatch) => {
 };
 
-const register = ({ email, userName, password }, navigate) => async (dispatch) => {
+const register = ({ email, userName, password, gender }, navigate) => async (dispatch) => {
   try {
     dispatch({ type: types.REGISTER_REQUEST })
-    const res = await api.post('/user', { email, userName, password })
+    const res = await api.post('/user', { email, userName, password, gender })
     console.log("register response", res);
     if (res.status !== 200) {
       throw new Error(res.error)
