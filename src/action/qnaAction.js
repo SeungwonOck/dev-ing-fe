@@ -35,7 +35,7 @@ const deleteQna = (id, searchQuery) => async (dispatch) => {
     }
 };
 
-const editQna = (formData, id, searchQuery) => async (dispatch) => {
+const updateQna = (formData, id, searchQuery) => async (dispatch) => {
     try {
         
     } catch (error) {
@@ -47,6 +47,6 @@ export const qnaActions = {
   getQnaList,
   createQna,
   deleteQna,
-  editQna,
+  updateQna,
   getQnaDetail,
 };

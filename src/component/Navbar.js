@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import '../style/navbar.style.css'
+import { Dropdown } from "react-bootstrap";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -106,20 +107,17 @@ const Navbar = ({ user }) => {
           )}
 
           {user &&
-            <div onClick={() => navigate("/me")} className="nav-icon">
-              <span style={{ cursor: "pointer" }}>MY DEV</span>
-            </div>}
-
-          {user &&
-            <div onClick={() => navigate("/account")} className="nav-icon">
-              <span style={{ cursor: "pointer" }}>MY INFO</span>
-            </div>}
-
-          {user &&
-            <div>
-              <img style={{ width: "25px" }} src={user.profileImage} />{" "}
-              <span>{user.userName}</span>
-            </div>}
+            <Dropdown>
+              <Dropdown.Toggle className="profile-dropdown">
+                <div className="img"><img width={25} src={user.profileImage}/></div>
+                <span>{user.userName}</span>
+              </Dropdown.Toggle>
+        
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => navigate("/me")}>MY DEV</Dropdown.Item>
+                <Dropdown.Item onClick={() => navigate("/account")}>내 계정 정보</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>}
 
           {user ? (
             <div onClick={logout} className="nav-icon green-btn">

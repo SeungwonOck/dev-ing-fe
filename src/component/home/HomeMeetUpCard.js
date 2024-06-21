@@ -1,9 +1,16 @@
 import React from 'react';
 import meetUpImg from '../../asset/img/meeting-img-01.jpg';
+import { useNavigate } from 'react-router-dom';
 
-const HomeMeetUpCard = () => {
+const HomeMeetUpCard = ({ meetUp }) => {
+  const navigate = useNavigate();
+  const showMeetUpDetail = () => {
+    //포스트 디테일 페이지로 가기
+    navigate(`/meetUp/${'meetUp._id'}`);
+  }
+
   return (
-    <div className='home-meet-up-card'>
+    <div className='home-meet-up-card' onClick={() => showMeetUpDetail('meetUp._id')}>
       <div className='img'><img src={meetUpImg} alt=''/></div>
       <div className='contents'>
         <div className='title'>Nodejs 스터디 함께 해요</div>

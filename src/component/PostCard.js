@@ -25,7 +25,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className='author'>
           <span className='img'><img src={post.author.profileImage} alt=''/></span>
-          <span className='user-page-name'>코딩 스토리</span>
+          <span className='user-page-name'>페이지이름</span>
           <span className='user-name'>by {post.author.userName}</span>
         </div>
       </div>
