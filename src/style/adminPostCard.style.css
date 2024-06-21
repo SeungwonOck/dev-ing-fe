@@ -4,6 +4,14 @@
     margin-bottom: 20px;
 }
 
+.admin-post-card {
+    transition: transform 0.5s ease-in-out;
+}
+
+.admin-post-card:hover {
+    transform: scale(0.90);
+}
+
 .admin-post-card .card-thumbnail {
     height: 150px;
     object-fit: cover;
