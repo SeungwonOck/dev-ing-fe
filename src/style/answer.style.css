@@ -112,3 +112,7 @@
     white-space: nowrap;
     border: none;
 }
+
+.answer-input>.body>.img-container>.img>img {
+    width: 50px;
+}
