@@ -1,0 +1,12 @@
+.qna-detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.qna-detail-container>.question {
+    border: 1px solid black;
+}
+
+.qna-detail-container>.answer {
+    border: 1px solid blue;
+}
