@@ -39,12 +39,13 @@ const AnswerInput = () => {
                                     onChange={(e) => setNewAnswer(e.target.value)}
                                 />
                             </Form.Group>
-                            <div>
+                            <div className='img-container'>
                                 <div className='img'>
-                                    <img id="uploadedimage" src={imageUrl} alt="uploadedimage" />
+                                    <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
+                                    <CloudinaryUploadWidget uploadImage={uploadedimage} />
                                 </div>
-                                <CloudinaryUploadWidget uploadImage={uploadedimage} />
-                                {" "}📌 이미지는 1장만 첨부 가능합니다
+
+                                {" "}
                             </div>
                             <button type='submit' className='green-btn'>등록</button>
                         </Form>
