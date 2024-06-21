@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 const UserTable = ({ header, data }) => {
     return (
         <div className="overflow-x">
-            <Table striped bordered hover>
+            <Table className="table-container" striped bordered hover>
                 <thead>
                     <tr>
                         {header.map((title) => (
@@ -15,11 +15,15 @@ const UserTable = ({ header, data }) => {
                 <tbody>
                     {data && data.length > 0 ? (
                         data.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} className="table-row">
                                 <td>{index + 1}</td>
-                                <td><img src={item.profileImage} alt={item.userName} style={{ width: '50px', height: '50px' }} /></td>
-                                <td>{item.userName}</td>
-                                <td>{item.email}</td>
+                                <td className="table-cell">
+                                    <img src={item.profileImage} alt={item.userName}/>
+                                    <div className="user-info">
+                                        <span>{item.userName}</span>
+                                        <span className="small-text">{item.email}</span>
+                                    </div>
+                                </td>
                                 <td>{item.description}</td>
                                 <td>{item.gender}</td>
                                 <td>{item.rank}</td>
