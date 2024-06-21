@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
-import CloudinaryUploadWidget from '../utils/CloudinaryUploadWidget';
+import CloudinaryUploadWidgetForWrite from '../utils/CloudinaryUploadWidgetForWrite';
+import noImg from '../asset/img/no-image.png';
 
 const initialFormData = {
     title: '',
@@ -44,15 +45,15 @@ const QnaWrite = () => {
         setFormData({ ...formData, [id]: value });
     }
 
-    const uploadedimage = (url) => {
-        setFormData({ ...formData, image: url })
+    const uploadContentImage = (url) => {
+        setMarkdown(markDown + `![image](${url})`);
     }
 
     return (
         <div className='write-form-container'>
             <div className='write-form'>
                 <div className='top'>
-                    <div className='text'><FontAwesomeIcon icon={faPencil} /> 질문 쓰기</div>
+                    <div className='text'><FontAwesomeIcon icon={faPencil} /> 질문하기</div>
                     <button className='green-btn' onClick={creatQuestion}>등록</button>
                 </div>
                 <div className='qna-write-title'>
@@ -66,19 +67,16 @@ const QnaWrite = () => {
                     />
                     <span className='error'>{titleError}</span>
                 </div>
+                <div style={{ marginBottom: "10px" }}>
+                    <strong className='small-btn'>본문에 사진 추가 </strong>
+                    <CloudinaryUploadWidgetForWrite uploadContentImage={uploadContentImage} />
+                </div>
                 <div id="content" className='qna-write-content'>
                     <div data-color-mode="light">
-                        <MarkdownEditor height={865} value={markDown} onChange={(value, viewUpdate) => {
+                        <MarkdownEditor height={865} value={markDown} highlightEnable={false} onChange={(value, viewUpdate) => {
                             setMarkdown(value)
                         }} />
                     </div>
-                </div>
-                <div>
-                    <div className='img'>
-                        <img id="uploadedimage" src={formData.image} alt="uploadedimage" />
-                    </div>
-                    <CloudinaryUploadWidget uploadImage={uploadedimage} />
-                    {" "}📌 이미지는 1장만 첨부 가능합니다
                 </div>
             </div>
         </div>
