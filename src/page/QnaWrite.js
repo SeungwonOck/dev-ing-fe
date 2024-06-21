@@ -28,7 +28,7 @@ const QnaWrite = () => {
 
     const creatQuestion = () => {
         if (formData.title === '') {
-            setTitleError("* 제목을 입력해주세요 *");
+            setTitleError("📌 제목을 입력해주세요");
             return;
         }
         else {
@@ -78,6 +78,7 @@ const QnaWrite = () => {
                         <img id="uploadedimage" src={formData.image} alt="uploadedimage" />
                     </div>
                     <CloudinaryUploadWidget uploadImage={uploadedimage} />
+                    {" "}📌 이미지는 1장만 첨부 가능합니다
                 </div>
             </div>
         </div>
