@@ -35,7 +35,7 @@ const deleteMeetUp = (id, searchQuery) => async (dispatch) => {
     }
 };
 
-const editMeetUp = (formData, id, searchQuery) => async (dispatch) => {
+const updateMeetUp = (formData, id, searchQuery) => async (dispatch) => {
     try {
         
     } catch (error) {
@@ -47,6 +47,6 @@ export const meetUpActions = {
   getMeetUpList,
   createMeetUp,
   deleteMeetUp,
-  editMeetUp,
+  updateMeetUp,
   getMeetUpDetail,
 };

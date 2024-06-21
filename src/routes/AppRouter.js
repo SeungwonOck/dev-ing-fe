@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
@@ -13,6 +12,7 @@ const QnaDetail = lazy(() => import('../page/QnaDetail'));
 const QnaWrite = lazy(() => import('../page/QnaWrite'));
 const MeetUp = lazy(() => import('../page/MeetUp'));
 const MeetUpDetail = lazy(() => import('../page/MeetUpDetail'));
+const MeetUpWrite = lazy(() => import('../page/MeetUpWrite'));
 const MyPage = lazy(() => import('../page/MyPage'));
 const AccountPage = lazy(() => import('../page/AccountPage'));
 const Admin = lazy(() => import('../page/Admin'));
@@ -24,12 +24,12 @@ const PrivateRoute = lazy(() => import('./PrivateRoute'));
 
 const AppRouter = () => {
   return (
-    <Suspense fallback={<div className='loading'><ClipLoader color="#28A745" loading={true} size={100} /></div>}>
+    <Suspense fallback={<div className='loading-page'></div>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<PrivateRoute permissionLevel="developer" />}>
+        <Route element={<PrivateRoute permissionLevel="user" />}>
           <Route path="/post" element={<PostAll />} />
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/post/write" element={<PostWrite />} />
@@ -38,6 +38,7 @@ const AppRouter = () => {
           <Route path="/qna/write" element={<QnaWrite />} />
           <Route path="/meetup" element={<MeetUp />} />
           <Route path="/meetup/:id" element={<MeetUpDetail />} />
+          <Route path="/meetup/write" element={<MeetUpWrite />} />
           <Route path="/me" element={<MyPage />} />
           <Route path="/account" element={<AccountPage />} />
         </Route>

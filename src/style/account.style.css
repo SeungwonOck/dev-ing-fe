@@ -19,7 +19,6 @@
 .account-container > form > .profile-img > .img { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; border: 1px solid #28A745; }
 .account-container > form > .profile-img > .img > img { width: 100%; height: 100%; object-fit: cover; }
 .account-container > form > .profile-img > label > input { display: none; }
-.account-container > form > .profile-img > button:hover { border: 1px solid #28A745; color: #28A745; }
 .account-container > form > .fixed-info { display: flex; justify-content: space-between; }
 .account-container > form > .fixed-info > .left { display: flex; flex-direction: column; gap: 14px; }
 .account-container > form > .fixed-info > .left > .rank { padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }

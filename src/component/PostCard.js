@@ -3,6 +3,7 @@ import '../style/postCard.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import noImg from '../asset/img/no-image.png';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -25,12 +26,12 @@ const PostCard = ({ post }) => {
         </div>
         <div className='author'>
           <span className='img'><img src={post.author.profileImage} alt=''/></span>
-          <span className='user-page-name'>코딩 스토리</span>
+          <span className='user-page-name'>페이지이름</span>
           <span className='user-name'>by {post.author.userName}</span>
         </div>
       </div>
       <div className='thumbnail'>
-        <img src={post.image} alt=''/>
+        <img src={post.image || noImg} alt=''/>
       </div>
     </div>
   )

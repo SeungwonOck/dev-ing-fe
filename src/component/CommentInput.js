@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import thumbnail from '../asset/img/post-img-01.jpg'
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const CommentInput = () => {
     const { id } = useParams();
     const [ newComment, setNewComment ] = useState('');
+    const { user } = useSelector((state) => state.user);
 
     // 댓글 보내기 기능
     const createComment = (e) => {
@@ -16,8 +17,8 @@ const CommentInput = () => {
     return (
         <div className='comment-input'>
             <div className='header'>
-                <div className='img'><img src={thumbnail} alt=''/></div>
-                <div>로그인한 유저 본인</div>
+                <div className='img'><img src={user?.profileImage} alt=''/></div>
+                <div>{user?.userName}</div>
             </div>
             <Form className='body' onSubmit={createComment}>
                 <Form.Group controlId="comment">
