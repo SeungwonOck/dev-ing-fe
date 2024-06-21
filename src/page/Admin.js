@@ -9,9 +9,7 @@ const Admin = () => {
   const { userList, loading } = useSelector((state) => state.user);
   const tableHeader = [
     "#",
-    "Image",
-    "UserName",
-    "Email",
+    "Details",
     "Description",
     "Gender",
     "Rank",
