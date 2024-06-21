@@ -167,6 +167,7 @@ const PostWrite = () => {
                     height={600} 
                     value={contentValue}
                     onChange={setContentValue}
+                    highlightEnable={false}
                 />
             </div>
 
@@ -228,6 +229,7 @@ const PostWrite = () => {
                     height={600} 
                     value={contentValue}
                     onChange={setContentValue}
+                    highlightEnable={false}
                 />
             </div>
 
