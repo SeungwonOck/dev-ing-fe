@@ -77,7 +77,6 @@ const getUserList = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_USER_LIST_REQUEST })
     const res = await api.get("/user/all")
-    console.log("userall response", res.data.data)
     dispatch({type: types.GET_USER_LIST_SUCCESS, payload: res.data.data})
 
   } catch (error){

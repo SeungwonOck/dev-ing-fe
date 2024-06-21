@@ -38,14 +38,15 @@ const QnaDetail = () => {
               source={markDown} />
           </div>
         </div>
-        <div className='answer'>
-          <Answer />
-        </div>
-        <div className='answer'>
-          <Answer />
-        </div>
         <div className='qna-detail-q-container'>
           <AnswerInput />
+        </div>
+        <div className='question-num'>2개의 답변</div>
+        <div className='answer'>
+          <Answer />
+        </div>
+        <div className='answer'>
+          <Answer />
         </div>
       </div>
     </div>

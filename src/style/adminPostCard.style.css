@@ -1,0 +1,35 @@
+.admin-post-card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.admin-post-card {
+    transition: transform 0.5s ease-in-out;
+}
+
+.admin-post-card:hover {
+    transform: scale(0.90);
+}
+
+.admin-post-card .card-thumbnail {
+    height: 150px;
+    object-fit: cover;
+}
+
+.admin-post-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 5px 5px;
+}
+
+.admin-post-card .user-likes {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.admin-post-card .card-footer {
+    text-align: left;
+    font-size: 0.8rem;
+}

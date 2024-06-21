@@ -1,7 +1,6 @@
 .answer {
     position: relative;
     padding: 16px 16px 16px 60px;
-    /* background-color: rgba(255, 255, 255, 0.7); */
     border-radius: 10px;
 }
 
@@ -112,4 +111,8 @@
 .answer-input>.body>button {
     white-space: nowrap;
     border: none;
+}
+
+.answer-input>.body>.img-container>.img>img {
+    width: 50px;
 }

@@ -31,6 +31,11 @@
     padding: 10px;
 }
 
+.qna-card-answer-num{
+    padding : 5px;
+    border-bottom: 1px solid #28A745;
+}
+
 .qna-card-title {
     color: #28A745;
     font-size: 1.8rem;
@@ -82,7 +87,7 @@
 }
 
 .qna-write-title {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: #333333;
     box-sizing: border-box;
     margin-top: 10px;
