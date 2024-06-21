@@ -2,13 +2,15 @@ import React from 'react'
 import { Card, Badge } from 'react-bootstrap'
 import "../style/adminPostCard.style.css"
 import noImage from "../asset/img/no-image.png"
+import { useNavigate } from 'react-router-dom'
 
 const AdminPostCard = ({ post }) => {
+    const navigate = useNavigate();
     const truncatedContent = post.content.length > 10 ? `${post.content.slice(0, 10)}...` : post.content;
     const postImage = post.image || noImage;
 
   return (
-    <Card className="admin-post-card shadow-sm">
+      <Card className="admin-post-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
       <Card.Img variant="top" src={postImage} alt={post.title} className="card-thumbnail" />
       <Card.Body>
         <Card.Title>{post.title}</Card.Title>
