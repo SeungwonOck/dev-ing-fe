@@ -2,8 +2,8 @@ import React from 'react'
 import MarkdownEditor from '@uiw/react-md-editor';
 import { useState } from 'react';
 import "../style/qnaDetail.style.css";
-import PostComment from '../component/PostComment';
-import CommentInput from '../component/CommentInput';
+import Answer from '../component/Answer';
+import AnswerInput from '../component/AnswerInput';
 
 const QnaDetail = () => {
   const [markDown, setMarkdown] = useState(
@@ -33,9 +33,13 @@ const QnaDetail = () => {
         </div>
       </div>
       <div className='answer'>
-        <div></div>
-        <PostComment />
-        <CommentInput />
+        <Answer />
+      </div>
+      <div className='answer'>
+        <Answer />
+      </div>
+      <div className='qna-detail-q-container'>
+        <AnswerInput />
       </div>
     </div>
   )
