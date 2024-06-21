@@ -251,7 +251,7 @@ const PostWrite = () => {
                   <CloudinaryUploadWidget uploadImage={uploadImage} />
                 </div>
                 <div className='img'>
-                  <img id="uploadedimage" src={editFormData.image} alt=""/>
+                  <img id="uploadedimage" src={editFormData.image || noImg} alt=""/>
                 </div>
             </div>
 

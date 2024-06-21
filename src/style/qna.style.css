@@ -68,3 +68,34 @@
 .qna-card-container>.author>.name {
     font-size: 1rem;
 }
+
+/* Q&A write */
+.write-form>.top>.text {
+    color: #333333;
+    font-size: 1.2rem;
+}
+
+.write-form>.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qna-write-title {
+    font-size: 1.1rem;
+    color: #333333;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.qna-write-title>input {
+    border: 1px solid #E8EAEC;
+    background-color: #F2F2F2;
+    padding: 1px;
+    width: 100%;
+}
+
+.qna-write-title>.error {
+    color: red;
+}

@@ -15,9 +15,7 @@ const Qna = () => {
           {/* contents-header-btns 위치는 common.style.css */}
           <WriteBtn type='qna'/>
         </div>
-
-
-        <div className='qna-title'>Q & A</div>
+        {/* <div className='qna-title'>Q & A</div> */}
         <QnaCard />
         <QnaCard />
         <QnaCard />

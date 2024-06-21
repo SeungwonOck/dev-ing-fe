@@ -3,6 +3,7 @@ import '../style/postCard.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import noImg from '../asset/img/no-image.png';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const PostCard = ({ post }) => {
         </div>
       </div>
       <div className='thumbnail'>
-        <img src={post.image} alt=''/>
+        <img src={post.image || noImg} alt=''/>
       </div>
     </div>
   )
