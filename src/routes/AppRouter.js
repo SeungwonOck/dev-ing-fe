@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router";
 import ClipLoader from "react-spinners/ClipLoader";
-import QnaWrite from "../page/QnaWrite";
 
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
@@ -11,6 +10,7 @@ const PostDetail = lazy(() => import('../page/PostDetail'));
 const PostWrite = lazy(() => import('../page/PostWrite'));
 const Qna = lazy(() => import('../page/Qna'));
 const QnaDetail = lazy(() => import('../page/QnaDetail'));
+const QnaWrite = lazy(() => import('../page/QnaWrite'));
 const MeetUp = lazy(() => import('../page/MeetUp'));
 const MeetUpDetail = lazy(() => import('../page/MeetUpDetail'));
 const MyPage = lazy(() => import('../page/MyPage'));
