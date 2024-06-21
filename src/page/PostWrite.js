@@ -164,7 +164,7 @@ const PostWrite = () => {
 
             <div data-color-mode='light' className='editor'>
                 <MDEditor
-                    height={600} 
+                    height={600}
                     value={contentValue}
                     onChange={setContentValue}
                 />
