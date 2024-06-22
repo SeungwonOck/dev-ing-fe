@@ -7,8 +7,8 @@ const UserTable = ({ header, data }) => {
             <Table className="table-container" striped bordered hover>
                 <thead>
                     <tr>
-                        {header.map((title) => (
-                            <th>{title}</th>
+                        {header.map((title, index) => (
+                            <th key={index}>{title}</th>
                         ))}
                     </tr>
                 </thead>
