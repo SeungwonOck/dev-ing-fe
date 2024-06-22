@@ -83,4 +83,12 @@
     .meetup-form>.mb-3>.form-input {
         width: 300px;
     }
+
+    .form-input-disabled {
+        box-sizing: border-box;
+        width: 300px;
+        background: #ffffffa5;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+    }
 }
