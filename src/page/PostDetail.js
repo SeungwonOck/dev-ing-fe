@@ -79,7 +79,7 @@ const PostDetail = () => {
             </div>
 
             <div className='tags'>
-                {selectedPost?.tags.map((tag, index) => <span key={index} className='tag'>#{tag}</span>)}
+                {selectedPost?.tags.map((tag, index) => <span key={index} className='tag' onClick={() => navigate(`/post?tag=${tag}`)}>#{tag}</span>)}
             </div>
 
             <div className='contents-footer'>

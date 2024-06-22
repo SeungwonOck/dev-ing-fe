@@ -13,4 +13,11 @@
 .contents-footer > .like-comment-num { display: flex; gap: 20px; font-size: 18px; }
 
 .tags { padding: 10px 0; }
-.tags > .tag { display: inline-block; color: cornflowerblue; font-weight: 500; white-space: nowrap; margin-right: 6px; }
+.tags > .tag {
+    display: inline-block;
+    color: cornflowerblue;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 6px;
+    cursor: pointer;
+}
