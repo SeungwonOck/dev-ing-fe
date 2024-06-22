@@ -4,6 +4,7 @@
     box-sizing: border-box;
     padding: 20px;
     margin: 10px;
+    justify-content: center;
 }
 
 .meetup-detail-container>.title {
@@ -15,13 +16,13 @@
     border-bottom: 1px solid #eee;
 }
 
-.meetup-info {
+.meetup-user {
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-.meetup-info>.author {
+.meetup-user>.author {
     display: flex;
     justify-content: end;
     align-items: center;
@@ -29,7 +30,7 @@
     padding: 20px 0;
 }
 
-.meetup-info>.author>.img {
+.meetup-user>.author>.img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -37,29 +38,35 @@
     margin-right: 14px;
 }
 
-.meetup-info>.author>.img>img {
+.meetup-user>.author>.img>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.meetup-detail-container>.answer {
-    box-sizing: border-box;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-    background-color: transparent; */
-    padding: 20px;
-    margin: 10px;
-    border-bottom: 1px solid #eee;
+.meetup-info {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
 }
 
-.question-num {
-    margin-top: 10px;
-    margin-left: 25px;
+.meetup-img {
+    width: 100%;
 }
 
-.meetup-detail-container>button {
+.meetup-info-title{
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.meetup-detail-container>.content{
+    font-size: 1.1rem;
+}
+
+.meetup-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.meetup-btn-container>button {
     width: 200px;
 }
