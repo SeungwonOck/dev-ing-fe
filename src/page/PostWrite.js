@@ -63,7 +63,9 @@ const PostWrite = () => {
   }
 
   const handleKeyDown = (e) => {
-    e.preventDefault();
+    if(e.code === 'Enter') {
+      e.preventDefault();
+    }
     if (e.code === 'Backspace' && tagInputValue === '') {
       // 마지막 단어를 배열에서 삭제
       setTagsTemp(tagsTemp.slice(0, -1));
