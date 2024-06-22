@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Container, Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import "../style/meetUpWrite.style.css";
-import "../style/common.style.css";
 import CloudinaryUploadWidget from '../utils/CloudinaryUploadWidget';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

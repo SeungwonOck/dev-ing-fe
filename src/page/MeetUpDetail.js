@@ -1,12 +1,12 @@
 import React from 'react';
 import "../style/meetUpDetail.style.css";
-import "../style/common.style.css";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Accordion } from 'react-bootstrap';
+import MeetUpMemberProfile from '../component/MeetUpMemberProfile';
 
 const MeetUpDetail = () => {
 
   const joinMeetUp = () => {
-    if(window.confirm("참여하시겠습니까?"))
+    if (window.confirm("참여하시겠습니까?"))
       console.log("스터디 참여!");
   }
 
@@ -29,7 +29,17 @@ const MeetUpDetail = () => {
             </Col>
             <Col md={4}>
               <div><span className='meetup-info-title'>카테고리 : </span>기타 스터디</div>
-              <div><span className='meetup-info-title'>모집 인원 : </span>1/4</div>
+              <div><span className='meetup-info-title'>모집 인원 : </span>2/4</div>
+              <Accordion>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>멤버 보기(2)</Accordion.Header>
+                  <Accordion.Body>
+                    <MeetUpMemberProfile />
+                    <MeetUpMemberProfile />
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+
             </Col>
             <Col md={4}>
               <div><span className='meetup-info-title'>시작 예정 : </span>2024/06/22 10:00</div>
@@ -39,6 +49,7 @@ const MeetUpDetail = () => {
         </div>
 
         <div className='content'>
+          <div className='content-title'>모임 소개</div>
           저희 스터디는 1주일에 1번씩 만나서 공부해요!
         </div>
 
