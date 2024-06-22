@@ -2,7 +2,8 @@ import * as types from "../constants/meetUp.constants";
 const initialState = {
   loading: false,
   error: '',
-  meetUpList: []
+  meetUpList: [],
+  selectedMeetUp : null
 };
 
 function meetUpReducer(state = initialState, action) {

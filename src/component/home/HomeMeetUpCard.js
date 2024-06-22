@@ -11,7 +11,7 @@ const HomeMeetUpCard = ({ meetUp }) => {
 
   return (
     <div className='home-meet-up-card' onClick={() => showMeetUpDetail('meetUp._id')}>
-      <div className='img'><img src={meetUpImg} alt=''/></div>
+      <div className='img'><img src={meetUpImg} alt='' /></div>
       <div className='contents'>
         <div className='title'>Nodejs 스터디 함께 해요</div>
         <div className='schedule green'>서초구 · 오늘 오후 8:00</div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import "../style/meetUpWrite.style.css";
 import CloudinaryUploadWidget from '../utils/CloudinaryUploadWidget';
@@ -7,6 +7,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { meetUpActions } from '../action/meetUpAction';
+import { useNavigate } from 'react-router-dom';
 
 const initialFormData = {
   title: '',
@@ -19,6 +21,8 @@ const initialFormData = {
 };
 
 const MeetUpWrite = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({ ...initialFormData });
   const [imageUrl, setImageUrl] = useState('');
@@ -30,6 +34,12 @@ const MeetUpWrite = () => {
   const [isOffline, setIsOffline] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const open = useDaumPostcodePopup();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [user])
 
   const submitMeeting = (event) => {
     event.preventDefault();
@@ -48,6 +58,7 @@ const MeetUpWrite = () => {
     console.log("formData", formData);
     console.log("모임 등록!");
 
+    dispatch(meetUpActions.createMeetUp(formData, navigate));
     setIsModalOpen(false);
   }
 
