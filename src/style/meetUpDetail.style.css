@@ -1,0 +1,72 @@
+.meetup-detail-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.meetup-detail-container>.title {
+    color: #28A745;
+    font-size: 1.8rem;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.meetup-user {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.meetup-user>.author {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.meetup-user>.author>.img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 14px;
+}
+
+.meetup-user>.author>.img>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.meetup-info {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.meetup-img {
+    width: 100%;
+}
+
+.meetup-info-title{
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.meetup-detail-container>.content{
+    font-size: 1.1rem;
+}
+
+.meetup-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.meetup-btn-container>button {
+    width: 200px;
+}
