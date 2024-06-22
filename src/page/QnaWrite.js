@@ -73,7 +73,7 @@ const QnaWrite = () => {
                 </div>
                 <div id="content" className='qna-write-content'>
                     <div data-color-mode="light">
-                        <MarkdownEditor height={865} value={markDown} highlightEnable={false} onChange={(value, viewUpdate) => {
+                        <MarkdownEditor height={600} value={markDown} highlightEnable={false} onChange={(value, viewUpdate) => {
                             setMarkdown(value)
                         }} />
                     </div>

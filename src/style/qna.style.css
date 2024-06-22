@@ -104,3 +104,14 @@
 .qna-write-title>.error {
     color: red;
 }
+
+.w-md-editor-text{
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.w-md-editor-text-input {
+    flex : 1;
+}
