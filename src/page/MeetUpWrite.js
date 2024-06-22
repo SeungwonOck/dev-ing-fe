@@ -35,7 +35,7 @@ const MeetUpWrite = () => {
   const submitMeeting = (event) => {
     event.preventDefault();
 
-    if (address == "online") {
+    if (address === "online") {
       setFormData({ ...formData, location: "online" });
     }
     else {
@@ -119,7 +119,7 @@ const MeetUpWrite = () => {
           <div>내용 : {formData?.description}</div>
           <div>카테고리 : {formData?.category}</div>
           <div>날짜 : {formData?.date && format(formData?.date, "yyyy/MM/dd HH:mm")}</div>
-          <div>위치 : {formData?.location == "online" ? (<span>온라인</span>) : (<span>{formData?.location}</span>)}</div>
+          <div>위치 : {formData?.location === "online" ? (<span>온라인</span>) : (<span>{formData?.location}</span>)}</div>
           <div>참가인원 : {formData?.maxParticipants}</div>
         </Modal.Body>
         <Modal.Footer>
