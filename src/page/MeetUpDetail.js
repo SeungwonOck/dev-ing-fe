@@ -2,6 +2,7 @@ import React from 'react';
 import "../style/meetUpDetail.style.css";
 import { Row, Col, Accordion } from 'react-bootstrap';
 import MeetUpMemberProfile from '../component/MeetUpMemberProfile';
+import Map from '../component/Map';
 
 const MeetUpDetail = () => {
 
@@ -43,7 +44,8 @@ const MeetUpDetail = () => {
             </Col>
             <Col md={4}>
               <div><span className='meetup-info-title'>시작 예정 : </span>2024/06/22 10:00</div>
-              <div><span className='meetup-info-title'>장소 : </span>우주시 화성구 지구로 한국리</div>
+              <div><span className='meetup-info-title'>장소 : </span>경기도 성남시 분당구 판교역로 166</div>
+              <Map />
             </Col>
           </Row>
         </div>
