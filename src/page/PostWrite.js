@@ -63,7 +63,9 @@ const PostWrite = () => {
   }
 
   const handleKeyDown = (e) => {
-    e.preventDefault();
+    if(e.code === 'Enter') {
+      e.preventDefault();
+    }
     if (e.code === 'Backspace' && tagInputValue === '') {
       // 마지막 단어를 배열에서 삭제
       setTagsTemp(tagsTemp.slice(0, -1));
@@ -72,7 +74,7 @@ const PostWrite = () => {
 
   const handleKeyUp = (e) => {
     e.preventDefault();
-    if(e.code === 'Enter' || e.code === 'Space' && tagInputValue.trim() !== '') {
+    if((e.code === 'Enter' || e.code === 'Space') && tagInputValue.trim() !== '') {
       const newTag = tagInputValue.trim();
       if(tagsTemp.includes(newTag)) {
         dispatch(commonUiActions.showToastMessage("중복된 태그가 존재합니다.", "error"))
@@ -142,7 +144,7 @@ const PostWrite = () => {
     <div>
         {type === 'new' ? 
           // 새 포스트 form
-          <Form onSubmit={(e) => createPost(e)} className='write-form'>
+          <Form onSubmit={createPost} className='write-form'>
             <Form.Group controlId="title" className='write-title'>
               <Form.Control
                 type="text"
