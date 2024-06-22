@@ -133,13 +133,13 @@ const MeetUpWrite = () => {
       <Container className='meetup-container'>
         <div className='title'>모임 등록</div>
         <Form className="meetup-form" onSubmit={submitMeeting}>
-          <Row className="user-info">
-            <Col className="user-info-img" md={2} xs={2}>
+          <Row className="meetup-user-info">
+            <Col className="meetup-user-info-img" md={2} xs={2}>
               <img src={user.profileImage} />
             </Col>
             <Col md={10} xs={10}>
-              <div className="user-info-name">{user.userName}</div>
-              <div className="user-info-des">{user.description}</div>
+              <div className="meetup-user-info-name">{user.userName}</div>
+              <div className="meetup-user-info-des">{user.description}</div>
             </Col>
           </Row>
           <Form.Group className="mb-3">
