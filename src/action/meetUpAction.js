@@ -7,23 +7,30 @@ const getMeetUpList = (query) => async (dispatch) => {
     try {
         dispatch({ type: types.MEETUP_GET_REQUEST })
         const res = await api.get(`/meetup/all`);
-        console.log("getMeetUpList res", res);
         if (res.status !== 200) {
             throw new Error('모임들을 불러오는데 실패하였습니다.')
         } else {
-            dispatch({ type: types.MEETUP_GET_SUCCESS, payload: res.data.data.allMeetUp })
+            dispatch({ type: types.MEETUP_GET_SUCCESS, payload: res.data.data.allMeetUp });
         }
     } catch (error) {
-        dispatch({ type: types.MEETUP_GET_FAIL, payload: error.message })
-        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        dispatch({ type: types.MEETUP_GET_FAIL, payload: error.message });
+        dispatch(commonUiActions.showToastMessage(error.message, "error"));
     }
 };
 
 const getMeetUpDetail = (id) => async (dispatch) => {
     try {
+        dispatch({ type: types.GET_MEETUP_DETAIL_REQUEST });
+        const res = await api.get(`/meetup/${id}`);
+        if (res.status !== 200) {
+            throw new Error('모임 정보를 불러오는데 실패하였습니다.')
+        } else {
+            dispatch({ type: types.GET_MEETUP_DETAIL_SUCCESS, payload: res.data.data.meetUp });
+        }
 
     } catch (error) {
-
+        dispatch({ type: types.GET_MEETUP_DETAIL_FAIL, payload: error.message })
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 
@@ -39,8 +46,8 @@ const createMeetUp = (formData, navigate) => async (dispatch) => {
             navigate(`/post/${res.data.data.newMeetUp._id}`);
         }
     } catch (error) {
-        dispatch({ type: types.MEETUP_CREATE_FAIL, payload: error.message })
-        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        dispatch({ type: types.MEETUP_CREATE_FAIL, payload: error.message });
+        dispatch(commonUiActions.showToastMessage(error.message, "error"));
     }
 };
 

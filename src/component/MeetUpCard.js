@@ -15,7 +15,7 @@ const MeetUpCard = ({ meetUp }) => {
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>
                 <div className='schedule green'>{meetUp.location} · {meetUp.date.date}</div>
-                <div className='small-text'>{meetUp.organizer.userName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>
+                <div className='small-text'>{meetUp.organizer.nickName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>
             </div>
         </div>
     )

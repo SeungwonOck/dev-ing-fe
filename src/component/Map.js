@@ -4,13 +4,11 @@ import { useState } from 'react';
 
 const { kakao } = window;
 
-const Map = () => {
-    const [searchAddress, setSearchAddress] = useState("경기도 성남시 분당구 판교역로 166");
-
+const Map = ({ location }) => {
     useEffect(() => {
         const geocoder = new kakao.maps.services.Geocoder();
 
-        geocoder.addressSearch(searchAddress, (result, status) => {
+        geocoder.addressSearch(location, (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
                 const addressList = result.map((it) => ({
                     address: it.road_address.address_name,
@@ -41,7 +39,7 @@ const Map = () => {
                 infowindow.open(map, marker);
             }
         });
-    }, [searchAddress]);
+    }, [location]);
 
     return (
         <div id="map" style={{ width: "300px", height: "300px" }}>
