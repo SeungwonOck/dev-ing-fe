@@ -63,30 +63,28 @@ const PostWrite = () => {
   }
 
   const handleKeyDown = (e) => {
+    if(e.code === 'Enter') {
+      e.preventDefault();
+    }
     if (e.code === 'Backspace' && tagInputValue === '') {
       // 마지막 단어를 배열에서 삭제
       setTagsTemp(tagsTemp.slice(0, -1));
-      e.preventDefault();
     } 
   }
 
   const handleKeyUp = (e) => {
-    if(e.code === 'Space' && tagInputValue.trim() !== '') {
+    e.preventDefault();
+    if((e.code === 'Enter' || e.code === 'Space') && tagInputValue.trim() !== '') {
       const newTag = tagInputValue.trim();
       if(tagsTemp.includes(newTag)) {
         dispatch(commonUiActions.showToastMessage("중복된 태그가 존재합니다.", "error"))
         setTagInputValue('');
-        return
+        return;
       }
       setTagsTemp([...tagsTemp, newTag]);
       setTagInputValue(''); // 입력 필드 초기화
-      e.preventDefault();
     }
   }
-
-  useEffect(()=>{
-    console.log('태그들', tagsTemp)
-  },[tagsTemp])
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -167,6 +165,7 @@ const PostWrite = () => {
                     height={600}
                     value={contentValue}
                     onChange={setContentValue}
+                    highlightEnable={false}
                 />
             </div>
 
@@ -228,6 +227,7 @@ const PostWrite = () => {
                     height={600} 
                     value={contentValue}
                     onChange={setContentValue}
+                    highlightEnable={false}
                 />
             </div>
 

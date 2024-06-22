@@ -6,7 +6,9 @@ import { commonUiActions } from "./commonUiAction";
 const getPostList = (query) => async (dispatch) => {
     try {
         dispatch({type: types.POST_GET_REQUEST})
-        const res = await api.get(`/post/all`);
+        const res = await api.get(`/post/all`, {
+            params: {...query}
+        });
         if(res.status !== 200) {
             throw new Error('포스트를 불러오는데 실패하였습니다.')
         } else {

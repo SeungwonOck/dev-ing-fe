@@ -12,6 +12,7 @@
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
+    border: 1px solid #ddd;
 }
 
 .answer>.img>img {
