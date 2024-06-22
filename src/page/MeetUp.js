@@ -4,14 +4,22 @@ import MeetUpCard from '../component/MeetUpCard'
 import '../style/meetUp.style.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { meetUpActions } from '../action/meetUpAction'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const MeetUp = () => {
   const dispatch = useDispatch();
-  const { meetUpList } = useSelector((state) => state.meetUp);
+  const { meetUpList, loading } = useSelector((state) => state.meetUp);
 
   useEffect(() => {
     dispatch(meetUpActions.getMeetUpList());
   }, [])
+
+  if (loading) {
+    return (
+      <div className='loading' >
+        <ClipLoader color="#28A745" loading={loading} size={100} />
+      </div>);
+  }
 
   return (
     <div>
