@@ -143,7 +143,7 @@ const MeetUpWrite = () => {
               <div className="user-info-des">{user.description}</div>
             </Col>
           </Row>
-          <Form.Group className="mb-3" controlId="formMeetTitle">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">모임 이름</Form.Label>
             <Form.Control
               id="title"
@@ -154,7 +154,7 @@ const MeetUpWrite = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMeetContent">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">내용</Form.Label>
             <Form.Control
               id='description'
@@ -168,14 +168,14 @@ const MeetUpWrite = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMeetImage">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
             <div className='meetup-thumbnail'>
               <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
               {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
             </div>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMeetCategory">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">카테고리</Form.Label>
             <Form.Select
               id="category"
@@ -183,7 +183,7 @@ const MeetUpWrite = () => {
               onChange={(event) => handleChange(event)}
               required
             >
-              <option value="" disabled selected hidden>카테고리 선택</option>
+              <option value="" disabled hidden>카테고리 선택</option>
               <option value="독서">독서</option>
               <option value="강의">강의</option>
               <option value="프로젝트">프로젝트</option>
@@ -219,7 +219,7 @@ const MeetUpWrite = () => {
               (<div>선택된 시간 : {selectedTime.toLocaleTimeString()}</div>)}
             <div></div>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMeetCity">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">위치</Form.Label>
             <Form.Check
               type="switch"
@@ -259,7 +259,7 @@ const MeetUpWrite = () => {
               )
             }
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMeetMaxNum">
+          <Form.Group className="mb-3">
             <Form.Label className="form-label">모집 인원</Form.Label>
             <Form.Control
               id="maxParticipants"

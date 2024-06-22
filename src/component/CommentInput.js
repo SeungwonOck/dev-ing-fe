@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { postActions } from '../action/postAction';
 
 const CommentInput = () => {
+    const dispatch = useDispatch();
     const { id } = useParams();
     const [ newComment, setNewComment ] = useState('');
     const { user } = useSelector((state) => state.user);
@@ -11,7 +13,7 @@ const CommentInput = () => {
     // 댓글 보내기 기능
     const createComment = (e) => {
         e.preventDefault();
-        console.log(id, newComment)
+        dispatch(postActions.createComment(id, newComment))
     }
 
     return (

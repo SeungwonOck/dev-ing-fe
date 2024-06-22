@@ -14,11 +14,13 @@ function postReducer(state = initialState, action) {
     case types.GET_POST_DETAIL_REQUEST:
     case types.POST_DELETE_REQUEST:
     case types.POST_EDIT_REQUEST:
+    case types.CREATE_POST_COMMENT_REQUEST:
         return {...state, loading: true}
 
     case types.POST_CREATE_SUCCESS:
     case types.POST_DELETE_SUCCESS:
     case types.POST_EDIT_SUCCESS:
+    case types.CREATE_POST_COMMENT_SUCCESS:
       return {...state, loading: false, error: ''}
       
     case types.GET_POST_DETAIL_SUCCESS:
@@ -32,6 +34,7 @@ function postReducer(state = initialState, action) {
     case types.GET_POST_DETAIL_FAIL:
     case types.POST_DELETE_FAIL:
     case types.POST_EDIT_FAIL:
+    case types.CREATE_POST_COMMENT_FAIL:
         return {...state, loading: false, error:payload}
 
     default:
