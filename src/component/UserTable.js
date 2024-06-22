@@ -27,7 +27,7 @@ const UserTable = ({ header, data }) => {
                                 <td>{item.description}</td>
                                 <td>{item.gender}</td>
                                 <td>{item.rank}</td>
-                                <td>{item.specs}</td>
+                                <td>{item.stacks}</td>
                                 <td>{item.following}</td>
                                 <td>{item.followers}</td>
                                 <td>{item.isDelete ? 'Yes' : 'No'}</td>
