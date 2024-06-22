@@ -29,6 +29,7 @@ const AdminPostCard = ({ post }) => {
       </Card.Body>
       <Card.Footer className="text-muted">
         생성 날짜: {post.createAt.date} {post.createAt.time}
+        , isDeleted: {post.isDelete ? "True" : "False"}
       </Card.Footer>
     </Card>
   )

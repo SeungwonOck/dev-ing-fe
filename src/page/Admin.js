@@ -13,7 +13,7 @@ const Admin = () => {
     "Description",
     "Gender",
     "Rank",
-    "Specs",
+    "Stacks",
     "Following",
     "Followers",
     "isDelete",
