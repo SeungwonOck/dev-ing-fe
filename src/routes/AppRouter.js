@@ -29,6 +29,7 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/me/:nickName" element={<MyPage />} />
         <Route element={<PrivateRoute permissionLevel="user" />}>
           <Route path="/post" element={<PostAll />} />
           <Route path="/post/:id" element={<PostDetail />} />
@@ -39,7 +40,6 @@ const AppRouter = () => {
           <Route path="/meetup" element={<MeetUp />} />
           <Route path="/meetup/:id" element={<MeetUpDetail />} />
           <Route path="/meetup/write" element={<MeetUpWrite />} />
-          <Route path="/me" element={<MyPage />} />
           <Route path="/account" element={<AccountPage />} />
         </Route>
         <Route element={<PrivateRoute permissionLevel="admin" />}>
