@@ -86,10 +86,28 @@ const updatePost = (id, formData, navigate) => async (dispatch) => {
     }
 };
 
+const createComment = (id, newComment) => async (dispatch) => {
+    try {
+        dispatch({type: types.CREATE_POST_COMMENT_REQUEST})
+        const res = await api.post(`/post/comment`, { postId:id, content:newComment });
+        if(res.status !== 200) {
+            throw new Error('댓글 등록에 실패하였습니다.')
+        } else {
+            dispatch({type: types.CREATE_POST_COMMENT_SUCCESS})
+            dispatch(commonUiActions.showToastMessage("댓글이 등록되었습니다.", "success"))
+            dispatch(getPostDetail(id))
+        }
+    } catch (error) {
+        dispatch({type: types.CREATE_POST_COMMENT_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
 export const postActions = {
   getPostList,
   createPost,
   deletePost,
   updatePost,
   getPostDetail,
+  createComment
 };

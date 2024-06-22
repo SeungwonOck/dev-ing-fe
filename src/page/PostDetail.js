@@ -94,7 +94,7 @@ const PostDetail = () => {
                     </> :''}
                 </div>
             </div>
-            <PostComment/>
+            <PostComment commentList={selectedPost?.comments} user={user}/>
             <CommnetInput/>
         </>
     )
