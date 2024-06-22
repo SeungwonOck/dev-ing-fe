@@ -53,13 +53,19 @@
     width: 100%;
 }
 
-.meetup-info-title{
+.meetup-info-title {
     font-weight: 600;
     font-size: 1.3rem;
 }
 
-.meetup-detail-container>.content{
+.meetup-detail-container>.content {
     font-size: 1.1rem;
+}
+
+.meetup-detail-container>.content>.content-title {
+    color: #28A745;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .meetup-btn-container {

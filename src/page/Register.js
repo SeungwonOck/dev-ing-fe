@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../style/login.style.css";
-import "../style/common.style.css";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { userActions } from "../action/userAction";
 import { useDispatch, useSelector } from "react-redux";
