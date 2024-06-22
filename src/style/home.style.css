@@ -84,6 +84,7 @@
 .home-meet-up-card>.contents>.title {
     font-size: 20px;
     font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .home-meet-up-card>.contents>.schedule {
@@ -98,6 +99,9 @@
     height: 100%;
     background-color: #fff;
     cursor: pointer;
+}
+.home-post-card:hover > .contents > .title {
+    color: #28A745;
 }
 
 .home-post-card>.img {
@@ -123,6 +127,9 @@
     gap: 10px;
 }
 
+.home-post-card>.contents>.title {
+    transition: all 0.2s ease;
+}
 .home-post-card>.contents>.title>p {
     font-size: 30px;
     font-weight: 500;
