@@ -14,7 +14,7 @@ const MeetUpCard = ({ meetUp }) => {
             <div className='img'><img src={meetUp.image} alt='' /></div>
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>
-                <div className='schedule green'>{meetUp.location} · {meetUp.date.date}</div>
+                <div className='schedule green'>{meetUp.location === "online" ? (<span>온라인</span>) : (<span>{meetUp?.location}</span>)} · {meetUp.date.date}</div>
                 <div className='small-text'>{meetUp.organizer.nickName} · 선착순 {meetUp.currentParticipants}/{meetUp.maxParticipants}</div>
             </div>
         </div>
