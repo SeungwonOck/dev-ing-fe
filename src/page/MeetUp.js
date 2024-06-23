@@ -9,6 +9,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 const MeetUp = () => {
   const dispatch = useDispatch();
   const { meetUpList, loading } = useSelector((state) => state.meetUp);
+  console.log("meetUpList", meetUpList);
 
   useEffect(() => {
     dispatch(meetUpActions.getMeetUpList());

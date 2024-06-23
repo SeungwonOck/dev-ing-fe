@@ -11,7 +11,9 @@ import ClipLoader from 'react-spinners/ClipLoader';
 const MeetUpDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
+  console.log("selectedMeetUp", selectedMeetUp);
 
   useEffect(() => {
     dispatch(meetUpActions.getMeetUpDetail(id));
@@ -31,6 +33,18 @@ const MeetUpDetail = () => {
 
   return (
     <div>
+      {
+        (user?.nickName === selectedMeetUp?.organizer.nickName) ?
+          (
+            <div className='meetup-my-detail-container'>
+              <div>수정</div>
+              <div>삭제</div>
+            </div>
+          )
+          :
+          (<></>)
+      }
+
       <div className='meetup-detail-container'>
         <div className='title'>{selectedMeetUp?.title}</div>
         <div className='meetup-user'>
@@ -54,7 +68,7 @@ const MeetUpDetail = () => {
             <Col md={3}>
               <Accordion>
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header>멤버 보기(2)</Accordion.Header>
+                  <Accordion.Header>멤버 보기({selectedMeetUp?.participants.length})</Accordion.Header>
                   <Accordion.Body>
                     <MeetUpMemberProfile />
                     <MeetUpMemberProfile />
