@@ -5,6 +5,9 @@ const initialState = {
   error: '',
   userList: null,
   uniqueUser: null,
+  uniqueUserPost: null,
+  followSuccess: false,
+  unfollowSuccess: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -24,13 +27,23 @@ function userReducer(state = initialState, action) {
     case types.UPDATE_USER_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
     case types.REGISTER_SUCCESS:
-    case types.FOLLOW_USER_SUCCESS:
-    case types.UNFOLLOW_USER_SUCCESS:
       return { ...state, loading: false, error: "" }
+    case types.FOLLOW_USER_SUCCESS:
+      return { ...state, loading: false, followSuccess: true}
+    case types.UNFOLLOW_USER_SUCCESS:
+      return { ...state, loading: false, unfollowSuccess: true}
     case types.GET_USER_LIST_SUCCESS:
       return { ...state, loading: false, error: "", userList: payload.allUser }
     case types.GET_USER_BY_NICKNAME_SUCCESS: 
-      return { ...state, loading: false, error: "", uniqueUser: payload.uniqueUser}
+      return {
+        ...state,
+        loading: false,
+        error: "",
+        uniqueUser: payload.uniqueUser,
+        uniqueUserPost: payload.uniqueUserPost,
+        followSuccess: false,
+        unfollowSuccess: false,
+      }
     case types.LOGIN_FAIL:
     case types.REGISTER_FAIL:
     case types.GET_USER_LIST_FAIL:
