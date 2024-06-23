@@ -14,7 +14,7 @@ const getMeetUpList = (query) => async (dispatch) => {
         }
     } catch (error) {
         dispatch({ type: types.MEETUP_GET_FAIL, payload: error.message });
-        dispatch(commonUiActions.showToastMessage(error.message, "error"));
+        // dispatch(commonUiActions.showToastMessage(error.message, "error"));
     }
 };
 
@@ -22,7 +22,6 @@ const getMeetUpDetail = (id) => async (dispatch) => {
     try {
         dispatch({ type: types.GET_MEETUP_DETAIL_REQUEST });
         const res = await api.get(`/meetup/${id}`);
-        console.log(res)
         if (res.status !== 200) {
             throw new Error('모임 정보를 불러오는데 실패하였습니다.')
         } else {
@@ -52,11 +51,22 @@ const createMeetUp = (formData, navigate) => async (dispatch) => {
     }
 };
 
-const deleteMeetUp = (id, searchQuery) => async (dispatch) => {
+const deleteMeetUp = (id, navigate) => async (dispatch) => {
+    console.log("deleteMeetUp id", id);
     try {
+        dispatch({ type: types.MEETUP_DELETE_REQUEST });
+        const res = await api.delete(`/meetup/${id}`);
+        if (res.status !== 200) {
+            throw new Error('모임 삭제에 실패하였습니다.')
+        } else {
+            dispatch({ type: types.MEETUP_DELETE_SUCCESS });
+            dispatch(commonUiActions.showToastMessage("모임을 삭제하였습니다.", "success"));
+            navigate(`/meetup`);
+        }
 
     } catch (error) {
-
+        dispatch({ type: types.MEETUP_DELETE_FAIL, payload: error.message })
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 

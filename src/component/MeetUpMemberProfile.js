@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../style/meetUpMemberProfile.style.css";
 
 const MeetUpMemberProfile = ({ participant }) => {

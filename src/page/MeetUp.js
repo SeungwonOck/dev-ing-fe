@@ -5,11 +5,11 @@ import '../style/meetUp.style.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { meetUpActions } from '../action/meetUpAction'
 import ClipLoader from 'react-spinners/ClipLoader'
+import ErrorCard from "../component/ErrorCard"
 
 const MeetUp = () => {
   const dispatch = useDispatch();
-  const { meetUpList, loading } = useSelector((state) => state.meetUp);
-  console.log("meetUpList", meetUpList);
+  const { meetUpList, loading, error } = useSelector((state) => state.meetUp);
 
   useEffect(() => {
     dispatch(meetUpActions.getMeetUpList());
@@ -20,6 +20,17 @@ const MeetUp = () => {
       <div className='loading' >
         <ClipLoader color="#28A745" loading={loading} size={100} />
       </div>);
+  }
+
+  if (error) {
+    return (
+      <>
+        <div className='contents-header-btns'>
+          <WriteBtn type='meetUp' />
+        </div>
+        <ErrorCard errorMessage={error} />
+      </>
+    )
   }
 
   return (
