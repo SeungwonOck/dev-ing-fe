@@ -101,6 +101,21 @@ const updateUser = (userFormData) => async (dispatch) => {
   }
 };
 
+const getUserByNickName = (nickName) => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_USER_BY_NICKNAME_REQUEST })
+    const res = await api.get(`/user/me/${nickName}`)
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    } else {
+      dispatch({type: types.GET_USER_BY_NICKNAME_SUCCESS, payload: res.data.data})
+    }
+
+  } catch (error) {
+    dispatch({type: types.GET_USER_BY_NICKNAME_FAIL, payload: error.message})
+  }
+}
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
@@ -112,4 +127,5 @@ export const userActions = {
   register,
   clearError,
   getUserList,
+  getUserByNickName,
 };

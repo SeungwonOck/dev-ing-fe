@@ -2,11 +2,12 @@ import api from "../utils/api";
 import * as types from "../constants/post.constants";
 import { commonUiActions } from "./commonUiAction";
 
-const getPostList = (query) => async (dispatch) => {
+const getPostList = (searchQuery) => async (dispatch) => {
+    console.log(searchQuery)
     try {
         dispatch({type: types.POST_GET_REQUEST})
         const res = await api.get(`/post/all`, {
-            params: {...query}
+            params: {...searchQuery},
         });
         if(res.status !== 200) {
             throw new Error('포스트를 불러오는데 실패하였습니다.')
@@ -15,7 +16,7 @@ const getPostList = (query) => async (dispatch) => {
         }
     } catch (error) {
         dispatch({type: types.POST_GET_FAIL, payload: error.message})
-        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        // dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 
@@ -102,11 +103,31 @@ const createComment = (id, newComment) => async (dispatch) => {
     }
 }
 
+const addLike = (id) => async (dispatch) => {
+    try {
+        dispatch({type: types.ADD_LIKE_ON_POST_REQUEST});
+        const res = await api.post(`/post/like`, { postId: id });
+        if(res.status !== 200) {
+            throw new Error('좋아요에 실패하였습니다.')
+        } else {
+            console.log(res)
+            dispatch({type: types.ADD_LIKE_ON_POST_SUCCESS});
+            dispatch(getPostList());
+            dispatch(getPostDetail(id));
+        }
+    } catch (error) {
+        dispatch({type: types.ADD_LIKE_ON_POST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+
 export const postActions = {
   getPostList,
   createPost,
   deletePost,
   updatePost,
   getPostDetail,
-  createComment
+  createComment,
+  addLike
 };

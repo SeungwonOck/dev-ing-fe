@@ -10,6 +10,7 @@
 
 .contents-footer { display: flex; justify-content: space-between; align-items: center; background-color: aliceblue; padding: 10px 10px 10px 16px; }
 .contents-footer > .like-comment-num { display: flex; gap: 20px; font-size: 18px; }
+.contents-footer > .like-comment-num > .like { cursor: pointer; }
 
 .tags { padding: 10px 0; }
 .tags > .tag {

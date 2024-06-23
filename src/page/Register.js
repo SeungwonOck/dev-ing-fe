@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../style/login.style.css";
-import "../style/common.style.css";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { userActions } from "../action/userAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,7 +58,7 @@ const Register = () => {
     // 값을 읽어서 FormData에 넣어주기
     const { id, value, checked } = event.target;
 
-    if (id == "policy") {
+    if (id === "policy") {
       setFormData({ ...formData, [id]: checked });
     }
     else {

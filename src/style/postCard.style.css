@@ -4,33 +4,43 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
     background-color: #fff;
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
-.post-card:hover > .info > .title {
+.post-card:hover > .contents > .info > .title {
     color: #28a745;
     transition: all 0.2s ease;
 }
 
-.post-card > .like { width: calc((100% - 250px) * 0.1); display: flex; flex-direction: column; }
-.post-card > .like > span:nth-child(1) { font-size: 34px; }
-.post-card > .info { width: calc((100% - 250px) * 0.9); }
-.post-card > .info > .title { font-size: 30px; font-weight: 500; }
-.post-card > .info > .contents { color: #848684; }
-.post-card > .info > .contents > p {
+.post-card > .like { width: 50px; display: flex; flex-direction: column; }
+.post-card > .like > span:nth-child(1) { font-size: 30px; }
+.post-card > .like > span:nth-child(2) { font-size: 14px; }
+.post-card > .like > span:nth-child(3) { font-size: 14px; }
+.post-card > .contents { width: calc(100% - 50px); display: flex; justify-content: space-between; gap: 30px; }
+.post-card > .contents > .info { width: calc(100% - 200px); }
+.post-card > .contents > .info > .title { font-size: 26px; font-weight: 500; }
+.post-card > .contents > .info > .title > p { 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    height: 50px;
 }
-.post-card > .info > .author { display: flex; align-items: center; color: #5A5A5A; }
-.post-card > .info > .author > .img { width: 40px; height: 40px; border-radius: 50%; margin-right: 14px; border: 1px solid #ddd; overflow: hidden; }
-.post-card > .info > .author > .img > img { width: 100%; height: 100%; object-fit: cover; }
-.post-card > .info > .author > .user-name { margin-left: 8px; color: #848684; }
-.post-card > .thumbnail { width: 200px; height: 200px; }
-.post-card > .thumbnail > img { width: 100%; height: 100%; object-fit: cover; }
+.post-card > .contents > .info > .content { color: #848684; }
+.post-card > .contents > .info > .content > p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.post-card > .contents > .info > .author { display: flex; align-items: center; color: #5A5A5A; }
+.post-card > .contents > .info > .author > .img { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; overflow: hidden; }
+.post-card > .contents > .info > .author > .img > img { width: 100%; height: 100%; object-fit: cover; }
+.post-card > .contents > .info > .author > .user-name { margin: 0 8px; }
+.post-card > .contents > .thumbnail { width: 200px; height: 200px; }
+.post-card > .contents > .thumbnail > img { width: 100%; height: 100%; object-fit: cover; }

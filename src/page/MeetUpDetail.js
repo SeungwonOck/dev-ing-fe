@@ -1,21 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../style/meetUpDetail.style.css";
-import "../style/common.style.css";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Accordion } from 'react-bootstrap';
+import MeetUpMemberProfile from '../component/MeetUpMemberProfile';
+import Map from '../component/Map';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { meetUpActions } from '../action/meetUpAction';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const MeetUpDetail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
+
+  useEffect(() => {
+    dispatch(meetUpActions.getMeetUpDetail(id));
+  }, [id, dispatch]);
 
   const joinMeetUp = () => {
-    if(window.confirm("참여하시겠습니까?"))
+    if (window.confirm("참여하시겠습니까?"))
       console.log("스터디 참여!");
+
+    if (loading) {
+      return (
+        <div className='loading' >
+          <ClipLoader color="#28A745" loading={loading} size={100} />
+        </div>);
+    }
   }
 
   return (
     <div>
       <div className='meetup-detail-container'>
-        <div className='title'>노드 js 스터디 모집</div>
+        <div className='title'>{selectedMeetUp?.title}</div>
         <div className='meetup-user'>
-          <div className='date'>2024.06.21</div>
+          <div className='date'>{selectedMeetUp?.createAt.date}</div>
           <div className='author'>
             <span className='img'><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXKPLmUQUTiNrAPO2BP9eLjv_iX3T8XAhNRw&usqp=CAU" alt='' /></span>
             <span className='user-name'>홍길동</span>
@@ -25,21 +44,33 @@ const MeetUpDetail = () => {
         <div className='meetup-info'>
           <Row>
             <Col md={4}>
-              <img className="meetup-img" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+              <img className="meetup-img" src={selectedMeetUp?.image} />
             </Col>
             <Col md={4}>
-              <div><span className='meetup-info-title'>카테고리 : </span>기타 스터디</div>
-              <div><span className='meetup-info-title'>모집 인원 : </span>1/4</div>
+              <div><span className='meetup-info-title'>카테고리 : </span>{selectedMeetUp?.category}</div>
+              <div><span className='meetup-info-title'>모집 인원 : </span>{selectedMeetUp?.currentParticipants}/{selectedMeetUp?.maxParticipants}</div>
+              <Accordion>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>멤버 보기(2)</Accordion.Header>
+                  <Accordion.Body>
+                    <MeetUpMemberProfile />
+                    <MeetUpMemberProfile />
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+
             </Col>
             <Col md={4}>
-              <div><span className='meetup-info-title'>시작 예정 : </span>2024/06/22 10:00</div>
-              <div><span className='meetup-info-title'>장소 : </span>우주시 화성구 지구로 한국리</div>
+              <div><span className='meetup-info-title'>시작 예정 : </span>{selectedMeetUp?.date.date} {selectedMeetUp?.date.time}</div>
+              <div><span className='meetup-info-title'>장소 : </span>{selectedMeetUp?.location === "online" ? (<span>온라인</span>) : selectedMeetUp?.location}</div>
+              {selectedMeetUp?.location === "online" ? (<></>) : (<Map location={selectedMeetUp?.location} />)}
             </Col>
           </Row>
         </div>
 
         <div className='content'>
-          저희 스터디는 1주일에 1번씩 만나서 공부해요!
+          <div className='content-title'>모임 소개</div>
+          {selectedMeetUp?.description}
         </div>
 
         <div className='meetup-btn-container'>
@@ -48,6 +79,7 @@ const MeetUpDetail = () => {
 
       </div>
     </div>
+
   )
 }
 

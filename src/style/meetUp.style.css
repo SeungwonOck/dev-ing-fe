@@ -6,3 +6,7 @@
     flex-wrap: wrap;
     padding-top: 30px;
 }
+
+.meet-up-card {
+    height: 400px;
+}

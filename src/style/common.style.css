@@ -29,16 +29,16 @@ a {
 }
 
 body {
-    font-family: 'Pretendard';
+    font-family: 'Pretendard' !important;
 }
 
-.ml-1 { margin-left: 10px; }
-.ml-2 { margin-left: 20px; }
-.ml-3 { margin-left: 30px; }
+.ml-1 { margin-left: 10px !important; }
+.ml-2 { margin-left: 20px !important; }
+.ml-3 { margin-left: 30px !important; }
 
-.mr-1 { margin-right: 10px; }
-.mr-2 { margin-right: 20px; }
-.mr-3 { margin-right: 30px; }
+.mr-1 { margin-right: 10px !important; }
+.mr-2 { margin-right: 20px !important; }
+.mr-3 { margin-right: 30px !important; }
 
 .mb-1 { margin-bottom: 10px !important; }
 .mb-2 { margin-bottom: 20px !important; }
@@ -126,7 +126,7 @@ body {
 .white-btn,
 .coral-btn {
     display: inline-block;
-    padding: 10px 14px;
+    padding: 6px 10px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
@@ -160,10 +160,6 @@ body {
     padding: 4px 8px;
     font-size: 14px;
 }
-.contents-header-btns {
-    display: flex;
-    justify-content: end;
-}
 
 .coral {
     color: #F24E1E;
@@ -189,6 +185,24 @@ body {
     align-items: center;
     width: 100%;
 }
+
+
+/* 검색어input박스 / 정렬버튼 / 글등록버튼 */
+.contents-header-btns {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    height: 38px;
+}
+.contents-header-btns > *,
+.contents-header-btns > .dropdown > button {
+    height: 100%;
+}
+.search-input {
+    width: initial;
+}
+
+
 
 @media screen and (max-width: 768px) {
     .white-btn,

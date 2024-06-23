@@ -1,40 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Nav } from 'react-bootstrap'
 import PostTab from '../component/PostTab';
 import MeetUpTab from '../component/MeetUpTab';
 import QnaTab from '../component/QnaTab';
 import "../style/myPage.style.css"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { userActions } from '../action/userAction';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+  const { nickName } = useParams();
   const [tab, setTab] = useState(0);
-  const { user } = useSelector((state) => state.user);
-  const isCurrentUser = true;
+  const { user, loading, uniqueUser } = useSelector((state) => state.user);
+  const isCurrentUser = user && user.nickName === nickName;
+
+  useEffect(() => {
+    dispatch(userActions.getUserByNickName(nickName))
+  }, [nickName])
+
+  if (loading) {
+    return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
+  }
+
+  if (!user || !uniqueUser) {
+    return <div>User not found</div>;
+  }
 
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img src={user.profileImage} alt="Profile" className="profile-image" />
+        <img src={uniqueUser.profileImage} alt="Profile" className="profile-image" />
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">
-              {user.userName} <span className="user-rank">{user.rank}</span>
+              {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
               {!isCurrentUser && <button className="follow-button">Follow</button>}
             </h2>
-            <p className="stacks">{user.stacks.join(', ')}</p>
+            <p className="stacks">{uniqueUser.stacks.join(', ')}</p>
           </div>
           <div className="follow-info">
             <div className="follow-item">
               <p className="follow-label">Following</p>
-              <p className="follow-count">{user.following ? user.following.length : 0}</p>
+              <p className="follow-count">{uniqueUser.following ? uniqueUser.following.length : 0}</p>
             </div>
             <div className="follow-item">
               <p className="follow-label">Followers</p>
-              <p className="follow-count">{user.followers ? user.followers.length : 0}</p>
+              <p className="follow-count">{uniqueUser.followers ? uniqueUser.followers.length : 0}</p>
             </div>
           </div>
         </div>
-        <p className="description">{user.description}</p>
+        <p className="description">{uniqueUser.description}</p>
       </div>
 
       <Nav variant="tabs" defaultActiveKey="post" className="custom-nav">

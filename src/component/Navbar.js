@@ -114,7 +114,7 @@ const Navbar = ({ user }) => {
               </Dropdown.Toggle>
         
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => navigate("/me")}>MY DEV</Dropdown.Item>
+                <Dropdown.Item onClick={() => navigate(`/me/${user.nickName}`)}>MY DEV</Dropdown.Item>
                 <Dropdown.Item onClick={() => navigate("/account")}>내 계정 정보</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>}
