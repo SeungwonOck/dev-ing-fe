@@ -51,10 +51,10 @@ const logout = () => async (dispatch) => {
 const loginWithGoogle = (token) => async (dispatch) => {
 };
 
-const register = ({ email, userName, password, gender }, navigate) => async (dispatch) => {
+const register = ({ email, userName, password, gender, nickName }, navigate) => async (dispatch) => {
   try {
     dispatch({ type: types.REGISTER_REQUEST })
-    const res = await api.post('/user', { email, userName, password, gender })
+    const res = await api.post('/user', { email, userName, password, gender, nickName })
     console.log("register response", res);
     if (res.status !== 200) {
       throw new Error(res.error)
