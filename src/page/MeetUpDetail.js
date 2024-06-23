@@ -41,14 +41,17 @@ const MeetUpDetail = () => {
           </div>
         </div>
 
+        <div className='content'>
+          <div className='content-title'>소개</div>
+          {selectedMeetUp?.description}
+        </div>
+
         <div className='meetup-info'>
+          <div><span className='meetup-info-title'>카테고리 : </span>{selectedMeetUp?.category}</div>
           <Row>
-            <Col md={4}>
-              <img className="meetup-img" src={selectedMeetUp?.image} />
-            </Col>
-            <Col md={4}>
-              <div><span className='meetup-info-title'>카테고리 : </span>{selectedMeetUp?.category}</div>
-              <div><span className='meetup-info-title'>모집 인원 : </span>{selectedMeetUp?.currentParticipants}/{selectedMeetUp?.maxParticipants}</div>
+            <Col md={2}>
+              <span className='meetup-info-title'>모집 인원 : </span>{selectedMeetUp?.currentParticipants}/{selectedMeetUp?.maxParticipants}</Col>
+            <Col md={3}>
               <Accordion>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>멤버 보기(2)</Accordion.Header>
@@ -58,20 +61,25 @@ const MeetUpDetail = () => {
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
+            </Col>
+          </Row>
+          <div><span className='meetup-info-title'>시작 예정 : </span>{selectedMeetUp?.date.date} {selectedMeetUp?.date.time}</div>
+          <div><span className='meetup-info-title'>장소 : </span>{selectedMeetUp?.location === "online" ? (<span>온라인</span>) : selectedMeetUp?.location}</div>
+          {selectedMeetUp?.location === "online" ? (<></>) : (<Map location={selectedMeetUp?.location} />)}
+          <div style={{ marginTop: "30px" }}></div>
+          <div className='meetup-info-title'>관련 이미지</div>
+          <img className="meetup-img" src={selectedMeetUp?.image} />
+          <Row>
+            <Col md={8}>
 
             </Col>
             <Col md={4}>
-              <div><span className='meetup-info-title'>시작 예정 : </span>{selectedMeetUp?.date.date} {selectedMeetUp?.date.time}</div>
-              <div><span className='meetup-info-title'>장소 : </span>{selectedMeetUp?.location === "online" ? (<span>온라인</span>) : selectedMeetUp?.location}</div>
-              {selectedMeetUp?.location === "online" ? (<></>) : (<Map location={selectedMeetUp?.location} />)}
+
             </Col>
           </Row>
         </div>
 
-        <div className='content'>
-          <div className='content-title'>모임 소개</div>
-          {selectedMeetUp?.description}
-        </div>
+
 
         <div className='meetup-btn-container'>
           <button className='white-btn' onClick={joinMeetUp}>참여하기</button>

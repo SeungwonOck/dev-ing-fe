@@ -1,3 +1,10 @@
+.display-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .meetup-detail-container {
     display: flex;
     flex-direction: column;
@@ -47,10 +54,11 @@
 .meetup-info {
     font-size: 1.2rem;
     margin-bottom: 20px;
+    gap: 20px;
 }
 
 .meetup-img {
-    width: 100%;
+    width: 50%;
 }
 
 .meetup-info-title {
@@ -59,12 +67,14 @@
 }
 
 .meetup-detail-container>.content {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .meetup-detail-container>.content>.content-title {
     color: #28A745;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
