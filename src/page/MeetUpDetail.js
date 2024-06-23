@@ -31,14 +31,22 @@ const MeetUpDetail = () => {
     }
   }
 
+  const updateMeetUp = () => {
+    console.log("updateMeetUp");
+  }
+
+  const deleteMeetUp = () => {
+    console.log("deleteMeetUp");
+  }
+
   return (
     <div>
       {
         (user?.nickName === selectedMeetUp?.organizer.nickName) ?
           (
             <div className='meetup-my-detail-container'>
-              <div>수정</div>
-              <div>삭제</div>
+              <div onClick={updateMeetUp}>수정</div>
+              <div onClick={deleteMeetUp}>삭제</div>
             </div>
           )
           :
