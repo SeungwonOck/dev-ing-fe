@@ -16,9 +16,11 @@ const Register = () => {
     confirmPassword: "",
     gender: "",
     policy: false,
+    nickName: ""
   });
   const [passwordError, setPasswordError] = useState("");
   const [policyError, setPolicyError] = useState(false);
+  const [nickNameError, setNickNameError] = useState("");
   const { error, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -27,9 +29,13 @@ const Register = () => {
     };
   }, [dispatch]);
 
+  const validateNickname = (nick) => {
+    return /^[a-z0-9_]+$/.test(nick);
+  }
+
   const register = (event) => {
     event.preventDefault();
-    const { userName, email, password, confirmPassword, gender, policy } = formData;
+    const { userName, email, password, confirmPassword, gender, policy, nickName } = formData;
 
     // 비번 중복확인 일치하는지 확인
     if (password !== confirmPassword) {
@@ -49,9 +55,18 @@ const Register = () => {
       setPolicyError(false);
     }
 
+    // 닉네임 validate nickName
+    if (!validateNickname(nickName)) {
+      setNickNameError("닉네임은 알파벳 소문자, 밑줄(_), 숫자만 가능합니다.");
+      return;
+    }
+    else {
+      setNickNameError("");
+    }
+
     setPasswordError("");
     setPolicyError(false);
-    dispatch(userActions.register({ email, userName, password, gender }, navigate));
+    dispatch(userActions.register({ email, userName, password, gender, nickName }, navigate));
   };
 
   const handleChange = (event) => {
@@ -106,6 +121,21 @@ const Register = () => {
                   onChange={handleChange}
                   required
                 />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label className="login-form-label">닉네임<a style={{ color: "#28A745" }}>*</a></Form.Label>
+                <Form.Control
+                  className="login-form-input"
+                  type="text"
+                  id="nickName"
+                  placeholder="닉네임은 알파벳 소문자, _, 숫자만 가능합니다"
+                  onChange={handleChange}
+                  isInvalid={nickNameError}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {nickNameError}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label className="login-form-label">비밀번호<a style={{ color: "#28A745" }}>*</a></Form.Label>
