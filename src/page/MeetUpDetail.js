@@ -36,8 +36,8 @@ const MeetUpDetail = () => {
         <div className='meetup-user'>
           <div className='date'>{selectedMeetUp?.createAt.date}</div>
           <div className='author'>
-            <span className='img'><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXKPLmUQUTiNrAPO2BP9eLjv_iX3T8XAhNRw&usqp=CAU" alt='' /></span>
-            <span className='user-name'>홍길동</span>
+            <span className='img'><img src={selectedMeetUp?.organizer.profileImage} alt='' /></span>
+            <span className='user-name'>{selectedMeetUp?.organizer.nickName}</span>
           </div>
         </div>
 
