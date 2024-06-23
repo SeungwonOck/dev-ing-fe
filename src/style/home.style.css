@@ -9,8 +9,9 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    font-size: 60px;
+    font-size: 50px;
     font-family: 'NewsReader';
+    margin-top: 40px;
 }
 
 .home>.main-title>div {
@@ -42,7 +43,7 @@
 
 .home>.post-container {
     background-color: #F5F5F5;
-    height: 460px;
+    height: 420px;
     padding: 20px 0;
 }
 
@@ -98,7 +99,7 @@
 
 /* 포스트카드 */
 .home-post-card {
-    width: 350px;
+    width: 300px;
     height: 100%;
     background-color: #fff;
     cursor: pointer;
@@ -136,7 +137,7 @@
 }
 
 .home-post-card>.contents>.title>p {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 500;
     word-break: break-all;
     overflow: hidden;
@@ -186,6 +187,7 @@
     .home>.main-title {
         font-size: 36px;
         gap: 10px;
+        margin-top: 20px;
     }
 
     .home>.sub-title {
@@ -201,6 +203,7 @@
     .home>.main-title {
         font-size: 24px;
         gap: 6px;
+        margin-top: 10px;
     }
 
     .home>.sub-title {
