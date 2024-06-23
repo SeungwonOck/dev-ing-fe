@@ -1,10 +1,9 @@
 import React from 'react'
-import ranImg from "../asset/img/no-image.png"
 
-const PostTab = () => {
+const PostTab = ({post}) => {
   return (
     <div className="post-tab">
-      <img src={ranImg} alt="Random" className="post-image" />
+      <img src={post.image} alt="Random" className="post-image" />
     </div>
   )
 }

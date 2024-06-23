@@ -5,29 +5,50 @@ import MeetUpTab from '../component/MeetUpTab';
 import QnaTab from '../component/QnaTab';
 import "../style/myPage.style.css"
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { userActions } from '../action/userAction';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { nickName } = useParams();
   const [tab, setTab] = useState(0);
-  const { user, loading, uniqueUser } = useSelector((state) => state.user);
+  const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
-  }, [nickName])
+  }, [nickName, dispatch])
+
+  useEffect(() => {
+    if (followSuccess || unfollowSuccess) {
+      dispatch(userActions.getUserByNickName(nickName));
+    }
+  }, [followSuccess, unfollowSuccess, nickName, dispatch]);
+
+  const handleFollow = () => {
+    if (!user) {
+      navigate("/login")
+    } else {
+      dispatch(userActions.followUser(nickName))
+    }
+  };
+
+  const handleUnfollow = () => {
+    dispatch(userActions.unfollowUser(nickName))
+  }
 
   if (loading) {
     return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
   }
 
-  if (!user || !uniqueUser) {
+  if (!uniqueUser) {
     return <div>User not found</div>;
   }
 
+  let isFollowing = user && user.following && user.following.includes(uniqueUser._id)
+  
   return (
     <div className="my-page-container">
       <div className="profile-section">
@@ -36,7 +57,11 @@ const MyPage = () => {
           <div className="user-info">
             <h2 className="user-name">
               {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
-              {!isCurrentUser && <button className="follow-button">Follow</button>}
+              {!isCurrentUser &&(
+                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow }>
+                  {isFollowing ? "언팔로우" : "팔로우"}
+                </button>
+              )}
             </h2>
             <p className="stacks">{uniqueUser.stacks.join(', ')}</p>
           </div>
@@ -65,17 +90,17 @@ const MyPage = () => {
           <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent tab={tab} />
+      <TabContent tab={tab} uniqueUserPost={uniqueUserPost} />
     </div>
   )
 }
 
-const TabContent = ({ tab }) => {
+const TabContent = ({ tab, uniqueUserPost }) => {
   if (tab === 0) {
     return <div className="post-tab-container">
-      <PostTab />
-      <PostTab />
-      <PostTab />
+      {uniqueUserPost && uniqueUserPost.map((post) => (
+        <PostTab post={post} key={post._id}/>
+      ))}
     </div>
   }
 
