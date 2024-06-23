@@ -22,6 +22,7 @@ const getMeetUpDetail = (id) => async (dispatch) => {
     try {
         dispatch({ type: types.GET_MEETUP_DETAIL_REQUEST });
         const res = await api.get(`/meetup/${id}`);
+        console.log(res)
         if (res.status !== 200) {
             throw new Error('모임 정보를 불러오는데 실패하였습니다.')
         } else {

@@ -58,7 +58,7 @@ const Register = () => {
     // 값을 읽어서 FormData에 넣어주기
     const { id, value, checked } = event.target;
 
-    if (id == "policy") {
+    if (id === "policy") {
       setFormData({ ...formData, [id]: checked });
     }
     else {

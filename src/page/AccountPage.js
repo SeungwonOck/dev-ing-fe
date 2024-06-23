@@ -124,10 +124,11 @@ const AccountPage = () => {
                 </div>
               </div>
               <div className='others'>
-                <div><strong>가입일자: </strong>{user?.createAt.date}</div>
-                <div><strong>성별: </strong>{user?.gender}</div>
+                <div><strong>닉네임: </strong>{user?.nickName}</div>
                 <div><strong>이메일: </strong>{user?.email}</div>
+                <div><strong>성별: </strong>{user?.gender}</div>
                 <div className='rank'><strong>Rank: </strong>{user?.rank}</div>
+                <div><strong>가입일자: </strong>{user?.createAt.date}</div>
               </div>
             </div>
 

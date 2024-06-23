@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-
 import { useNavigate, useParams } from 'react-router-dom';
 import '../style/postDetail.style.css';
 import PostComment from '../component/PostComment';
 import CommnetInput from '../component/CommentInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fullHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as emptyHeart } from '@fortawesome/free-regular-svg-icons';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { postActions } from '../action/postAction';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -21,6 +22,15 @@ const PostDetail = () => {
     const { user } = useSelector((state) => state.user);
     const [ showEditBtns, setShowEditBtns ] = useState(false);
     const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false);
+    const [ isUserLikedPost, setIsUserLikedPost ] = useState(false);
+
+    useEffect(()=>{
+        if(selectedPost && selectedPost.userLikes.includes(user._id)) {
+          setIsUserLikedPost(true)
+        } else {
+          setIsUserLikedPost(false)
+        }
+    },[selectedPost])
 
     useEffect(()=>{
         dispatch(postActions.getPostDetail(id))
@@ -36,6 +46,15 @@ const PostDetail = () => {
 
     const deletePost = () => {
         dispatch(postActions.deletePost(id, navigate))
+    }
+
+    const addLike = (id) => {
+        dispatch(postActions.addLike(id))
+    }
+    
+    const deleteLike = (id) => {
+        console.log('좋아요 취소')
+        // dispatch(postActions.deleteLike(id))
     }
 
     if(loading) 
@@ -70,8 +89,7 @@ const PostDetail = () => {
                 <div className='title'>{selectedPost?.title}</div>
                 <div className='author'>
                     <span className='img'><img src={selectedPost?.author.profileImage} alt=''/></span>
-                    <span className='user-page-name'>페이지이름</span>
-                    <span className='user-name'>by {selectedPost?.author.userName}</span>
+                    <span className='user-name'>{selectedPost?.author.userName}</span>
                 </div>
                 <div className='contents' data-color-mode='light'>
                     <MarkdownEditor.Markdown style={{ padding: 10 }} source={selectedPost?.content} />
@@ -84,8 +102,16 @@ const PostDetail = () => {
 
             <div className='contents-footer'>
                 <div className='like-comment-num'>
-                    <div><FontAwesomeIcon icon={faHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span></div>
-                    <div><FontAwesomeIcon icon={faComments} className='green'/> 댓글 <span className='green'>1</span></div>
+
+                    {isUserLikedPost ? 
+                        <div className='like' onClick={() => deleteLike(selectedPost._id)}>
+                            <FontAwesomeIcon icon={fullHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span>
+                        </div> :
+                        <div className='like' onClick={() => addLike(selectedPost._id)}>
+                            <FontAwesomeIcon icon={emptyHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span>
+                        </div>}
+
+                    <div><FontAwesomeIcon icon={faComments} className='green'/> 댓글 <span className='green'>{selectedPost?.commentCount}</span></div>
                 </div>
                 <div className='edit-delete-btns'>
                     {showEditBtns ? <>

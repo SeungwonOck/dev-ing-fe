@@ -1,8 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import '../style/postComment.style.css';
-import thumbnail from '../asset/img/post-img-01.jpg'
-
 
 const PostComment = ({ commentList, user }) => {
 
