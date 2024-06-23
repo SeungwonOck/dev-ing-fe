@@ -76,10 +76,11 @@ const MeetUpDetail = () => {
             <Col md={3}>
               <Accordion>
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header>멤버 보기({selectedMeetUp?.participants.length})</Accordion.Header>
+                  <Accordion.Header>멤버 보기({selectedMeetUp?.currentParticipants})</Accordion.Header>
                   <Accordion.Body>
-                    <MeetUpMemberProfile />
-                    <MeetUpMemberProfile />
+                    {selectedMeetUp?.participants.map((participant) => (
+                      <MeetUpMemberProfile participant={participant} />
+                    ))}
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
