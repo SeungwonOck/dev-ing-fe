@@ -116,6 +116,36 @@ const getUserByNickName = (nickName) => async (dispatch) => {
   }
 }
 
+const followUser = (nickName) => async (dispatch) => {
+  try {
+    dispatch({ type: types.FOLLOW_USER_REQUEST });
+    const res = await api.post(`/user/me/${nickName}/follow`);
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    } else {
+      dispatch({type: types.FOLLOW_USER_SUCCESS, payload: res.data.data})
+    }
+  } catch (error) {
+    dispatch({type: types.FOLLOW_USER_FAIL, payload: error.message})
+  }
+}
+
+const unfollowUser = (nickName) => async (dispatch) => {
+  try {
+    dispatch({ type: types.UNFOLLOW_USER_REQUEST });
+    const res = await api.post(`/user/me/${nickName}/unfollow`);
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    } else {
+      dispatch({type: types.UNFOLLOW_USER_SUCCESS, payload: res.data.data})
+    }
+  } catch (error) {
+    dispatch({type: types.UNFOLLOW_USER_FAIL, payload: error.message})
+  }
+}
+
+
+
 export const userActions = {
   loginWithToken,
   loginWithEmail,
@@ -128,4 +158,6 @@ export const userActions = {
   clearError,
   getUserList,
   getUserByNickName,
+  followUser,
+  unfollowUser,
 };

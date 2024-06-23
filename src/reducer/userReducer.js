@@ -16,12 +16,16 @@ function userReducer(state = initialState, action) {
     case types.GET_USER_LIST_REQUEST:
     case types.UPDATE_USER_REQUEST:
     case types.GET_USER_BY_NICKNAME_REQUEST:
+    case types.FOLLOW_USER_REQUEST:
+    case types.UNFOLLOW_USER_REQUEST:
       return { ...state, loading: true }
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
     case types.UPDATE_USER_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
     case types.REGISTER_SUCCESS:
+    case types.FOLLOW_USER_SUCCESS:
+    case types.UNFOLLOW_USER_SUCCESS:
       return { ...state, loading: false, error: "" }
     case types.GET_USER_LIST_SUCCESS:
       return { ...state, loading: false, error: "", userList: payload.allUser }
@@ -32,6 +36,8 @@ function userReducer(state = initialState, action) {
     case types.GET_USER_LIST_FAIL:
     case types.UPDATE_USER_FAIL:
     case types.GET_USER_BY_NICKNAME_FAIL:
+    case types.FOLLOW_USER_FAIL:
+    case types.UNFOLLOW_USER_FAIL:
       return { ...state, loading: false, error: payload };
     case types.TOKEN_LOGIN_FAIL:
       return { ...state, loading: false };
