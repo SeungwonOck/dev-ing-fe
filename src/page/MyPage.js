@@ -14,12 +14,18 @@ const MyPage = () => {
   const navigate = useNavigate();
   const { nickName } = useParams();
   const [tab, setTab] = useState(0);
-  const { user, loading, uniqueUser } = useSelector((state) => state.user);
+  const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
   }, [nickName, dispatch])
+
+  useEffect(() => {
+    if (followSuccess || unfollowSuccess) {
+      dispatch(userActions.getUserByNickName(nickName));
+    }
+  }, [followSuccess, unfollowSuccess, nickName, dispatch]);
 
   const handleFollow = () => {
     if (!user) {
@@ -41,7 +47,7 @@ const MyPage = () => {
     return <div>User not found</div>;
   }
 
-  const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
+  let isFollowing = user && user.following && user.following.includes(uniqueUser._id)
   
   return (
     <div className="my-page-container">
@@ -52,7 +58,7 @@ const MyPage = () => {
             <h2 className="user-name">
               {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
               {!isCurrentUser &&(
-                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow}>
+                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow }>
                   {isFollowing ? "언팔로우" : "팔로우"}
                 </button>
               )}
@@ -84,17 +90,17 @@ const MyPage = () => {
           <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent tab={tab} />
+      <TabContent tab={tab} uniqueUserPost={uniqueUserPost} />
     </div>
   )
 }
 
-const TabContent = ({ tab }) => {
+const TabContent = ({ tab, uniqueUserPost }) => {
   if (tab === 0) {
     return <div className="post-tab-container">
-      <PostTab />
-      <PostTab />
-      <PostTab />
+      {uniqueUserPost && uniqueUserPost.map((post) => (
+        <PostTab post={post} key={post._id}/>
+      ))}
     </div>
   }
 
