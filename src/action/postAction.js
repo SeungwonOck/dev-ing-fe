@@ -1,6 +1,5 @@
 import api from "../utils/api";
 import * as types from "../constants/post.constants";
-import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 const getPostList = (query) => async (dispatch) => {

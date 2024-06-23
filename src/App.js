@@ -1,6 +1,6 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/common.style.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AppLayout from "./layout/AppLayout";
 import AppRouter from "./routes/AppRouter";
 

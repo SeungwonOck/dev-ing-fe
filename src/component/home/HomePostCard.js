@@ -14,6 +14,7 @@ const HomePostCard = ({ post }) => {
         <div className='contents'>
           <div className='small-text'>
             <span className='like'>좋아요 <span className='coral'>{post.likes}</span></span>
+            <span className='comments'>댓글 <span className='green'>{post.comments.length}</span></span>
             <span className='scrap'>스크랩 <span className='coral'>{post.scrap}</span></span>
           </div>
           <div className='title'>

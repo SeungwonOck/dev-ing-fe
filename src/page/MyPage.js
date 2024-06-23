@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Nav } from 'react-bootstrap'
 import PostTab from '../component/PostTab';
 import MeetUpTab from '../component/MeetUpTab';

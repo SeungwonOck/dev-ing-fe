@@ -70,8 +70,7 @@ const PostDetail = () => {
                 <div className='title'>{selectedPost?.title}</div>
                 <div className='author'>
                     <span className='img'><img src={selectedPost?.author.profileImage} alt=''/></span>
-                    <span className='user-page-name'>페이지이름</span>
-                    <span className='user-name'>by {selectedPost?.author.userName}</span>
+                    <span className='user-name'>{selectedPost?.author.userName}</span>
                 </div>
                 <div className='contents' data-color-mode='light'>
                     <MarkdownEditor.Markdown style={{ padding: 10 }} source={selectedPost?.content} />
@@ -85,7 +84,7 @@ const PostDetail = () => {
             <div className='contents-footer'>
                 <div className='like-comment-num'>
                     <div><FontAwesomeIcon icon={faHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span></div>
-                    <div><FontAwesomeIcon icon={faComments} className='green'/> 댓글 <span className='green'>1</span></div>
+                    <div><FontAwesomeIcon icon={faComments} className='green'/> 댓글 <span className='green'>{selectedPost?.comments.length}</span></div>
                 </div>
                 <div className='edit-delete-btns'>
                     {showEditBtns ? <>
