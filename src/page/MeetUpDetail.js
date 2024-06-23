@@ -33,11 +33,10 @@ const MeetUpDetail = () => {
   }
 
   const updateMeetUp = () => {
-    console.log("updateMeetUp");
+    navigate(`/meetUp/write?type=edit&id=${id}`);
   }
 
   const deleteMeetUp = () => {
-    console.log("deleteMeetUp");
     dispatch(meetUpActions.deleteMeetUp(id, navigate));
   }
 

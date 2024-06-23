@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { meetUpActions } from '../action/meetUpAction';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const initialFormData = {
   title: '',
@@ -24,6 +24,8 @@ const MeetUpWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const [query, setQuery] = useSearchParams();
+  const [type, setType] = useState(query.get("type"));
   const [formData, setFormData] = useState({ ...initialFormData });
   const [imageUrl, setImageUrl] = useState('');
   const [selectedDate, setSelectedDate] = useState("");
@@ -141,151 +143,310 @@ const MeetUpWrite = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className='meetup-container'>
-        <div className='title'>모임 등록</div>
-        <Form className="meetup-form" onSubmit={submitMeeting}>
-          <Row className="meetup-user-info">
-            <Col className="meetup-user-info-img" md={2} xs={2}>
-              <img src={user.profileImage} />
-            </Col>
-            <Col md={10} xs={10}>
-              <div className="meetup-user-info-name">{user.userName}</div>
-              <div className="meetup-user-info-des">{user.description}</div>
-            </Col>
-          </Row>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">모임 이름</Form.Label>
-            <Form.Control
-              id="title"
-              className="form-input"
-              type="text"
-              placeholder="모임 이름을 입력해주세요"
-              onChange={(event) => handleChange(event)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">내용</Form.Label>
-            <Form.Control
-              id='description'
-              className="form-input"
-              as="textarea"
-              type="text"
-              rows={3}
-              placeholder="모임 내용을 입력해주세요
-            ex)1주일 1번 노드JS 스터디 함께 해요!"
-              onChange={(event) => handleChange(event)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
-            <div className='meetup-thumbnail'>
-              <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
-              {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
-            </div>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">카테고리</Form.Label>
-            <Form.Select
-              id="category"
-              value={formData?.category || ""}
-              onChange={(event) => handleChange(event)}
-              required
-            >
-              <option value="" disabled hidden>카테고리 선택</option>
-              <option value="독서">독서</option>
-              <option value="강의">강의</option>
-              <option value="프로젝트">프로젝트</option>
-              <option value="기타 스터디">기타 스터디</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">날짜</Form.Label>
-            <DatePicker
-              id="meet-date"
-              selected={selectedDate}
-              onChange={handleDateChange}
-              dateFormat="yyyy-MM-dd"
-              minDate={new Date()}
-              placeholderText='날짜를 선택해주세요'
-              required
-            />
-            {selectedDate &&
-              (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
-            <div></div>
-            <Form.Label className="form-label">시간</Form.Label>
-            <DatePicker
-              id="meet-time"
-              selected={selectedTime}
-              onChange={handleTimeChange}
-              dateFormat="HH:mm"
-              showTimeSelect
-              showTimeSelectOnly
-              placeholderText='시간을 선택해주세요'
-              required
-            />
-            {selectedTime &&
-              (<div>선택된 시간 : {selectedTime.toLocaleTimeString()}</div>)}
-            <div></div>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">위치</Form.Label>
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              checked={isOffline}
-              onChange={handleToggle}
-              label="오프라인으로 진행하면 눌러주세요"
-            />
-            <div>내 선택 : {isOffline ? (<span>오프라인</span>) : (<span>온라인</span>)}</div>
-            {
-              isOffline &&
-              (
-                <>
+      {
+        type === "new" ?
+          (
+            <Container className='meetup-container'>
+              <div className='title'>모임 등록</div>
+              <Form className="meetup-form" onSubmit={submitMeeting}>
+                <Row className="meetup-user-info">
+                  <Col className="meetup-user-info-img" md={2} xs={2}>
+                    <img src={user.profileImage} />
+                  </Col>
+                  <Col md={10} xs={10}>
+                    <div className="meetup-user-info-name">{user.userName}</div>
+                    <div className="meetup-user-info-des">{user.description}</div>
+                  </Col>
+                </Row>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">모임 이름</Form.Label>
                   <Form.Control
-                    className="form-input-disabled"
-                    type="text"
-                    placeholder="우편번호"
-                    value={zipcode}
-                    disabled
-                  />
-                  <Form.Control
-                    className="form-input-disabled"
-                    type="text"
-                    placeholder="기본 주소"
-                    value={address}
-                    disabled
-                  />
-                  <Form.Control
-                    value={detailAddress}
+                    id="title"
                     className="form-input"
                     type="text"
-                    placeholder="상세 주소"
-                    onChange={(event) => setDetailAddress(event.target.value)}
+                    placeholder="모임 이름을 입력해주세요"
+                    onChange={(event) => handleChange(event)}
                     required
                   />
-                </>
-              )
-            }
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label className="form-label">모집 인원</Form.Label>
-            <Form.Control
-              id="maxParticipants"
-              value={formData?.maxParticipants}
-              type="number"
-              placeholder="인원 수"
-              className="form-input"
-              min={2}
-              max={10}
-              onChange={(event) => handleChange(event)}
-            />
-          </Form.Group>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">내용</Form.Label>
+                  <Form.Control
+                    id='description'
+                    className="form-input"
+                    as="textarea"
+                    type="text"
+                    rows={3}
+                    placeholder="모임 내용을 입력해주세요
+            ex)1주일 1번 노드JS 스터디 함께 해요!"
+                    onChange={(event) => handleChange(event)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
+                  <div className='meetup-thumbnail'>
+                    <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
+                    {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
+                  </div>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">카테고리</Form.Label>
+                  <Form.Select
+                    id="category"
+                    value={formData?.category || ""}
+                    onChange={(event) => handleChange(event)}
+                    required
+                  >
+                    <option value="" disabled hidden>카테고리 선택</option>
+                    <option value="독서">독서</option>
+                    <option value="강의">강의</option>
+                    <option value="프로젝트">프로젝트</option>
+                    <option value="기타 스터디">기타 스터디</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">날짜</Form.Label>
+                  <DatePicker
+                    id="meet-date"
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    dateFormat="yyyy-MM-dd"
+                    minDate={new Date()}
+                    placeholderText='날짜를 선택해주세요'
+                    required
+                  />
+                  {selectedDate &&
+                    (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
+                  <div></div>
+                  <Form.Label className="form-label">시간</Form.Label>
+                  <DatePicker
+                    id="meet-time"
+                    selected={selectedTime}
+                    onChange={handleTimeChange}
+                    dateFormat="HH:mm"
+                    showTimeSelect
+                    showTimeSelectOnly
+                    placeholderText='시간을 선택해주세요'
+                    required
+                  />
+                  {selectedTime &&
+                    (<div>선택된 시간 : {selectedTime.toLocaleTimeString()}</div>)}
+                  <div></div>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">위치</Form.Label>
+                  <Form.Check
+                    type="switch"
+                    id="custom-switch"
+                    checked={isOffline}
+                    onChange={handleToggle}
+                    label="오프라인으로 진행하면 눌러주세요"
+                  />
+                  <div>내 선택 : {isOffline ? (<span>오프라인</span>) : (<span>온라인</span>)}</div>
+                  {
+                    isOffline &&
+                    (
+                      <>
+                        <Form.Control
+                          className="form-input-disabled"
+                          type="text"
+                          placeholder="우편번호"
+                          value={zipcode}
+                          disabled
+                        />
+                        <Form.Control
+                          className="form-input-disabled"
+                          type="text"
+                          placeholder="기본 주소"
+                          value={address}
+                          disabled
+                        />
+                        <Form.Control
+                          value={detailAddress}
+                          className="form-input"
+                          type="text"
+                          placeholder="상세 주소"
+                          onChange={(event) => setDetailAddress(event.target.value)}
+                          required
+                        />
+                      </>
+                    )
+                  }
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">모집 인원</Form.Label>
+                  <Form.Control
+                    id="maxParticipants"
+                    value={formData?.maxParticipants}
+                    type="number"
+                    placeholder="인원 수"
+                    className="form-input"
+                    min={2}
+                    max={10}
+                    onChange={(event) => handleChange(event)}
+                  />
+                </Form.Group>
 
-          <Button className="green-btn" type="submit">등록</Button>
-        </Form>
-      </Container >
+                <Button className="green-btn" type="submit">등록</Button>
+              </Form>
+            </Container >
+          )
+          :
+          (<div></div>)
+      }
+      {
+        type === "edit" ?
+          (
+            <Container className='meetup-container'>
+              <div className='title'>모임 수정</div>
+              <Form className="meetup-form" onSubmit={submitMeeting}>
+                <Row className="meetup-user-info">
+                  <Col className="meetup-user-info-img" md={2} xs={2}>
+                    <img src={user.profileImage} />
+                  </Col>
+                  <Col md={10} xs={10}>
+                    <div className="meetup-user-info-name">{user.userName}</div>
+                    <div className="meetup-user-info-des">{user.description}</div>
+                  </Col>
+                </Row>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">모임 이름</Form.Label>
+                  <Form.Control
+                    id="title"
+                    className="form-input"
+                    type="text"
+                    placeholder="모임 이름을 입력해주세요"
+                    onChange={(event) => handleChange(event)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">내용</Form.Label>
+                  <Form.Control
+                    id='description'
+                    className="form-input"
+                    as="textarea"
+                    type="text"
+                    rows={3}
+                    placeholder="모임 내용을 입력해주세요
+            ex)1주일 1번 노드JS 스터디 함께 해요!"
+                    onChange={(event) => handleChange(event)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
+                  <div className='meetup-thumbnail'>
+                    <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
+                    {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
+                  </div>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">카테고리</Form.Label>
+                  <Form.Select
+                    id="category"
+                    value={formData?.category || ""}
+                    onChange={(event) => handleChange(event)}
+                    required
+                  >
+                    <option value="" disabled hidden>카테고리 선택</option>
+                    <option value="독서">독서</option>
+                    <option value="강의">강의</option>
+                    <option value="프로젝트">프로젝트</option>
+                    <option value="기타 스터디">기타 스터디</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">날짜</Form.Label>
+                  <DatePicker
+                    id="meet-date"
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    dateFormat="yyyy-MM-dd"
+                    minDate={new Date()}
+                    placeholderText='날짜를 선택해주세요'
+                    required
+                  />
+                  {selectedDate &&
+                    (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
+                  <div></div>
+                  <Form.Label className="form-label">시간</Form.Label>
+                  <DatePicker
+                    id="meet-time"
+                    selected={selectedTime}
+                    onChange={handleTimeChange}
+                    dateFormat="HH:mm"
+                    showTimeSelect
+                    showTimeSelectOnly
+                    placeholderText='시간을 선택해주세요'
+                    required
+                  />
+                  {selectedTime &&
+                    (<div>선택된 시간 : {selectedTime.toLocaleTimeString()}</div>)}
+                  <div></div>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">위치</Form.Label>
+                  <Form.Check
+                    type="switch"
+                    id="custom-switch"
+                    checked={isOffline}
+                    onChange={handleToggle}
+                    label="오프라인으로 진행하면 눌러주세요"
+                  />
+                  <div>내 선택 : {isOffline ? (<span>오프라인</span>) : (<span>온라인</span>)}</div>
+                  {
+                    isOffline &&
+                    (
+                      <>
+                        <Form.Control
+                          className="form-input-disabled"
+                          type="text"
+                          placeholder="우편번호"
+                          value={zipcode}
+                          disabled
+                        />
+                        <Form.Control
+                          className="form-input-disabled"
+                          type="text"
+                          placeholder="기본 주소"
+                          value={address}
+                          disabled
+                        />
+                        <Form.Control
+                          value={detailAddress}
+                          className="form-input"
+                          type="text"
+                          placeholder="상세 주소"
+                          onChange={(event) => setDetailAddress(event.target.value)}
+                          required
+                        />
+                      </>
+                    )
+                  }
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label className="form-label">모집 인원</Form.Label>
+                  <Form.Control
+                    id="maxParticipants"
+                    value={formData?.maxParticipants}
+                    type="number"
+                    placeholder="인원 수"
+                    className="form-input"
+                    min={2}
+                    max={10}
+                    onChange={(event) => handleChange(event)}
+                  />
+                </Form.Group>
+
+                <Button className="green-btn" type="submit">등록</Button>
+              </Form>
+            </Container >
+          )
+          :
+          (<div></div>)
+      }
     </>
   )
 }
