@@ -64,7 +64,7 @@
 }
 
 .home-meet-up-card>.img {
-    height: 65%;
+    height: 200px;
 }
 
 .home-meet-up-card>.img>img {
@@ -85,6 +85,9 @@
     font-size: 20px;
     font-weight: 600;
     transition: all 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .home-meet-up-card>.contents>.schedule {
@@ -100,7 +103,8 @@
     background-color: #fff;
     cursor: pointer;
 }
-.home-post-card:hover > .contents > .title {
+
+.home-post-card:hover>.contents>.title {
     color: #28A745;
 }
 
@@ -130,6 +134,7 @@
 .home-post-card>.contents>.title {
     transition: all 0.2s ease;
 }
+
 .home-post-card>.contents>.title>p {
     font-size: 30px;
     font-weight: 500;
@@ -178,12 +183,27 @@
 }
 
 @media screen and (max-width: 768px) {
-    .home > .main-title { font-size: 36px; gap: 10px; }
-    .home > .sub-title { font-size: 16px; }
+    .home>.main-title {
+        font-size: 36px;
+        gap: 10px;
+    }
+
+    .home>.sub-title {
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 540px) {
-    .home { gap: 30px; }
-    .home > .main-title { font-size: 24px; gap: 6px; }
-    .home > .sub-title { font-size: 14px; }
+    .home {
+        gap: 30px;
+    }
+
+    .home>.main-title {
+        font-size: 24px;
+        gap: 6px;
+    }
+
+    .home>.sub-title {
+        font-size: 14px;
+    }
 }
