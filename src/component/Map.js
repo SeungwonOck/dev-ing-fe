@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 const Map = ({ location }) => {
     useEffect(() => {
+        const container = document.getElementById('map');
         const { kakao } = window;
         const geocoder = new kakao.maps.services.Geocoder();
 
@@ -30,8 +31,6 @@ const Map = ({ location }) => {
                     content: `<div style="width:150px;text-align:center;padding:6px 0;">${addressList[0].buildingName}</div>`
                 });
 
-
-                const container = document.getElementById('map');
                 const map = new kakao.maps.Map(container, options);
                 marker.setMap(map);
                 infowindow.open(map, marker);
