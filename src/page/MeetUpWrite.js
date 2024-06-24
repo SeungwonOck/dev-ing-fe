@@ -5,7 +5,7 @@ import "../style/meetUpWrite.style.css";
 import CloudinaryUploadWidget from '../utils/CloudinaryUploadWidget';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { meetUpActions } from '../action/meetUpAction';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -25,7 +25,10 @@ const MeetUpWrite = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
-  console.log("MeetUpWrite selectedMeetUp", selectedMeetUp);
+  // selectedMeetUp의 date를 다시 Date 객체로
+  const dateString = selectedMeetUp.date.date + " " + selectedMeetUp.date.time;
+  const dateObject = parse(dateString, 'yyyy.MM.dd HH:mm:ss', new Date());
+
   const [query, setQuery] = useSearchParams();
   const [type, setType] = useState(query.get("type"));
   const open = useDaumPostcodePopup();
@@ -34,8 +37,8 @@ const MeetUpWrite = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const [selectedEditDate, setSelectedEditDate] = useState(type === "edit" ? selectedMeetUp?.date : "");
-  const [selectedEditTime, setSelectedEditTime] = useState(type === "edit" ? selectedMeetUp?.date : "");
+  const [selectedEditDate, setSelectedEditDate] = useState(dateObject);
+  const [selectedEditTime, setSelectedEditTime] = useState(dateObject);
   const [zipcode, setZipCode] = useState("");
   const [address, setAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")")[0].trim() + ')') : "online");
   const [detailAddress, setDetailAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")").slice(1).join(')').trim()) : "");
@@ -45,15 +48,20 @@ const MeetUpWrite = () => {
   const [editFormData, setEditFormData] = useState(selectedMeetUp ? {
     title: selectedMeetUp.title,
     description: selectedMeetUp.description,
-    date: selectedMeetUp.date,
+    date: dateObject,
     category: selectedMeetUp.category,
     image: selectedMeetUp.image,
     maxParticipants: selectedMeetUp.maxParticipants,
     location: selectedMeetUp.location,
   } : null);
+  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date);
+  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.time)
+  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date + selectedMeetUp.date.time);
+  // console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date);
+  // console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.time);
   console.log("MeetUpWrite selectedMeetUp type date", typeof selectedMeetUp.date);
-  console.log("MeetUpWrite selectedMeetUp type selectedEditDate", typeof selectedEditDate);
-  console.log("MeetUpWrite selectedMeetUp type date", typeof selectedEditTime);
+  // console.log("MeetUpWrite selectedMeetUp type selectedEditDate", typeof selectedEditDate);
+  // console.log("MeetUpWrite selectedMeetUp type date", typeof selectedEditTime);
 
   useEffect(() => {
     if (!user) {
@@ -453,20 +461,20 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">날짜</Form.Label>
                     <DatePicker
                       id="meet-date"
-                      selected={selectedDate}
+                      selected={selectedEditDate}
                       onChange={handleDateChange}
                       dateFormat="yyyy-MM-dd"
                       minDate={new Date()}
                       placeholderText='날짜를 선택해주세요'
                       required
                     />
-                    {selectedDate &&
-                      (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
+                    {selectedEditDate &&
+                      (<div>선택된 날짜 : {selectedEditDate.toLocaleDateString()}</div>)}
                     <div></div>
                     <Form.Label className="form-label">시간</Form.Label>
                     <DatePicker
                       id="meet-time"
-                      selected={selectedTime}
+                      selected={selectedEditTime}
                       onChange={handleTimeChange}
                       dateFormat="HH:mm"
                       showTimeSelect
@@ -474,8 +482,8 @@ const MeetUpWrite = () => {
                       placeholderText='시간을 선택해주세요'
                       required
                     />
-                    {selectedTime &&
-                      (<div>선택된 시간 : {selectedTime.toLocaleTimeString()}</div>)}
+                    {selectedEditTime &&
+                      (<div>선택된 시간 : {selectedEditTime.toLocaleTimeString()}</div>)}
                     <div></div>
                   </Form.Group>
                   <Form.Group className="mb-3">
