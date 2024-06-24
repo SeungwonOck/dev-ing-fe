@@ -4,6 +4,7 @@ import postReducer from "./postReducer";
 import meetUpReducer from "./meetUpReducer";
 import qnaReducer from "./qnaReducer";
 import commonUiReducer from "./commonUIReducer";
+import homeReducer from "./homeReducer";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     post: postReducer,
     meetUp: meetUpReducer,
     qna: qnaReducer,
+    home: homeReducer,
     ui: commonUiReducer,
   },
 });
