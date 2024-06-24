@@ -133,6 +133,12 @@ const PostWrite = () => {
     setTagsTemp(filteredTags)
   }
 
+  const errorController = (error) => {
+    if(error) {
+      dispatch(commonUiActions.showToastMessage('이미지 등록에 실패하였습니다. 다른 이미지로 시도해주세요.', 'error'))
+    }
+  }
+
   if(loading && !selectedPost) 
     return (
       <div className='loading'>
@@ -157,7 +163,7 @@ const PostWrite = () => {
 
             <div>
               <strong className='small-btn'>본문에 사진 추가 </strong>
-              <CloudinaryUploadWidgetForWrite uploadContentImage={uploadContentImage} />
+              <CloudinaryUploadWidgetForWrite uploadContentImage={uploadContentImage} errorController={errorController}/>
             </div>
 
             <div data-color-mode='light' className='editor'>
@@ -186,7 +192,7 @@ const PostWrite = () => {
             <div className="thumbnail-img display-center-center gap-10">
                 <div className='display-center-center'>
                   <strong>썸네일</strong>
-                  <CloudinaryUploadWidget uploadImage={uploadImage} />
+                  <CloudinaryUploadWidget uploadImage={uploadImage} errorController={errorController}/>
                 </div>
                 <div className='img'>
                   <img id="uploadedimage" src={formData.image || noImg} alt=""/>

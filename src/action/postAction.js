@@ -3,7 +3,6 @@ import * as types from "../constants/post.constants";
 import { commonUiActions } from "./commonUiAction";
 
 const getPostList = (searchQuery) => async (dispatch) => {
-    console.log(searchQuery)
     try {
         dispatch({type: types.POST_GET_REQUEST})
         const res = await api.get(`/post/all`, {
@@ -110,13 +109,28 @@ const addLike = (id) => async (dispatch) => {
         if(res.status !== 200) {
             throw new Error('좋아요에 실패하였습니다.')
         } else {
-            console.log(res)
             dispatch({type: types.ADD_LIKE_ON_POST_SUCCESS});
             dispatch(getPostList());
             dispatch(getPostDetail(id));
         }
     } catch (error) {
         dispatch({type: types.ADD_LIKE_ON_POST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+const addScrap = (postId, isPrivate) => async (dispatch) => {
+    try {
+        dispatch({type: types.ADD_SCRAP_REQUEST});
+        const res = await api.post(`/post/scrap`, { postId, isPrivate });
+        if(res.status !== 200) {
+            throw new Error('스크랩에 실패하였습니다.')
+        } else {
+            dispatch({type: types.ADD_SCRAP_SUCCESS});
+            dispatch(commonUiActions.showToastMessage("MY DEV에 스크랩되었습니다.", "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.ADD_SCRAP_FAIL, payload: error.message})
         dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 }
@@ -129,5 +143,6 @@ export const postActions = {
   updatePost,
   getPostDetail,
   createComment,
-  addLike
+  addLike,
+  addScrap
 };

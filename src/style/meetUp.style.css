@@ -6,3 +6,7 @@
     flex-wrap: wrap;
     padding-top: 30px;
 }
+
+.meet-up-container .meet-up-card > .contents {
+    gap: 6px;
+}

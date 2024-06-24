@@ -2,20 +2,27 @@
     width: 100%;
 }
 .post-detail-card > .title { width: 100%; padding: 20px 0; font-size: 30px; font-weight: 500; border-bottom: 1px solid #eee; }
-.post-detail-card > div { display: flex; justify-content: space-between; align-items: center; }
-.post-detail-card > div > .author { display: flex; align-items: center; width: 100%; padding: 20px 0; }
-.post-detail-card > div > .author > .img { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; margin-right: 10px; border: 1px solid #ddd; }
-.post-detail-card > div > .author > .img > img { width: 100%; height: 100%; object-fit: cover; }
-.post-detail-card > div > .author > .user-name { font-size: 16px; cursor: pointer;}
-.post-detail-card > div > .dropdown > button { border: none; font-size: 18px; color: #929292; }
-.post-detail-card > div > .dropdown > button::after { display: none; }
+.post-detail-card > div:nth-child(2) { display: flex; justify-content: space-between; align-items: center; }
+.post-detail-card > div:nth-child(2) > .author { display: flex; align-items: center; width: 100%; padding: 20px 0; }
+.post-detail-card > div:nth-child(2) > .author > .img { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; border: 1px solid #ddd; }
+.post-detail-card > div:nth-child(2) > .author > .img > img { width: 100%; height: 100%; object-fit: cover; }
+.post-detail-card > div:nth-child(2) > .author > .user-name { font-size: 16px; margin: 0px 10px; cursor: pointer; }
+.post-detail-card > div:nth-child(2) > .dropdown > button { border: none; font-size: 18px; color: #929292; }
+.post-detail-card > div:nth-child(2) > .dropdown > button::after { display: none; }
 .post-detail-card > .contents { border-bottom: 1px solid #eee; }
 
-.contents-footer { display: flex; justify-content: space-between; align-items: center; background-color: aliceblue; padding: 10px 10px 10px 16px; }
-.contents-footer > .like-comment-num { display: flex; gap: 20px; font-size: 18px; }
-.contents-footer > .like-comment-num > .like { cursor: pointer; }
+.contents-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 10px 10px 16px; }
+.contents-footer > .like-comment-num { display: flex; align-items: center; gap: 10px; font-size: 18px; }
+.contents-footer > .like-comment-num .like { display: flex; align-items: center; cursor: pointer; gap: 4px; }
+.contents-footer > .like-comment-num .light-btn:nth-child(1) { padding: 0px 0px 0px 8px; }
+.contents-footer > .like-comment-num .light-btn:nth-child(2) { gap: 4px; }
+.contents-footer > .like-comment-num .light-btn:nth-child(3) { gap: 4px; cursor: default; }
+.contents-footer > .like-comment-num .light-btn:nth-child(3):hover { background-color: initial; }
+.contents-footer > .like-comment-num .dropdown .dropdown-toggle { padding: 4px 10px 4px 8px !important; border: none; }
+.contents-footer > .like-comment-num .dropdown .dropdown-toggle::after { font-size: 14px !important; }
+.contents-footer > .like-comment-num .dropdown .dropdown-item { display: flex; gap: 10px; align-items: center; }
 
-.tags { padding: 10px 0; }
+.tags { padding: 10px; display: block; }
 .tags > .tag {
     display: inline-block;
     color: cornflowerblue;

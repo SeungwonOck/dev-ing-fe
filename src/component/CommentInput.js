@@ -20,7 +20,7 @@ const CommentInput = () => {
         <div className='comment-input'>
             <div className='header'>
                 <div className='img'><img src={user?.profileImage} alt=''/></div>
-                <div>{user?.userName}</div>
+                <div>{user?.nickName}</div>
             </div>
             <Form className='body' onSubmit={createComment}>
                 <Form.Group controlId="comment">
