@@ -1,11 +1,9 @@
 
 import React, { useEffect } from 'react';
-import { useState } from 'react';
-
-const { kakao } = window;
 
 const Map = ({ location }) => {
     useEffect(() => {
+        const { kakao } = window;
         const geocoder = new kakao.maps.services.Geocoder();
 
         geocoder.addressSearch(location, (result, status) => {
