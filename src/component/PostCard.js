@@ -57,7 +57,7 @@ const PostCard = ({ post }) => {
           <div className='author'>
             <span className='img'><img src={post.author.profileImage} alt=''/></span>
             <span className='user-name'>{post.author.nickName}</span>
-            <span className='date small-text'>{post.createAt}</span>
+            <span className='date small-text'>{post.createAt.date} {post.createAt.time}</span>
           </div>
         </div>
         <div className='thumbnail'>
