@@ -14,6 +14,7 @@ const MeetUpDetail = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
+  console.log(selectedMeetUp);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
@@ -119,9 +120,14 @@ const MeetUpDetail = () => {
             (<></>)
             :
             (
-              <div className='meetup-btn-container'>
-                <button className='white-btn' onClick={joinMeetUp}>참여하기</button>
-              </div>
+              (selectedMeetUp?.participants.length === selectedMeetUp?.maxParticipants) ?
+                (<div className='meetup-btn-container'>
+                  <button className='white-btn-disabled' disabled="true" >모집 마감</button>
+                </div>)
+                :
+                (<div className='meetup-btn-container'>
+                  <button className='white-btn' onClick={joinMeetUp}>참여하기</button>
+                </div>)
             )
           }
 
