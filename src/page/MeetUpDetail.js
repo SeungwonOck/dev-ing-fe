@@ -122,7 +122,7 @@ const MeetUpDetail = () => {
             (
               (selectedMeetUp?.participants.length === selectedMeetUp?.maxParticipants) ?
                 (<div className='meetup-btn-container'>
-                  <button className='white-btn' disabled="true" >모집 마감</button>
+                  <button className='white-btn-disabled' disabled="true" >모집 마감</button>
                 </div>)
                 :
                 (<div className='meetup-btn-container'>
