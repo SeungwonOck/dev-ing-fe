@@ -44,6 +44,7 @@ const MeetUpWrite = () => {
   const [detailAddress, setDetailAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")").slice(1).join(')').trim()) : "");
   const [isOffline, setIsOffline] = useState(type === "edit" ? (selectedMeetUp.location === "online" ? false : true) : false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageError, setImageError] = useState("");
   //selectedMeetUp 있으면 그 내용으로 채우고 없으면 null
   const [editFormData, setEditFormData] = useState(selectedMeetUp ? {
     title: selectedMeetUp.title,
@@ -188,6 +189,11 @@ const MeetUpWrite = () => {
     }
   };
 
+  const errorController = (error) => {
+    console.log(error);
+    setImageError("이미지 등록에 실패했습니다.");
+  }
+
   return (
     <>
 
@@ -257,8 +263,9 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
                     <div className='meetup-thumbnail'>
                       <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
-                      {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
+                      {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} errorController={errorController} />
                     </div>
+                    <div className='img-error-text'>{imageError}</div>
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">카테고리</Form.Label>
@@ -378,8 +385,7 @@ const MeetUpWrite = () => {
                   <div>모임 이름 : {editFormData?.title}</div>
                   <div>내용 : {editFormData?.description}</div>
                   <div>카테고리 : {editFormData?.category}</div>
-                  <div>날짜 : {editFormData?.date}</div>
-                  {/* <div>날짜 : {editFormData?.date && format(editFormData?.date, "yyyy/MM/dd HH:mm")}</div> */}
+                  <div>날짜 : {editFormData?.date && format(editFormData?.date, "yyyy/MM/dd HH:mm")}</div>
                   <div>위치 : {editFormData?.location === "online" ? (<span>온라인</span>) : (<span>{editFormData?.location}</span>)}</div>
                   <div>참가인원 : {editFormData?.maxParticipants}</div>
                 </Modal.Body>
@@ -435,8 +441,9 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">대표 이미지 업로드</Form.Label>
                     <div className='meetup-thumbnail'>
                       <img id="uploadedimage" src={editFormData.image} alt="uploadedimage" />
-                      {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} />
+                      {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} errorController={errorController} />
                     </div>
+                    <div className='img-error-text'>{imageError}</div>
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">카테고리</Form.Label>
