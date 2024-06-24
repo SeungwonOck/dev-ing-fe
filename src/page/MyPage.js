@@ -89,6 +89,15 @@ const MyPage = () => {
         <Nav.Item>
           <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(3)} eventKey="scrap">Scrap</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(4)} eventKey="myLikes">My Likes</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(5)} eventKey="myComments">My Comments</Nav.Link>
+        </Nav.Item>
       </Nav>
       <TabContent tab={tab} uniqueUserPost={uniqueUserPost} />
     </div>
