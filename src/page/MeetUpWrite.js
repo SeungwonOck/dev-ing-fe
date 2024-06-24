@@ -41,8 +41,8 @@ const MeetUpWrite = () => {
   const [selectedEditDate, setSelectedEditDate] = useState(dateObject);
   const [selectedEditTime, setSelectedEditTime] = useState(dateObject);
   const [zipcode, setZipCode] = useState("");
-  const [address, setAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")")[0].trim() + ')') : "online");
-  const [detailAddress, setDetailAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")").slice(1).join(')').trim()) : "");
+  const [address, setAddress] = useState(type === "edit" ? (selectedMeetUp.location === "online" ? "online" : selectedMeetUp.location.split(";")[0].trim()) : "online");
+  const [detailAddress, setDetailAddress] = useState(type === "edit" ? (selectedMeetUp.location === "online" ? "" : selectedMeetUp.location.split(";").slice(1).join('').trim()) : "");
   const [isOffline, setIsOffline] = useState(type === "edit" ? (selectedMeetUp.location === "online" ? false : true) : false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   //selectedMeetUp 있으면 그 내용으로 채우고 없으면 null
@@ -70,7 +70,7 @@ const MeetUpWrite = () => {
         setFormData({ ...formData, location: "online" });
       }
       else {
-        setFormData({ ...formData, location: address + " " + detailAddress });
+        setFormData({ ...formData, location: address + ";" + detailAddress });
       }
     }
     else if (type === "edit") {
@@ -78,7 +78,7 @@ const MeetUpWrite = () => {
         setEditFormData({ ...editFormData, location: "online" });
       }
       else {
-        setEditFormData({ ...editFormData, location: address + " " + detailAddress });
+        setEditFormData({ ...editFormData, location: address + ";" + detailAddress });
       }
     }
 
