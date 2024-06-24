@@ -98,7 +98,7 @@ const MeetUpDetail = () => {
                     <Accordion.Header>멤버 보기({selectedMeetUp?.currentParticipants})</Accordion.Header>
                     <Accordion.Body>
                       {selectedMeetUp?.participants.map((participant, index) => (
-                        <MeetUpMemberProfile key={selectedMeetUp._id} participant={participant} />
+                        <MeetUpMemberProfile key={index} participant={participant} />
                       ))}
                     </Accordion.Body>
                   </Accordion.Item>
