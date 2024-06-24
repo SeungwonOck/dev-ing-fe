@@ -203,7 +203,7 @@ const PostDetail = () => {
                     <div className='author'>
                         <span className='img'><img src={selectedPost?.author.profileImage} alt=''/></span>
                         <span className='user-name' onClick={() => navigate(`/me/${selectedPost?.author.nickName}`)}>{selectedPost?.author.nickName}</span>
-                        <span className='small-text'>{selectedPost?.createAt}</span>
+                        <span className='small-text'>{selectedPost?.createAt.date} {selectedPost?.createAt.time}</span>
                     </div>
 
                     {isMyPost ? 

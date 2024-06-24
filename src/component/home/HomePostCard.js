@@ -1,5 +1,5 @@
 import React from 'react';
-import thumbnail from '../../asset/img/post-img-01.jpg'
+import noImg from '../../asset/img/no-image.png'
 import { useNavigate } from 'react-router-dom';
 
 const HomePostCard = ({ post }) => {
@@ -10,7 +10,7 @@ const HomePostCard = ({ post }) => {
   }
   return (
     <div className='home-post-card' onClick={() => showPostDetail(post._id)}>
-        <div className='img'><img src={thumbnail} alt=''/></div>
+        <div className='img'><img src={post.image || noImg} alt=''/></div>
         <div className='contents'>
           <div className='small-text'>
             <span className='like'>좋아요 <span className='coral'>{post.likes}</span></span>
