@@ -236,7 +236,7 @@ const MeetUpWrite = () => {
                     </Col>
                   </Row>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">모임 이름</Form.Label>
+                    <Form.Label className="form-label">모임 이름<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id="title"
                       className="form-input"
@@ -247,7 +247,7 @@ const MeetUpWrite = () => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">내용</Form.Label>
+                    <Form.Label className="form-label">내용<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id='description'
                       className="form-input"
@@ -268,7 +268,7 @@ const MeetUpWrite = () => {
                     </div>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">카테고리</Form.Label>
+                    <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
                       defaultValue={formData?.category || ""}
@@ -283,7 +283,7 @@ const MeetUpWrite = () => {
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">날짜</Form.Label>
+                    <Form.Label className="form-label">날짜<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-date"
                       selected={selectedDate}
@@ -296,7 +296,7 @@ const MeetUpWrite = () => {
                     {selectedDate &&
                       (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
                     <div></div>
-                    <Form.Label className="form-label">시간</Form.Label>
+                    <Form.Label className="form-label">시간<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-time"
                       selected={selectedTime}
@@ -312,7 +312,7 @@ const MeetUpWrite = () => {
                     <div></div>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">위치</Form.Label>
+                    <Form.Label className="form-label">위치<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Check
                       type="switch"
                       id="custom-switch"
@@ -352,7 +352,7 @@ const MeetUpWrite = () => {
                     }
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">모집 인원</Form.Label>
+                    <Form.Label className="form-label">모집 인원<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id="maxParticipants"
                       value={formData?.maxParticipants}
@@ -411,7 +411,7 @@ const MeetUpWrite = () => {
                     </Col>
                   </Row>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">모임 이름</Form.Label>
+                    <Form.Label className="form-label">모임 이름<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id="title"
                       className="form-input"
@@ -423,7 +423,7 @@ const MeetUpWrite = () => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">내용</Form.Label>
+                    <Form.Label className="form-label">내용<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id='description'
                       className="form-input"
@@ -445,7 +445,7 @@ const MeetUpWrite = () => {
                     </div>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">카테고리</Form.Label>
+                    <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
                       value={editFormData?.category || ""}
@@ -460,7 +460,7 @@ const MeetUpWrite = () => {
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">날짜</Form.Label>
+                    <Form.Label className="form-label">날짜<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-date"
                       selected={selectedEditDate}
@@ -473,7 +473,7 @@ const MeetUpWrite = () => {
                     {selectedEditDate &&
                       (<div>선택된 날짜 : {selectedEditDate.toLocaleDateString()}</div>)}
                     <div></div>
-                    <Form.Label className="form-label">시간</Form.Label>
+                    <Form.Label className="form-label">시간<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-time"
                       selected={selectedEditTime}
@@ -489,7 +489,7 @@ const MeetUpWrite = () => {
                     <div></div>
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">위치</Form.Label>
+                    <Form.Label className="form-label">위치<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Check
                       type="switch"
                       id="custom-switch"
@@ -532,7 +532,7 @@ const MeetUpWrite = () => {
                     }
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label className="form-label">모집 인원</Form.Label>
+                    <Form.Label className="form-label">모집 인원<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id="maxParticipants"
                       value={editFormData?.maxParticipants}
@@ -545,7 +545,7 @@ const MeetUpWrite = () => {
                     />
                   </Form.Group>
 
-                  <Button className="green-btn" type="submit">등록</Button>
+                  <Button className="green-btn" type="submit">수정</Button>
                 </Form>
               </Container >
             </>
