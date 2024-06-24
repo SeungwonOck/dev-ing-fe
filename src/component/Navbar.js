@@ -110,7 +110,7 @@ const Navbar = ({ user }) => {
             <Dropdown>
               <Dropdown.Toggle className="profile-dropdown">
                 <div className="img"><img width={25} src={user.profileImage}/></div>
-                <span>{user.userName}</span>
+                <span>{user.nickName}</span>
               </Dropdown.Toggle>
         
               <Dropdown.Menu>

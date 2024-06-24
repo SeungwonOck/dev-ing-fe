@@ -14,7 +14,7 @@ const getMeetUpList = (query) => async (dispatch) => {
         }
     } catch (error) {
         dispatch({ type: types.MEETUP_GET_FAIL, payload: error.message });
-        dispatch(commonUiActions.showToastMessage(error.message, "error"));
+        // dispatch(commonUiActions.showToastMessage(error.message, "error"));
     }
 };
 
@@ -22,7 +22,6 @@ const getMeetUpDetail = (id) => async (dispatch) => {
     try {
         dispatch({ type: types.GET_MEETUP_DETAIL_REQUEST });
         const res = await api.get(`/meetup/${id}`);
-        console.log(res)
         if (res.status !== 200) {
             throw new Error('모임 정보를 불러오는데 실패하였습니다.')
         } else {
@@ -44,7 +43,7 @@ const createMeetUp = (formData, navigate) => async (dispatch) => {
         } else {
             dispatch({ type: types.MEETUP_CREATE_SUCCESS, payload: res.data.data });;
             dispatch(commonUiActions.showToastMessage("새 모임이 등록되었습니다.", "success"));
-            navigate(`/post/${res.data.data.newMeetUp._id}`);
+            navigate(`/meetUp/${res.data.data.newMeetUp._id}`);
         }
     } catch (error) {
         dispatch({ type: types.MEETUP_CREATE_FAIL, payload: error.message });
@@ -52,19 +51,38 @@ const createMeetUp = (formData, navigate) => async (dispatch) => {
     }
 };
 
-const deleteMeetUp = (id, searchQuery) => async (dispatch) => {
+const deleteMeetUp = (id, navigate) => async (dispatch) => {
     try {
+        dispatch({ type: types.MEETUP_DELETE_REQUEST });
+        const res = await api.delete(`/meetup/${id}`);
+        if (res.status !== 200) {
+            throw new Error('모임 삭제에 실패하였습니다.')
+        } else {
+            dispatch({ type: types.MEETUP_DELETE_SUCCESS });
+            dispatch(commonUiActions.showToastMessage("모임을 삭제하였습니다.", "success"));
+            navigate(`/meetup`);
+        }
 
     } catch (error) {
-
+        dispatch({ type: types.MEETUP_DELETE_FAIL, payload: error.message })
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 
-const updateMeetUp = (formData, id, searchQuery) => async (dispatch) => {
+const updateMeetUp = (formData, id, navigate) => async (dispatch) => {
     try {
-
+        dispatch({ type: types.MEETUP_EDIT_REQUEST });
+        const res = await api.put(`/meetup/${id}`, formData);
+        if (res.status !== 200) {
+            throw new Error('포스트 수정에 실패하였습니다.')
+        } else {
+            dispatch({ type: types.MEETUP_EDIT_SUCCESS })
+            dispatch(commonUiActions.showToastMessage("모임 정보가 수정되었습니다.", "success"))
+            navigate(`/meetUp/${id}`)
+        }
     } catch (error) {
-
+        dispatch({ type: types.MEETUP_EDIT_FAIL, payload: error.message })
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
     }
 };
 

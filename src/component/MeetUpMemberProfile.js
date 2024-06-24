@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../style/meetUpMemberProfile.style.css";
 
-const MeetUpMemberProfile = () => {
+const MeetUpMemberProfile = ({ participant }) => {
     return (
         <div className='meetup-member'>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXKPLmUQUTiNrAPO2BP9eLjv_iX3T8XAhNRw&usqp=CAU" alt='' />
-            <span>뽀로로</span>
+            <img src={participant?.profileImage} alt='' />
+            <span>{participant?.nickName}</span>
         </div>
     )
 }

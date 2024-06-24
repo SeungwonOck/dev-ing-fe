@@ -18,6 +18,7 @@ class CloudinaryUploadWidgetForWrite extends Component {
           console.log("Done! Here is the image info: ", result.info);
           this.props.uploadContentImage(result.info.secure_url);
         }
+        if (error) this.props.errorController(error)
       } //https://cloudinary.com/documentation/react_image_and_video_upload
     );
     document.getElementById("upload_content_img_widget").addEventListener(

@@ -10,7 +10,7 @@ const PostComment = ({ commentList, user }) => {
                     <div className='img'><img src={comment.author.profileImage} alt=''/></div>
                     <div className='header'>
                         <div className='left'>
-                            <div>{comment.author.userName}</div>
+                            <div>{comment.author.nickName}</div>
                             <div className='small-text'>|</div>
                             <div className='small-text'>{comment.createAt.date} {comment.createAt.time}</div>
                         </div>

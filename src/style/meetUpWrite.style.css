@@ -75,6 +75,11 @@
     object-fit: cover;
 }
 
+.img-error-text {
+    color: red;
+    font-weight: 500;
+}
+
 @media screen and (max-width: 600px) {
     .meetup-form>.mb-3>.form-label {
         width: 300px;

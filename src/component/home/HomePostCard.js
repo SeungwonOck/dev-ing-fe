@@ -15,14 +15,14 @@ const HomePostCard = ({ post }) => {
           <div className='small-text'>
             <span className='like'>좋아요 <span className='coral'>{post.likes}</span></span>
             <span className='comments'>댓글 <span className='green'>{post.commentCount}</span></span>
-            <span className='scrap'>스크랩 <span className='coral'>{post.scrap}</span></span>
+            <span className='scrap'>스크랩 <span className='blue'>{post.scrapCount}</span></span>
           </div>
           <div className='title'>
             <p>{post.title}</p>
           </div>
           <div className='author'>
             <div>{post.pageName}</div>
-            <div className='small-text'>by {post.author.userName}</div>
+            <div className='small-text'>by {post.author.nickName}</div>
           </div>
         </div>
     </div>
