@@ -12,9 +12,13 @@ function meetUpReducer(state = initialState, action) {
     case types.MEETUP_CREATE_REQUEST:
     case types.MEETUP_GET_REQUEST:
     case types.GET_MEETUP_DETAIL_REQUEST:
+    case types.MEETUP_DELETE_REQUEST:
+    case types.MEETUP_EDIT_REQUEST:
       return { ...state, loading: true }
 
     case types.MEETUP_CREATE_SUCCESS:
+    case types.MEETUP_DELETE_SUCCESS:
+    case types.MEETUP_EDIT_SUCCESS:
       return { ...state, loading: false, error: '' }
 
     case types.MEETUP_GET_SUCCESS:
@@ -26,6 +30,8 @@ function meetUpReducer(state = initialState, action) {
     case types.MEETUP_CREATE_FAIL:
     case types.MEETUP_GET_FAIL:
     case types.GET_MEETUP_DETAIL_FAIL:
+    case types.MEETUP_DELETE_FAIL:
+    case types.MEETUP_EDIT_FAIL:
       return { ...state, loading: false, error: payload }
 
     default:
