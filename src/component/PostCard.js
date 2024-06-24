@@ -44,6 +44,7 @@ const PostCard = ({ post }) => {
         </span>
         <span>좋아요 <span className='coral'>{post.likes}</span></span>
         <span>댓글 <span className='green'>{post.commentCount}</span></span>
+        <span>스크랩 <span className='blue'>{post.scrapCount}</span></span>
       </div>
       <div className='contents' onClick={() => showPostDetail(post._id)}>
         <div className='info'>
@@ -55,7 +56,7 @@ const PostCard = ({ post }) => {
           </div>
           <div className='author'>
             <span className='img'><img src={post.author.profileImage} alt=''/></span>
-            <span className='user-name'>{post.author.userName}</span>
+            <span className='user-name'>{post.author.nickName}</span>
             <span className='date small-text'>{post.createAt}</span>
           </div>
         </div>

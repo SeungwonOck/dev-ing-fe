@@ -4,7 +4,7 @@ import '../style/postDetail.style.css';
 import PostComment from '../component/PostComment';
 import CommnetInput from '../component/CommentInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faHeart as fullHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBookBookmark, faEllipsisVertical, faHeart as fullHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as emptyHeart } from '@fortawesome/free-regular-svg-icons';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,23 +37,22 @@ const PostDetail = () => {
     const navigate = useNavigate();
     const { selectedPost, loading } = useSelector((state) => state.post);
     const { user } = useSelector((state) => state.user);
-    const [ showEditBtns, setShowEditBtns ] = useState(false);
+    const [ isMyPost, setIsMyPost ] = useState(false);
     const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false);
     const [ isUserLikedPost, setIsUserLikedPost ] = useState(false);
     const [ isReportModalOpen, setIsReportModalOpen ] = useState(false);
+    const [ isScrapModalOpen, setIsScrapModalOpen ] = useState(false);
+    const [ isScrapPrivate, setIsScrapPrivate ] = useState(false);
     const [ checkboxStates, setCheckboxStates ] = useState(initialCheckboxStates);
+    const [ showComments, isShowComments ] = useState(false);
 
     useEffect(()=>{
-        console.log(checkboxStates)
-    },[checkboxStates])
-
-    useEffect(()=>{
-        if(selectedPost && selectedPost.userLikes.includes(user._id)) {
+        if(selectedPost && selectedPost.userLikes.some(like => like._id === user._id)) {
           setIsUserLikedPost(true)
         } else {
           setIsUserLikedPost(false)
         }
-    },[selectedPost])
+    },[selectedPost, user._id])
 
     useEffect(()=>{
         dispatch(postActions.getPostDetail(id))
@@ -61,9 +60,9 @@ const PostDetail = () => {
 
     useEffect(()=>{
         if(selectedPost && user && selectedPost.author._id === user._id) {
-            setShowEditBtns(true)
+            setIsMyPost(true)
         } else {
-            setShowEditBtns(false)
+            setIsMyPost(false)
         }
     },[selectedPost, user])
 
@@ -80,17 +79,20 @@ const PostDetail = () => {
         // dispatch(postActions.deleteLike(id))
     }
 
-    const scrapPost = (id) => {
-        console.log(id)
+    const addScrap = () => {
+        dispatch(postActions.addScrap(selectedPost._id, isScrapPrivate))
+        setIsScrapModalOpen(false)
+        setIsScrapPrivate(false)
     }
+
     const sendReport = () => {
         const id = selectedPost._id;
         const reasons = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true);
         console.log(id, reasons)
     }
 
-    const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
+    const handleCheckboxChange = (e) => {
+        const { name, checked } = e.target;
         setCheckboxStates(prevState => ({
             ...prevState,
             [name]: checked
@@ -103,9 +105,41 @@ const PostDetail = () => {
                 <ClipLoader color="#28A745" loading={loading} size={100} />
             </div>
         )
-    
+        
     return (
         <>
+            {/* 스크랩모달 */}
+            <Modal show={isScrapModalOpen} onHide={() => { setIsScrapModalOpen(false); setIsScrapPrivate(false); }} dialogClassName='modal-dialog-centered' size='md'>
+                <Modal.Header closeButton>
+                  <h5 className="modal-title">MY DEV로 스크랩하기</h5>
+                </Modal.Header>
+                <Modal.Body>
+                  <div><strong>작성자</strong>: {selectedPost?.author.nickName}</div>
+                  <div><strong>글 제목</strong>: {selectedPost?.title}</div>
+                  <hr/>
+                  <div>
+                    <strong>비공개로 스크랩</strong><span className='small-text'> 선택하지 않을 경우, 공개로 스크랩됩니다.</span>
+                    <Form>
+                        <Form.Check // prettier-ignore
+                            type="switch"
+                            id="custom-switch"
+                            // label=""
+                            checked={isScrapPrivate}
+                            onChange={() => setIsScrapPrivate(prev => !prev)}
+                        />
+                    </Form>
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="light" onClick={() => { setIsScrapModalOpen(false); setIsScrapPrivate(false); }}>
+                    취소
+                  </Button>
+                  <Button variant="success" onClick={addScrap}>
+                    확인
+                  </Button>
+                </Modal.Footer>
+            </Modal>
+
             {/* 신고모달 */}
             <Modal show={isReportModalOpen} onHide={() => setIsReportModalOpen(false)} dialogClassName='modal-dialog-centered' size='md'>
                 <Modal.Header closeButton>
@@ -168,48 +202,98 @@ const PostDetail = () => {
                 <div>
                     <div className='author'>
                         <span className='img'><img src={selectedPost?.author.profileImage} alt=''/></span>
-                        <span className='user-name'>{selectedPost?.author.userName}</span>
+                        <span className='user-name' onClick={() => navigate(`/me/${selectedPost?.author.nickName}`)}>{selectedPost?.author.nickName}</span>
+                        <span className='small-text'>{selectedPost?.createAt}</span>
                     </div>
+
+                    {isMyPost ? 
                     <Dropdown>
                         <Dropdown.Toggle variant='none'>
                             <FontAwesomeIcon icon={faEllipsisVertical}/> 
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => scrapPost(selectedPost._id)}>스크랩하기</Dropdown.Item>
+                            <Dropdown.Item onClick={() => navigate(`/post/write?type=edit&id=${id}`)}>수정하기</Dropdown.Item>
+                            <Dropdown.Item onClick={() => setIsDeleteModalOpen(true)} variant='danger'>삭제하기</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown> : 
+
+                    <Dropdown>
+                        <Dropdown.Toggle variant='none'>
+                            <FontAwesomeIcon icon={faEllipsisVertical}/> 
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={() => setIsScrapModalOpen(true)}>스크랩하기</Dropdown.Item>
                             <Dropdown.Item onClick={() => setIsReportModalOpen(true)}>신고하기</Dropdown.Item>
                         </Dropdown.Menu>
-                    </Dropdown>
+                    </Dropdown>}
+                
                 </div>
                 <div className='contents' data-color-mode='light'>
                     <MarkdownEditor.Markdown style={{ padding: 10 }} source={selectedPost?.content} />
+                    <div className='tags'>
+                        {selectedPost?.tags.map((tag, index) => <span key={index} className='tag' onClick={() => navigate(`/post?tag=${tag}`)}>#{tag}</span>)}
+                    </div>
                 </div>
             </div>
 
-            <div className='tags'>
-                {selectedPost?.tags.map((tag, index) => <span key={index} className='tag' onClick={() => navigate(`/post?tag=${tag}`)}>#{tag}</span>)}
-            </div>
 
             <div className='contents-footer'>
                 <div className='like-comment-num'>
 
-                    {isUserLikedPost ? 
+                    <div className='display-flex light-btn small-btn'>
+                        {isUserLikedPost ? 
                         <div className='like' onClick={() => deleteLike(selectedPost._id)}>
-                            <FontAwesomeIcon icon={fullHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span>
-                        </div> :
+                            <FontAwesomeIcon icon={fullHeart} className='coral'/> 좋아요 
+                            <span className='coral'>{selectedPost?.likes}</span>
+                        </div> : 
                         <div className='like' onClick={() => addLike(selectedPost._id)}>
-                            <FontAwesomeIcon icon={emptyHeart} className='coral'/> 좋아요 <span className='coral'>{selectedPost?.likes}</span>
+                            <FontAwesomeIcon icon={emptyHeart} className='coral'/> 좋아요 
+                            <span className='coral'>{selectedPost?.likes}</span>
                         </div>}
+                        <Dropdown>
+                            <Dropdown.Toggle variant='none'>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {selectedPost?.userLikes.map((user) => 
+                                    <Dropdown.Item key={user._id} onClick={() => navigate(`/me/${user.nickName}`)}>
+                                        <div className='small-profile-img'>
+                                            <img src={user.profileImage} alt=''/>
+                                        </div>{user.nickName}
+                                    </Dropdown.Item>
+                                )}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
 
-                    <div><FontAwesomeIcon icon={faComments} className='green'/> 댓글 <span className='green'>{selectedPost?.commentCount}</span></div>
+                    <div className='display-flex light-btn small-btn' onClick={() => isShowComments(prev => !prev)}>
+                        <FontAwesomeIcon icon={faComments} className='green'/> 댓글 
+                        <span className='green'>{selectedPost?.commentCount}</span>
+                        <span className={`${showComments ? 'small-toggle-btn-active' : 'small-toggle-btn'}`}></span>
+                    </div>
+
+                    <div className='display-flex light-btn small-btn'>
+                        <FontAwesomeIcon icon={faBookBookmark} className='blue'/> 스크랩 
+                        <span className='blue'>{selectedPost?.scrapCount}</span>
+                    </div>
+
                 </div>
                 <div className='edit-delete-btns'>
-                    {showEditBtns ? <>
-                        <div className='white-btn small-btn' onClick={() => navigate(`/post/write?type=edit&id=${id}`)}>수정</div>
-                        <div className='coral-btn small-btn ml-1' onClick={() => setIsDeleteModalOpen(true)}>삭제</div>
-                    </> :''}
+                    {isMyPost ? (
+                        <>
+                            <div className='white-btn small-btn' onClick={() => navigate(`/post/write?type=edit&id=${id}`)}>수정</div>
+                            <div className='coral-btn small-btn ml-1' onClick={() => setIsDeleteModalOpen(true)}>삭제</div>
+                        </>
+                    ) : (
+                        <>
+                            <div className='blue-btn small-btn' onClick={() => setIsScrapModalOpen(true)}>스크랩</div>
+                            <div className='coral-btn small-btn ml-1' onClick={() => setIsReportModalOpen(true)}>신고</div>
+                        </>
+                    )}
                 </div>
             </div>
-            <PostComment commentList={selectedPost?.comments} user={user}/>
+            {showComments ? 
+                <PostComment commentList={selectedPost?.comments} user={user}/>
+            : ''}
             <CommnetInput/>
         </>
     )

@@ -97,7 +97,7 @@
 } 
 .write-form > .thumbnail-img > .img {
     width: 100px;
-    height: 100px;
+    height: 76px;
     border: 1px solid #ddd;
 }
 .write-form > .thumbnail-img > .img > img {

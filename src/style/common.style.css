@@ -124,7 +124,9 @@ body {
 
 .green-btn,
 .white-btn,
-.coral-btn {
+.coral-btn,
+.light-btn,
+.blue-btn {
     display: inline-block;
     padding: 6px 10px;
     border-radius: 8px;
@@ -161,12 +163,34 @@ body {
     font-size: 14px;
 }
 
+.light-btn {
+    background-color: #fff;
+    border: 1px solid #ddd !important;
+    color: #161616 !important;
+}
+.light-btn:hover {
+    background-color: #e6f5e9;
+}
+
+.blue-btn {
+    background-color: #fff;
+    border: 1px solid #00a2be !important;
+    color: #00a2be !important;
+}
+.blue-btn:hover {
+    background-color: #e5fafd;
+}
+
 .coral {
     color: #F24E1E;
 }
 
 .green {
     color: #28a745;
+}
+
+.blue {
+    color: #00a2be;
 }
 
 .small-text {
@@ -191,6 +215,7 @@ body {
 .contents-header-btns {
     display: flex;
     justify-content: end;
+    align-items: center;
     gap: 8px;
     height: 38px;
 }
@@ -203,6 +228,50 @@ body {
 }
 
 
+/* 댓글이나 글에 표시되는 유저 프로필사진 */
+.small-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+.small-profile-img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* 화살표 아이콘 (▼) */
+.small-toggle-btn {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+/* 화살표 아이콘 (▲) */
+.small-toggle-btn-active {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: 0;
+    border-bottom: .3em solid;
+    border-right: .3em solid transparent;
+    border-left: .3em solid transparent;
+}
+
+/* 팔로잉 토글 스위치 */
+.following-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 @media screen and (max-width: 768px) {
     .white-btn,

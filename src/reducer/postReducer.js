@@ -16,6 +16,7 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_REQUEST:
     case types.CREATE_POST_COMMENT_REQUEST:
     case types.ADD_LIKE_ON_POST_REQUEST:
+    case types.ADD_SCRAP_REQUEST:
         return {...state, loading: true}
 
     case types.POST_CREATE_SUCCESS:
@@ -23,6 +24,7 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_SUCCESS:
     case types.CREATE_POST_COMMENT_SUCCESS:
     case types.ADD_LIKE_ON_POST_SUCCESS:
+    case types.ADD_SCRAP_SUCCESS:
       return {...state, loading: false, error: ''}
       
     case types.GET_POST_DETAIL_SUCCESS:
@@ -38,6 +40,7 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_FAIL:
     case types.CREATE_POST_COMMENT_FAIL:
     case types.ADD_LIKE_ON_POST_FAIL:
+    case types.ADD_SCRAP_FAIL:
         return {...state, loading: false, error:payload}
 
     default:
