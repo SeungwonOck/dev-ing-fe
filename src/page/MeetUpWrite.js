@@ -54,14 +54,6 @@ const MeetUpWrite = () => {
     maxParticipants: selectedMeetUp.maxParticipants,
     location: selectedMeetUp.location,
   } : null);
-  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date);
-  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.time)
-  console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date + selectedMeetUp.date.time);
-  // console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.date);
-  // console.log("MeetUpWrite selectedMeetUp type date", selectedMeetUp.date.time);
-  console.log("MeetUpWrite selectedMeetUp type date", typeof selectedMeetUp.date);
-  // console.log("MeetUpWrite selectedMeetUp type selectedEditDate", typeof selectedEditDate);
-  // console.log("MeetUpWrite selectedMeetUp type date", typeof selectedEditTime);
 
   useEffect(() => {
     if (!user) {
@@ -95,7 +87,7 @@ const MeetUpWrite = () => {
 
   const addMeeting = (event) => {
     if (type === "new") {
-      console.log("addMeeting formData", formData);
+
       dispatch(meetUpActions.createMeetUp(formData, navigate));
     }
 
@@ -104,8 +96,7 @@ const MeetUpWrite = () => {
 
   const updateMeeting = (event) => {
     if (type === "edit") {
-      console.log("updateMeeting editFormData", editFormData);
-      // dispatch - update
+      dispatch(meetUpActions.updateMeetUp(editFormData, selectedMeetUp._id, navigate));
 
       setIsModalOpen(false);
     }
@@ -133,27 +124,32 @@ const MeetUpWrite = () => {
   }
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
-    if (date && selectedTime) {
-      if (type === "new") {
+    if (type === "new") {
+      setSelectedDate(date);
+      if (date && selectedTime) {
         setFormData({ ...formData, date: format(date, "yyyy-MM-dd'T'") + format(selectedTime, 'HH:mm:ss') });
       }
-      else if (type === "edit") {
-        setEditFormData({ ...editFormData, date: format(date, "yyyy-MM-dd'T'") + format(selectedTime, 'HH:mm:ss') });
+    }
+    else if (type === "edit") {
+      setSelectedEditDate(date);
+      if (date && selectedEditTime) {
+        setEditFormData({ ...editFormData, date: format(date, "yyyy-MM-dd'T'") + format(selectedEditTime, 'HH:mm:ss') });
       }
     }
   }
 
   const handleTimeChange = (time) => {
-    setSelectedTime(time);
-    if (selectedDate && time) {
-      if (type === "new") {
+    if (type === "new") {
+      setSelectedTime(time);
+      if (selectedDate && time) {
         setFormData({ ...formData, date: format(selectedDate, "yyyy-MM-dd'T'") + format(time, 'HH:mm:ss') });
       }
-      else if (type === "edit") {
-        setEditFormData({ ...editFormData, date: format(selectedDate, "yyyy-MM-dd'T'") + format(time, 'HH:mm:ss') });
+    }
+    else if (type === "edit") {
+      setSelectedEditTime(time);
+      if (selectedEditDate && time) {
+        setEditFormData({ ...editFormData, date: format(selectedEditDate, "yyyy-MM-dd'T'") + format(time, 'HH:mm:ss') });
       }
-
     }
   }
 
