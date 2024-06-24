@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { meetUpActions } from '../action/meetUpAction'
 import ClipLoader from 'react-spinners/ClipLoader'
 import ErrorCard from "../component/ErrorCard"
+import { commonUiActions } from '../action/commonUiAction'
 
 const MeetUp = () => {
   const dispatch = useDispatch();
@@ -22,16 +23,9 @@ const MeetUp = () => {
       </div>);
   }
 
-  if (error) {
-    return (
-      <>
-        <div className='contents-header-btns'>
-          <WriteBtn type='meetUp' />
-        </div>
-        <ErrorCard errorMessage={error} />
-      </>
-    )
-  }
+  // if (error) {
+  //   dispatch(commonUiActions.showToastMessage(error.message, "error"));
+  // }
 
   return (
     <div>
