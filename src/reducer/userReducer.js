@@ -6,6 +6,8 @@ const initialState = {
   userList: null,
   uniqueUser: null,
   uniqueUserPost: null,
+  following: [],
+  followers: [],
   followSuccess: false,
   unfollowSuccess: false,
 };
@@ -41,6 +43,8 @@ function userReducer(state = initialState, action) {
         error: "",
         uniqueUser: payload.uniqueUser,
         uniqueUserPost: payload.uniqueUserPost,
+        following: payload.following,
+        followers: payload.followers,
         followSuccess: false,
         unfollowSuccess: false,
       }

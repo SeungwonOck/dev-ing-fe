@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Nav } from 'react-bootstrap'
+import { Nav, Modal } from 'react-bootstrap'
 import PostTab from '../component/PostTab';
 import MeetUpTab from '../component/MeetUpTab';
 import QnaTab from '../component/QnaTab';
@@ -14,7 +14,10 @@ const MyPage = () => {
   const navigate = useNavigate();
   const { nickName } = useParams();
   const [tab, setTab] = useState(0);
-  const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost } = useSelector((state) => state.user);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
+
+  const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost, following, followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const MyPage = () => {
   useEffect(() => {
     if (followSuccess || unfollowSuccess) {
       dispatch(userActions.getUserByNickName(nickName));
+      dispatch(userActions.loginWithToken())
     }
   }, [followSuccess, unfollowSuccess, nickName, dispatch]);
 
@@ -38,6 +42,13 @@ const MyPage = () => {
   const handleUnfollow = () => {
     dispatch(userActions.unfollowUser(nickName))
   }
+
+  const handleShowModal = (type) => {
+    setModalType(type);
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => setShowModal(false);
 
   if (loading) {
     return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
@@ -66,13 +77,13 @@ const MyPage = () => {
             <p className="stacks">{uniqueUser.stacks.join(', ')}</p>
           </div>
           <div className="follow-info">
-            <div className="follow-item">
-              <p className="follow-label">Following</p>
-              <p className="follow-count">{uniqueUser.following ? uniqueUser.following.length : 0}</p>
-            </div>
-            <div className="follow-item">
+            <div className="follow-item" onClick={() => handleShowModal("followers")}>
               <p className="follow-label">Followers</p>
               <p className="follow-count">{uniqueUser.followers ? uniqueUser.followers.length : 0}</p>
+            </div>
+            <div className="follow-item" onClick={() => handleShowModal("following")}>
+              <p className="follow-label">Following</p>
+              <p className="follow-count">{uniqueUser.following ? uniqueUser.following.length : 0}</p>
             </div>
           </div>
         </div>
@@ -89,8 +100,63 @@ const MyPage = () => {
         <Nav.Item>
           <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(3)} eventKey="scrap">Scrap</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(4)} eventKey="myLikes">My Likes</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(5)} eventKey="myComments">My Comments</Nav.Link>
+        </Nav.Item>
       </Nav>
+
       <TabContent tab={tab} uniqueUserPost={uniqueUserPost} />
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {modalType === 'following' ? 'Following' : 'Followers'}
+            </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalType === 'following' ? (
+            following.map((user) => (
+              <div
+                key={user._id}
+                className='user-item'
+                onClick={() => {
+                  navigate(`/me/${user.nickName}`);
+                  handleCloseModal();
+                }
+                }>
+                <img src={user.profileImage} alt={user.nickName} className='user-profile-image' />
+                <div className='user-info'>
+                  <span className='user-nickName'>{user.nickName}</span>
+                  <span className='user-userName'>{user.userName}</span>
+                </div>
+              </div>
+            ))
+          ) : (
+            followers.map((user) => (
+              <div
+                key={user._id}
+                className='user-item'
+                onClick={() => {
+                  navigate(`/me/${user.nickName}`)
+                  handleCloseModal();
+                }
+                }>
+                <img src={user.profileImage} alt={user.nickName} className='user-profile-image' />
+                <div className='user-info'>
+                  <span className='user-nickName'>{user.nickName}</span>
+                  <span className='user-userName'>{user.userName}</span>
+                </div>
+              </div>
+            ))
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }

@@ -21,7 +21,7 @@ const AppLayout = ({ children }) => {
   return (
     <div>
       <ToastMessage />
-      {location.pathname.includes("admin") ? (
+      { !location.pathname.includes("me") && location.pathname.includes("admin") ? (
         <Row className="vh-100">
           <Col xs={12} md={3} className="sidebar mobile-sidebar">
             <Sidebar />
