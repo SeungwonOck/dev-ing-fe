@@ -198,8 +198,8 @@ body {
 
 .white-btn-disabled {
     background-color: #fff;
-    border: 1px solid #28a745 !important;
-    color: #28a745 !important;
+    border: 1px solid gray !important;
+    color: gray !important;
     cursor: default;
 }
 

@@ -87,6 +87,10 @@ const MeetUpWrite = () => {
 
   const addMeeting = (event) => {
     if (type === "new") {
+      // 만약 image가 빈 값이면 아예 image 속성 제거
+      if (formData.image === "") {
+        delete formData.image;
+      }
       dispatch(meetUpActions.createMeetUp(formData, navigate));
 
       setIsModalOpen(false);
