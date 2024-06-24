@@ -9,6 +9,7 @@ import { format, parse } from 'date-fns';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { meetUpActions } from '../action/meetUpAction';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { commonUiActions } from '../action/commonUiAction';
 
 const initialFormData = {
   title: '',
@@ -44,7 +45,6 @@ const MeetUpWrite = () => {
   const [detailAddress, setDetailAddress] = useState(type === "edit" ? (selectedMeetUp.location.split(")").slice(1).join(')').trim()) : "");
   const [isOffline, setIsOffline] = useState(type === "edit" ? (selectedMeetUp.location === "online" ? false : true) : false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imageError, setImageError] = useState("");
   //selectedMeetUp 있으면 그 내용으로 채우고 없으면 null
   const [editFormData, setEditFormData] = useState(selectedMeetUp ? {
     title: selectedMeetUp.title,
@@ -82,17 +82,15 @@ const MeetUpWrite = () => {
       }
     }
 
-
     setIsModalOpen(true);
   }
 
   const addMeeting = (event) => {
     if (type === "new") {
-
       dispatch(meetUpActions.createMeetUp(formData, navigate));
-    }
 
-    setIsModalOpen(false);
+      setIsModalOpen(false);
+    }
   }
 
   const updateMeeting = (event) => {
@@ -110,7 +108,6 @@ const MeetUpWrite = () => {
     else if (type === "edit") {
       setEditFormData({ ...editFormData, image: url });
     }
-
   }
 
   const handleChange = (event) => {
@@ -191,7 +188,7 @@ const MeetUpWrite = () => {
 
   const errorController = (error) => {
     console.log(error);
-    setImageError("이미지 등록에 실패했습니다.");
+    dispatch(commonUiActions.showToastMessage("이미지 등록에 실패했습니다.", "error"));
   }
 
   return (
@@ -265,7 +262,6 @@ const MeetUpWrite = () => {
                       <img id="uploadedimage" src={imageUrl || "https://cdn-icons-png.flaticon.com/128/1829/1829586.png"} alt="uploadedimage" />
                       {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} errorController={errorController} />
                     </div>
-                    <div className='img-error-text'>{imageError}</div>
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">카테고리</Form.Label>
@@ -443,7 +439,6 @@ const MeetUpWrite = () => {
                       <img id="uploadedimage" src={editFormData.image} alt="uploadedimage" />
                       {" "}<CloudinaryUploadWidget uploadImage={uploadedimage} errorController={errorController} />
                     </div>
-                    <div className='img-error-text'>{imageError}</div>
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">카테고리</Form.Label>
