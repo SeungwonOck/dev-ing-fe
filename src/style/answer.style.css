@@ -118,10 +118,14 @@
     width: 50px;
 }
 
-.answer .update-button {
+.answer > .update-button {
     cursor: pointer;
 }
 
-.answer .delete-button {
+.answer > .delete-button {
+    cursor: pointer;
+}
+
+.answer > .likes {
     cursor: pointer;
 }
