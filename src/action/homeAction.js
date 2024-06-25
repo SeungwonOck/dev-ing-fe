@@ -7,7 +7,6 @@ const getHomeData = () => async (dispatch) => {
     try {
         dispatch({ type: types.GET_HOME_DATA_REQUEST })
         const res = await api.get(`/home`);
-        console.log(res)
         if (res.status !== 200) {
             throw new Error('데이터을 불러오는데 실패하였습니다.')
         } else {
