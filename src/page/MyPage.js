@@ -64,6 +64,29 @@ const MyPage = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const getProfileImageRank = (rank) => {
+    switch (rank.toLowerCase()) {
+      case "entry":
+        return "entry";
+      case "bronze":
+        return "bronze";
+      case "silver":
+        return "silver";
+      case "gold":
+        return "gold";
+      case "platinum":
+        return "platinum";
+      case "diamond":
+        return "diamond";
+      case "master":
+        return "master";
+      case "challenger":
+        return "challenger";
+      default:
+        return "entry";
+    }
+  }
+
   if (loading) {
     return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
   }
@@ -77,7 +100,11 @@ const MyPage = () => {
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img src={uniqueUser.profileImage} alt="Profile" className="profile-image" />
+        <img
+          src={uniqueUser.profileImage}
+          alt="Profile"
+          className={`profile-image ${getProfileImageRank(uniqueUser.rank)}`}
+        />
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">

@@ -13,6 +13,49 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    border: 10px solid transparent;
+}
+
+.profile-image.entry {
+    border-color: #6a6a6a;
+}
+
+.profile-image.bronze {
+    border-color: #775135;
+}
+
+.profile-image.silver {
+    border-color: #8a878a;
+}
+
+.profile-image.gold {
+    border-color: #bd9b51;
+}
+
+.profile-image.platinum {
+    border-color: #43a26e;
+}
+
+.profile-image.diamond {
+    border-color: #b9f2ff;
+}
+
+.profile-image.master {
+    border-color: #ff00ff;
+    position: relative;
+}
+
+.profile-image.master:hover {
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+.profile-image.challenger {
+    border-color: #ff4500;
+    position: relative;
+}
+
+.profile-image.challenger:hover {
+    box-shadow: 0 0 20px #ff4500;
 }
 
 .profile-info {
