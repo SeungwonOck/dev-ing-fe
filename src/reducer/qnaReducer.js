@@ -2,7 +2,9 @@ import * as types from "../constants/qna.constants";
 const initialState = {
   loading: false,
   error: '',
-  qnaList: []
+  qnaList: [],
+  selectedQnA: null,
+  newQnaId: ''
 };
 
 function qnaReducer(state = initialState, action) {
@@ -10,9 +12,12 @@ function qnaReducer(state = initialState, action) {
   switch(type) {
     case types.QNA_CREATE_REQUEST:
     case types.QNA_GET_REQUEST:
+    case types.GET_QNA_DETAIL_REQUEST:
         return {...state, loading: true}
 
     case types.QNA_CREATE_SUCCESS:
+        return {...state, loading: false, error: '', newQnaId: payload}
+    case types.QNA_ANSWER_CREATE_SUCCESS:
         return {...state, loading: false, error: ''}
 
     case types.QNA_GET_SUCCESS:
@@ -20,7 +25,11 @@ function qnaReducer(state = initialState, action) {
 
     case types.QNA_CREATE_FAIL:
     case types.QNA_GET_FAIL:
+    case types.QNA_ANSWER_CREATE_FAIL:
         return {...state, loading: false, error:payload}
+
+    case types.GET_QNA_DETAIL_SUCCESS:
+      return { ...state, loading: false, error: '', selectedQna: payload };
 
     default:
         return state;
