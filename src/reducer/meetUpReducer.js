@@ -14,6 +14,7 @@ function meetUpReducer(state = initialState, action) {
     case types.GET_MEETUP_DETAIL_REQUEST:
     case types.MEETUP_DELETE_REQUEST:
     case types.MEETUP_EDIT_REQUEST:
+    case types.JOIN_MEETUP_REQUEST:
       return { ...state, loading: true }
 
     case types.MEETUP_CREATE_SUCCESS:
@@ -25,6 +26,7 @@ function meetUpReducer(state = initialState, action) {
       return { ...state, loading: false, meetUpList: payload }
 
     case types.GET_MEETUP_DETAIL_SUCCESS:
+    case types.JOIN_MEETUP_SUCCESS:
       return { ...state, loading: false, selectedMeetUp: payload, error: "" }
 
     case types.MEETUP_CREATE_FAIL:
@@ -32,6 +34,7 @@ function meetUpReducer(state = initialState, action) {
     case types.GET_MEETUP_DETAIL_FAIL:
     case types.MEETUP_DELETE_FAIL:
     case types.MEETUP_EDIT_FAIL:
+    case types.JOIN_MEETUP_FAIL:
       return { ...state, loading: false, error: payload }
 
     default:
