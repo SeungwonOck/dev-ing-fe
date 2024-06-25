@@ -190,6 +190,10 @@ const MeetUpWrite = () => {
     }
   };
 
+  const changeLocation = () => {
+    open({ onComplete: handleComplete });
+  }
+
   const errorController = (error) => {
     console.log(error);
     dispatch(commonUiActions.showToastMessage("이미지 등록에 실패했습니다.", "error"));
@@ -297,6 +301,8 @@ const MeetUpWrite = () => {
                     {selectedDate &&
                       (<div>선택된 날짜 : {selectedDate.toLocaleDateString()}</div>)}
                     <div></div>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
                     <Form.Label className="form-label">시간<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-time"
@@ -348,6 +354,7 @@ const MeetUpWrite = () => {
                             onChange={(event) => setDetailAddress(event.target.value)}
                             required
                           />
+                          <button type="button" className='white-btn' onClick={changeLocation}>주소 변경</button>
                         </>
                       )
                     }
@@ -474,6 +481,8 @@ const MeetUpWrite = () => {
                     {selectedEditDate &&
                       (<div>선택된 날짜 : {selectedEditDate.toLocaleDateString()}</div>)}
                     <div></div>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
                     <Form.Label className="form-label">시간<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
                       id="meet-time"
@@ -528,6 +537,8 @@ const MeetUpWrite = () => {
                             onChange={(event) => setDetailAddress(event.target.value)}
                             required
                           />
+
+                          <button className='white-btn' type="button" onClick={changeLocation}>주소 변경</button>
                         </>
                       )
                     }
