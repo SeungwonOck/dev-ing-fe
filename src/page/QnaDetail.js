@@ -15,9 +15,12 @@ const QnaDetail = () => {
     const { id } = useParams();
     const [markDown, setMarkdown] = useState("");
 
-    useEffect(() => {
+    const getQnaDetail = () => {
         dispatch(qnaActions.getQnaDetail(id));
-        console.log("selectedQna: ", selectedQna);
+    };
+
+    useEffect(() => {
+        getQnaDetail();
     }, [id]);
 
     useEffect(() => {
@@ -63,12 +66,16 @@ const QnaDetail = () => {
                     </div>
                 </div>
                 <div className="qna-detail-q-container">
-                    <AnswerInput />
+                    <AnswerInput getQnaDetail={getQnaDetail} />
                 </div>
                 <div className="question-num">{`${selectedQna.answerCount}개의 답변`}</div>
                 {selectedQna.answers.map((answer) => (
                     <div className="answer">
-                        <Answer key={answer._id} answer={answer} />
+                        <Answer
+                            key={answer._id}
+                            answer={answer}
+                            getQnaDetail={getQnaDetail}
+                        />
                     </div>
                 ))}
             </div>

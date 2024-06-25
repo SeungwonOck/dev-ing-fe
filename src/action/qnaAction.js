@@ -44,7 +44,7 @@ const createQna = (formData, searchQuery) => async (dispatch) => {
         const res = await api.post(`/qna`, { title, content });
 
         if (res.status !== 200) {
-            throw new Error("QnA를 불러오는데 실패하였습니다.");
+            throw new Error("QnA를 생성하는데 실패하였습니다.");
         } else {
             dispatch({
                 type: types.QNA_CREATE_SUCCESS,
@@ -58,7 +58,17 @@ const createQna = (formData, searchQuery) => async (dispatch) => {
 
 const deleteQna = (id, searchQuery) => async (dispatch) => {
     try {
-    } catch (error) {}
+        dispatch({ type: types.QNA_DELETE_REQUEST });
+        const res = await api.delete(`/qna/${id}`);
+
+        if (res.status !== 200) {
+            throw new Error("QnA를 삭제하는데 실패하였습니다.");
+        } else {
+            dispatch({ type: types.QNA_DELETE_SUCCESS });
+        }
+    } catch (error) {
+        dispatch({ type: types.QNA_DELETE_FAIL });
+    }
 };
 
 const updateQna = (formData, id, searchQuery) => async (dispatch) => {
@@ -92,6 +102,23 @@ const createAnswer = (formData, id) => async (dispatch) => {
     }
 };
 
+const deleteAnswer = (questionId, answerId) => async (dispatch) => {
+    try {
+        dispatch({ type: types.QNA_ANSWER_DELETE_REQUEST });
+        const res = await api.delete(`/qna/${questionId}/answer/${answerId}`);
+        if (res.status !== 200) {
+            throw new Error("QnA를 불러오는데 실패하였습니다.");
+        } else {
+            dispatch({ type: types.QNA_ANSWER_DELETE_SUCCESS });
+        }
+    } catch (error) {
+        dispatch({
+            type: types.QNA_ANSWER_DELETE_FAIL,
+            payload: error.message,
+        });
+    }
+};
+
 export const qnaActions = {
     getQnaList,
     createQna,
@@ -99,4 +126,5 @@ export const qnaActions = {
     updateQna,
     getQnaDetail,
     createAnswer,
+    deleteAnswer,
 };
