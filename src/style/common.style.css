@@ -267,6 +267,10 @@ body {
     width: 100%;
 }
 
+.cur-point {
+    cursor: pointer;
+}
+
 
 /* 검색어input박스 / 정렬버튼 / 글등록버튼 */
 .contents-header-btns {

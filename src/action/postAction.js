@@ -102,7 +102,39 @@ const createComment = (id, newComment) => async (dispatch) => {
     }
 }
 
-const addLike = (id) => async (dispatch) => {
+const updateComment = (postId, commentId, content) => async (dispatch) => {
+    try {
+        dispatch({type: types.UPDATE_POST_COMMENT_REQUEST})
+        const res = await api.put(`/post/${postId}/comment/${commentId}`, { content });
+        if(res.status !== 200) {
+            throw new Error('댓글 수정에 실패하였습니다.')
+        } else {
+            dispatch({type: types.UPDATE_POST_COMMENT_SUCCESS})
+            dispatch(getPostDetail(postId))
+        }
+    } catch (error) {
+        dispatch({type: types.UPDATE_POST_COMMENT_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+const deleteComment = (postId, commentId) => async (dispatch) => {
+    try {
+        dispatch({type: types.DELETE_POST_COMMENT_REQUEST})
+        const res = await api.delete(`/post/${postId}/comment/${commentId}`);
+        if(res.status !== 200) {
+            throw new Error('댓글 삭제에 실패하였습니다.')
+        } else {
+            dispatch({type: types.DELETE_POST_COMMENT_SUCCESS})
+            dispatch(getPostDetail(postId))
+        }
+    } catch (error) {
+        dispatch({type: types.DELETE_POST_COMMENT_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+const toggleLike = (id, searchQuery) => async (dispatch) => {
     try {
         dispatch({type: types.ADD_LIKE_ON_POST_REQUEST});
         const res = await api.post(`/post/like`, { postId: id });
@@ -110,7 +142,7 @@ const addLike = (id) => async (dispatch) => {
             throw new Error('좋아요에 실패하였습니다.')
         } else {
             dispatch({type: types.ADD_LIKE_ON_POST_SUCCESS});
-            dispatch(getPostList());
+            dispatch(getPostList({ ...searchQuery }));
             dispatch(getPostDetail(id));
         }
     } catch (error) {
@@ -143,6 +175,8 @@ export const postActions = {
   updatePost,
   getPostDetail,
   createComment,
-  addLike,
+  updateComment,
+  deleteComment,
+  toggleLike,
   addScrap
 };

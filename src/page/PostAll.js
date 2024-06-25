@@ -8,15 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postActions } from '../action/postAction';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Dropdown } from 'react-bootstrap';
+import * as types from "../constants/post.constants";
 
 const PostAll = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ query, setQuery ] = useSearchParams();
   const [ keywordValue, setKeywordValue ] = useState('');
-  const { user } = useSelector((state) => state.user);
   const { postList, error } = useSelector((state) => state.post);
-  const [ isFollowing, setIsFollowing ] = useState(false);
+  const { isFollowing } = useSelector((state) => state.post);
+  const [ isFollowingState, setIsFollowingState ] = useState(isFollowing);
   
   const [ searchQuery, setSearchQuery ] = useState({
     tag: query.get("tag") || '',
@@ -37,9 +38,14 @@ const PostAll = () => {
   };
 
   useEffect(() => {
-    dispatch(postActions.getPostList({ ...searchQuery, isFollowing: isFollowing }));
+    dispatch(postActions.getPostList({ ...searchQuery }));
     updateQueryParams();
-  }, [isFollowing, searchQuery.tag, searchQuery.type, searchQuery.keyword]);
+  }, [searchQuery.isFollowing, searchQuery.tag, searchQuery.type, searchQuery.keyword]);
+
+  useEffect(()=>{
+    dispatch({type: types.SET_ISFOLLOWING, payload: isFollowingState})
+    setSearchQuery({ ...searchQuery, isFollowing: isFollowingState })
+  },[isFollowingState])
 
   const onCheckEnter = (e) => {
     if (e.key === "Enter") {
@@ -68,8 +74,8 @@ const PostAll = () => {
           className="react-switch-checkbox"
           id={`view-following`}
           type="checkbox"
-          checked={isFollowing}
-          onChange={() => setIsFollowing(prev => !prev)}
+          checked={isFollowingState}
+          onChange={() => setIsFollowingState(prev => !prev)}
         />
         <label
           className="react-switch-label"
@@ -104,7 +110,7 @@ const PostAll = () => {
         </Dropdown>
         <WriteBtn type='post'/>
       </div>
-      {error ? <ErrorCard errorMessage={error}/> : postList?.map((post) => <PostCard key={post._id} post={post}/>)}
+      {error ? <ErrorCard errorMessage={error}/> : postList?.map((post) => <PostCard key={post._id} post={post} searchQuery={searchQuery}/>)}
     </div>
   )
 }
