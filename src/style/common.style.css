@@ -19,6 +19,8 @@
     box-sizing: border-box;
 }
 
+p { margin-bottom: 0; }
+
 li {
     list-style: none;
 }
@@ -174,6 +176,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .green-btn {
@@ -267,6 +270,10 @@ body {
     width: 100%;
 }
 
+.cur-point {
+    cursor: pointer;
+}
+
 
 /* 검색어input박스 / 정렬버튼 / 글등록버튼 */
 .contents-header-btns {
@@ -274,7 +281,8 @@ body {
     justify-content: end;
     align-items: center;
     gap: 8px;
-    height: 38px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
 }
 
 .contents-header-btns>*,
@@ -284,6 +292,7 @@ body {
 
 .search-input {
     width: initial;
+    height: 38px;
 }
 
 
@@ -335,9 +344,27 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-
     .white-btn,
     .green-btn {
         padding: 6px 12px;
+    }
+    .following-toggle {
+        position: relative;
+        flex-direction: row;
+        justify-content: end;
+        padding: 10px 0;
+        gap: 2px;
+        border-bottom: 1px solid #eee;
+    }
+    .contents-header-btns {
+        width: 100%;
+        border-bottom: none;
+        padding: initial;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .small-text {
+        font-size: 12px;
     }
 }

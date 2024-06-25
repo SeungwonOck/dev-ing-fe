@@ -119,6 +119,27 @@ const deleteAnswer = (questionId, answerId) => async (dispatch) => {
     }
 };
 
+const addLikeAnswer = (questionId, answerId) => async (dispatch) => {
+    try {
+        dispatch({ type: types.QNA_ANSWER_ADDLIKE_REQUEST });
+
+        const res = await api.post(
+            `/qna/${questionId}/answer/${answerId}/like`
+        );
+
+        if (res.status !== 200) {
+            throw new Error("QnA를 불러오는데 실패하였습니다.");
+        } else {
+            dispatch({ type: types.QNA_ANSWER_ADDLIKE_SUCCESS });
+        }
+    } catch (error) {
+        dispatch({
+            type: types.QNA_ANSWER_ADDLIKE_FAIL,
+            payload: error.message,
+        });
+    }
+};
+
 export const qnaActions = {
     getQnaList,
     createQna,
@@ -127,4 +148,5 @@ export const qnaActions = {
     getQnaDetail,
     createAnswer,
     deleteAnswer,
+    addLikeAnswer,
 };

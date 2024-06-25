@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HomePostCard from '../component/home/HomePostCard';
 import HomeQnaCard from '../component/home/HomeQnaCard';
-import HomeMeetUpCard from '../component/MeetUpCard';
+import HomeMeetUpCard from '../component/home/HomeMeetUpCard';
 import '../style/home.style.css';
 import { meetUpActions } from '../action/meetUpAction';
 import { homeActions } from '../action/homeAction';

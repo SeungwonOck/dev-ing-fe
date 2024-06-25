@@ -19,6 +19,20 @@ const MyPage = () => {
 
   const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost, following, followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
+  const stackList = [ 
+    ["Java", "096F90"], ["JavaScript", "F7DF1E"],
+    ["TypeScript", "3178C6"], ["Spring", "6DB33F"],
+    ["HTML", "E34F26"], ["CSS3", "1572B6"],
+    ["jQuery", "0769AD"], ["Oracle", "F80000"],
+    ["MySQL", "4479A1"], ["Spring Boot", "6DB33F"],
+    ["PHP", "777BB4"], ["Python", "3776AB"],
+    ["Node.js", "5FA04E"], ["Swift", "F05138"],
+    ["React", "61DAFB"], ["React Native", "61DAFB"],
+    ["Angular", "0F0F11"], ["Vue.js", "4FC08D"],
+    ["Kotlin", "7F52FF"], ["MSSQL", "4479A1"],
+    ["Git", "F05032"], ["Github", "181717"],
+    ["Bootstrap", "7952B3"]
+  ];
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
@@ -58,7 +72,7 @@ const MyPage = () => {
     return <div>User not found</div>;
   }
 
-  let isFollowing = user && user.following && user.following.includes(uniqueUser._id)
+  const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
   
   return (
     <div className="my-page-container">
@@ -74,7 +88,20 @@ const MyPage = () => {
                 </button>
               )}
             </h2>
-            <p className="stacks">{uniqueUser.stacks.join(', ')}</p>
+            <div className="stacks-container">
+              {uniqueUser.stacks && uniqueUser.stacks.map(
+                (stack) => {
+                  const matchedStacks = stackList.find((item) => item[0] === stack)
+                  return matchedStacks ? (
+                    <img
+                    key={stack}
+                    src={`https://img.shields.io/badge/${matchedStacks[0]}-${matchedStacks[1]}?style=for-the-badge&logo=${matchedStacks[0]}&logoColor=white`}
+                    alt={stack}
+                    />
+                    ) : null;
+                    }
+                    )}
+            </div>
           </div>
           <div className="follow-info">
             <div className="follow-item" onClick={() => handleShowModal("followers")}>

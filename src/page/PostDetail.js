@@ -9,7 +9,6 @@ import { faHeart as emptyHeart } from '@fortawesome/free-regular-svg-icons';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { postActions } from '../action/postAction';
-import ClipLoader from 'react-spinners/ClipLoader';
 import WriteBtn from '../component/WriteBtn';
 import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 import MarkdownEditor from '@uiw/react-md-editor';
@@ -35,24 +34,15 @@ const PostDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { selectedPost, loading } = useSelector((state) => state.post);
+    const { selectedPost } = useSelector((state) => state.post);
     const { user } = useSelector((state) => state.user);
     const [ isMyPost, setIsMyPost ] = useState(false);
     const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false);
-    const [ isUserLikedPost, setIsUserLikedPost ] = useState(false);
     const [ isReportModalOpen, setIsReportModalOpen ] = useState(false);
     const [ isScrapModalOpen, setIsScrapModalOpen ] = useState(false);
     const [ isScrapPrivate, setIsScrapPrivate ] = useState(false);
     const [ checkboxStates, setCheckboxStates ] = useState(initialCheckboxStates);
     const [ showComments, isShowComments ] = useState(false);
-
-    useEffect(()=>{
-        if(selectedPost && selectedPost.userLikes.some(like => like._id === user._id)) {
-          setIsUserLikedPost(true)
-        } else {
-          setIsUserLikedPost(false)
-        }
-    },[selectedPost, user._id])
 
     useEffect(()=>{
         dispatch(postActions.getPostDetail(id))
@@ -70,13 +60,8 @@ const PostDetail = () => {
         dispatch(postActions.deletePost(id, navigate))
     }
 
-    const addLike = (id) => {
-        dispatch(postActions.addLike(id))
-    }
-    
-    const deleteLike = (id) => {
-        console.log('좋아요 취소')
-        // dispatch(postActions.deleteLike(id))
+    const toggleLike = (id) => {
+        dispatch(postActions.toggleLike(id))
     }
 
     const addScrap = () => {
@@ -98,13 +83,6 @@ const PostDetail = () => {
             [name]: checked
         }));
     };
-
-    if(loading) 
-        return (
-            <div className='loading'>
-                <ClipLoader color="#28A745" loading={loading} size={100} />
-            </div>
-        )
         
     return (
         <>
@@ -241,15 +219,10 @@ const PostDetail = () => {
                 <div className='like-comment-num'>
 
                     <div className='display-flex light-btn small-btn'>
-                        {isUserLikedPost ? 
-                        <div className='like' onClick={() => deleteLike(selectedPost._id)}>
-                            <FontAwesomeIcon icon={fullHeart} className='coral'/> 좋아요 
+                        <div className='like' onClick={() => toggleLike(selectedPost._id)}>
+                            <FontAwesomeIcon icon={selectedPost?.userLikes.some(like => like._id === user._id) ? fullHeart : emptyHeart} className='coral'/> 좋아요 
                             <span className='coral'>{selectedPost?.likes}</span>
-                        </div> : 
-                        <div className='like' onClick={() => addLike(selectedPost._id)}>
-                            <FontAwesomeIcon icon={emptyHeart} className='coral'/> 좋아요 
-                            <span className='coral'>{selectedPost?.likes}</span>
-                        </div>}
+                        </div>
                         <Dropdown>
                             <Dropdown.Toggle variant='none'>
                             </Dropdown.Toggle>
@@ -292,9 +265,9 @@ const PostDetail = () => {
                 </div>
             </div>
             {showComments ? 
-                <PostComment commentList={selectedPost?.comments} user={user}/>
+                <PostComment commentList={selectedPost?.comments} user={user} postId={selectedPost?._id}/>
             : ''}
-            <CommnetInput/>
+            <CommnetInput isShowComments={isShowComments}/>
         </>
     )
 }

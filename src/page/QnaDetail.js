@@ -8,6 +8,7 @@ import AnswerInput from "../component/AnswerInput";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { qnaActions } from "../action/qnaAction";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const QnaDetail = () => {
     const dispatch = useDispatch();
@@ -27,10 +28,10 @@ const QnaDetail = () => {
         selectedQna && setMarkdown(selectedQna.content);
     }, [selectedQna]);
 
-    if (loading || !selectedQna) {
+    if (!selectedQna || loading) {
         return (
-            <div>
-                <h1>loading</h1>
+            <div className="loading">
+                <ClipLoader color="#28A745" loading={loading} size={100} />
             </div>
         );
     }

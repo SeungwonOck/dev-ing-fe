@@ -4,7 +4,7 @@ import "../style/qna.style.css";
 import WriteBtn from "../component/WriteBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { qnaActions } from "../action/qnaAction";
-
+import ClipLoader from "react-spinners/ClipLoader";
 const Qna = () => {
     const dispatch = useDispatch();
     const { loading, qnaList, error } = useSelector((state) => state.qna);
@@ -20,6 +20,14 @@ const Qna = () => {
     useEffect(() => {
         console.log(qnaList);
     }, [qnaList]);
+
+    if (loading) {
+        return (
+            <div className="loading">
+                <ClipLoader color="#28A745" loading={loading} size={100} />
+            </div>
+        );
+    }
 
     return (
         <div>

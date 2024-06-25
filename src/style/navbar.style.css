@@ -79,7 +79,7 @@
     .nav-header {
         flex-direction: column;
         gap: 20px;
-        padding: 10px 0px 20px 0px;
+        padding: 40px 0px 20px 0px;
     }
     .nav-menu > .green-btn {
         position: absolute;
@@ -89,5 +89,5 @@
 }
 
 @media screen and (max-width: 540px) {
-    .nav-header { padding: 10px 10px; }
+    .nav-header { padding: 40px 10px 20px 10px; }
 }
