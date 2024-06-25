@@ -14,7 +14,7 @@ const Answer = ({ answer, getQnaDetail }) => {
     const handleUpdate = () => {};
 
     const handleDelete = async () => {
-        if (window.confirm("정말로 이 QnA를 삭제하시겠습니까?")) {
+        if (window.confirm("답변을 삭제하시겠습니까?")) {
             try {
                 const questionId = id;
                 const answerId = answer._id;
@@ -43,14 +43,16 @@ const Answer = ({ answer, getQnaDetail }) => {
                     )}
                 </div>
 
-                <div className="right small-text">
-                    <div className="update-button" onClick={handleUpdate}>
-                        수정
+                {user._id === answer.author._id && (
+                    <div className="right small-text">
+                        <div className="update-button" onClick={handleUpdate}>
+                            수정
+                        </div>
+                        <div className="delete-button" onClick={handleDelete}>
+                            삭제
+                        </div>
                     </div>
-                    <div className="delete-button" onClick={handleDelete}>
-                        삭제
-                    </div>
-                </div>
+                )}
             </div>
             {answer.image && (
                 <div className="upload-img">
