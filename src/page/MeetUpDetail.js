@@ -21,10 +21,16 @@ const MeetUpDetail = () => {
     dispatch(meetUpActions.getMeetUpDetail(id));
   }, [id, dispatch]);
 
-  const joinMeetUp = () => {
-    if (window.confirm("참여하시겠습니까?")) {
-      dispatch(meetUpActions.joinMeetUp(id, navigate));
-      console.log("스터디 참여!");
+  const joinMeetUp = (status) => {
+    if (status === "join") {
+      if (window.confirm("참여하시겠습니까?")) {
+        dispatch(meetUpActions.joinMeetUp(id, navigate));
+        console.log("스터디 참여!");
+      }
+    }
+
+    if (status === "cancel") {
+      console.log("모임 참여 취소하기");
     }
   }
 
@@ -125,9 +131,18 @@ const MeetUpDetail = () => {
                   <button className='white-btn-disabled' disabled={true} >모집 마감</button>
                 </div>)
                 :
-                (<div className='meetup-btn-container'>
-                  <button className='white-btn' onClick={joinMeetUp}>참여하기</button>
-                </div>)
+                (selectedMeetUp?.participants.find(participant => participant.nickName === user.nickName) ?
+                  (
+                    <div className='meetup-btn-container'>
+                      <button className='white-btn' onClick={() => joinMeetUp("cancel")}>참여취소</button>
+                    </div>)
+                  :
+                  (
+                    <div className='meetup-btn-container'>
+                      <button className='white-btn' onClick={() => joinMeetUp("join")}>참여하기</button>
+                    </div>
+                  )
+                )
             )
           }
 
