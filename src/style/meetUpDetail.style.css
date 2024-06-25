@@ -40,15 +40,18 @@
 
 .meetup-user {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
+}
+
+.meetup-user>.date {
+    color: lightgray;
 }
 
 .meetup-user>.author {
     display: flex;
     justify-content: end;
     align-items: center;
-    width: 100%;
     padding: 20px 0;
 }
 

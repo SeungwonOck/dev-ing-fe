@@ -78,7 +78,7 @@ const MeetUpDetail = () => {
         <div className='meetup-detail-container'>
           <div className='title'>{selectedMeetUp?.title}</div>
           <div className='meetup-user'>
-            <div className='date'>{selectedMeetUp?.createAt.date}</div>
+            <div className='date'>{selectedMeetUp?.createAt.date} {selectedMeetUp?.createAt.time}</div>
             <div className='author'>
               <span className='img'><img src={selectedMeetUp?.organizer.profileImage} alt='' /></span>
               <span className='user-name'>{selectedMeetUp?.organizer.nickName}</span>
@@ -109,7 +109,7 @@ const MeetUpDetail = () => {
               </Col>
             </Row>
             <div><span className='meetup-info-title'>시작 예정 : </span>{selectedMeetUp?.date.date} {selectedMeetUp?.date.time}</div>
-            <div><span className='meetup-info-title'>장소 : </span>{selectedMeetUp?.location === "online" ? (<span>온라인</span>) : selectedMeetUp?.location}</div>
+            <div><span className='meetup-info-title'>장소 : </span>{selectedMeetUp?.location === "online" ? (<span>온라인</span>) : selectedMeetUp?.location.replace(/;/g, ' ')}</div>
             <div>{selectedMeetUp?.location === "online" ? (<></>) : (<Map location={selectedMeetUp?.location} />)}</div>
             <div style={{ marginTop: "30px" }}></div>
             <div className='meetup-info-title'>관련 이미지</div>

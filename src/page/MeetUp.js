@@ -23,9 +23,11 @@ const MeetUp = () => {
       </div>);
   }
 
-  // if (error) {
-  //   dispatch(commonUiActions.showToastMessage(error.message, "error"));
-  // }
+  if (meetUpList.length === 0) {
+    return (
+      <ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />
+    );
+  }
 
   return (
     <div>
