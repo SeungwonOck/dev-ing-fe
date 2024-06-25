@@ -41,9 +41,15 @@
     align-items: center;
 }
 
-.stacks {
-    font-size: 16px;
-    color: #666;
+.stacks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.stacks-container > img {
+    margin: 5px;
 }
 
 .follow-info {
@@ -148,4 +154,10 @@
     object-fit: cover;
     border-radius: 8px;
     aspect-ratio: 1 /1;
+}
+
+@media screen and (min-width: 768px) {
+    .stacks-container {
+        width: 50%;
+    }
 }
