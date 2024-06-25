@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/answer.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { qnaActions } from "../action/qnaAction";
 import { useParams } from "react-router-dom";
@@ -10,20 +11,32 @@ const Answer = ({ answer, getQnaDetail }) => {
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const { id } = useParams();
+    const questionId = id;
+    const answerId = answer._id;
+    const [loading, setLoading] = useState(false);
 
     const handleUpdate = () => {};
 
     const handleDelete = async () => {
         if (window.confirm("정말로 이 QnA를 삭제하시겠습니까?")) {
             try {
-                const questionId = id;
-                const answerId = answer._id;
                 await dispatch(qnaActions.deleteAnswer(questionId, answerId));
                 getQnaDetail();
             } catch (error) {
                 console.error("댓글 삭제 오류:", error.message);
             }
         }
+    };
+
+    const handleHeartClick = async () => {
+        setLoading(true);
+        try {
+            await dispatch(qnaActions.addLikeAnswer(questionId, answerId));
+            getQnaDetail(); // 하트 상태 업데이트 후 전체 QnA 디테일을 다시 가져옵니다.
+        } catch (error) {
+            console.error("하트 상태 업데이트 오류:", error.message);
+        }
+        setLoading(false);
     };
 
     return (
@@ -58,8 +71,15 @@ const Answer = ({ answer, getQnaDetail }) => {
                 </div>
             )}
             <div className="body">{answer.content}</div>
-            <div className="likes">
-                <FontAwesomeIcon icon={faHeart} className="coral" />{" "}
+            <div className="likes" onClick={handleHeartClick}>
+                <FontAwesomeIcon
+                    icon={
+                        answer.userLikes.includes(user._id)
+                            ? fullHeart
+                            : emptyHeart
+                    }
+                    className="coral"
+                />{" "}
                 <span className="coral">{answer.likes}</span>
             </div>
         </div>

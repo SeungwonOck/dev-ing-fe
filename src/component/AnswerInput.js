@@ -20,9 +20,9 @@ const AnswerInput = ({ getQnaDetail }) => {
             image: imageUrl,
         };
         await dispatch(qnaActions.createAnswer(newAnswer, id));
+        getQnaDetail();
         setContent("");
         setImageUrl("");
-        getQnaDetail();
     };
 
     const uploadedimage = (url) => {
