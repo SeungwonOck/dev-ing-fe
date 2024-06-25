@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import QnaCard from '../component/QnaCard';
 import "../style/qna.style.css";
 import WriteBtn from '../component/WriteBtn';
+import { useDispatch, useSelector } from 'react-redux';
+import { qnaActions } from '../action/qnaAction';
 
 const Qna = () => {
+
+  const dispatch = useDispatch();
+  const {loading, qnaList, error} = useSelector(state => state.qna)
+
+  useEffect(() => {
+      dispatch(qnaActions.getQnaList())
+  }, [])
+
+  useEffect(() => {
+    console.log(qnaList)
+  }, [qnaList])
 
   return (
     <div>
@@ -15,10 +28,10 @@ const Qna = () => {
           {/* contents-header-btns 위치는 common.style.css */}
           <WriteBtn type='qna'/>
         </div>
-        {/* <div className='qna-title'>Q & A</div> */}
-        <QnaCard />
-        <QnaCard />
-        <QnaCard />
+        <div className='qna-title'>Q & A</div>
+        {qnaList.map((item) => (
+          <QnaCard key={item._id} author={item.author} title={item.title} content={item.content} answerCount={item.answerCount} id={item._id}/>
+        ))}
       </div>
     </div>
   )
