@@ -21,10 +21,16 @@ const MeetUpDetail = () => {
     dispatch(meetUpActions.getMeetUpDetail(id));
   }, [id, dispatch]);
 
-  const joinMeetUp = () => {
-    if (window.confirm("참여하시겠습니까?")) {
-      dispatch(meetUpActions.joinMeetUp(id, navigate));
-      console.log("스터디 참여!");
+  const joinMeetUp = (status) => {
+    if (status === "join") {
+      if (window.confirm("참여하시겠습니까?")) {
+        dispatch(meetUpActions.joinMeetUp(id, navigate));
+        console.log("스터디 참여!");
+      }
+    }
+
+    if (status === "cancel") {
+      console.log("모임 참여 취소하기");
     }
   }
 
@@ -33,7 +39,16 @@ const MeetUpDetail = () => {
   }
 
   const deleteMeetUp = () => {
-    dispatch(meetUpActions.deleteMeetUp(id, navigate));
+    // 현재 인원이 1인 경우(organizer만 있는 경우) 삭제 가능, 참여 인원이 있으면 삭제 불가
+    if (selectedMeetUp.currentParticipants == 1) {
+      dispatch(meetUpActions.deleteMeetUp(id, navigate));
+    }
+    else {
+      setIsDeleteModalOpen(false);
+      if (window.confirm("참여 인원이 있어 삭제하실 수 없습니다. 운영자에게 문의해주세요.")) {
+        console.log("삭제 불가");
+      }
+    }
   }
 
   if (loading) {
@@ -125,9 +140,18 @@ const MeetUpDetail = () => {
                   <button className='white-btn-disabled' disabled={true} >모집 마감</button>
                 </div>)
                 :
-                (<div className='meetup-btn-container'>
-                  <button className='white-btn' onClick={joinMeetUp}>참여하기</button>
-                </div>)
+                (selectedMeetUp?.participants.find(participant => participant.nickName === user.nickName) ?
+                  (
+                    <div className='meetup-btn-container'>
+                      <button className='white-btn' onClick={() => joinMeetUp("cancel")}>참여취소</button>
+                    </div>)
+                  :
+                  (
+                    <div className='meetup-btn-container'>
+                      <button className='white-btn' onClick={() => joinMeetUp("join")}>참여하기</button>
+                    </div>
+                  )
+                )
             )
           }
 
