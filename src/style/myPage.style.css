@@ -13,6 +13,49 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    border: 10px solid transparent;
+}
+
+.profile-image.entry {
+    border-color: #6a6a6a;
+}
+
+.profile-image.bronze {
+    border-color: #775135;
+}
+
+.profile-image.silver {
+    border-color: #8a878a;
+}
+
+.profile-image.gold {
+    border-color: #bd9b51;
+}
+
+.profile-image.platinum {
+    border-color: #43a26e;
+}
+
+.profile-image.diamond {
+    border-color: #b9f2ff;
+}
+
+.profile-image.master {
+    border-color: #ff00ff;
+    position: relative;
+}
+
+.profile-image.master:hover {
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+.profile-image.challenger {
+    border-color: #ff4500;
+    position: relative;
+}
+
+.profile-image.challenger:hover {
+    box-shadow: 0 0 20px #ff4500;
 }
 
 .profile-info {
@@ -117,6 +160,10 @@
     color: gray;
 }
 
+.custom-nav {
+    margin-bottom: 15px;
+}
+
 .custom-nav .nav-item {
     flex-grow: 1;
     text-align: center;
@@ -132,14 +179,14 @@
     color: #fff;
 }
 
-.post-tab-container {
+.myPage-tab-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-top: 20px;
 }
 
-.post-tab {
+.myPage-tab {
     border: 1px solid #ddd;
     border-radius: 8px;
     display: flex;
@@ -148,12 +195,46 @@
     padding: 10px;
 }
 
-.post-image {
+.myPage-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
     aspect-ratio: 1 /1;
+}
+
+.qna-card {
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qna-card .card-body {
+    padding: 1rem 1.5rem;
+}
+
+.qna-content {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.qna-tags {
+    margin-bottom: 1rem;
+}
+
+.qna-tag {
+    margin-right: 0.5rem;
+}
+
+.qna-info {
+    display: flex;
+    justify-content: space-between;
+    color: #888;
+}
+
+.qna-answers {
+    font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {
