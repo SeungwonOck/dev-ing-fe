@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { meetUpActions } from '../action/meetUpAction'
 import ClipLoader from 'react-spinners/ClipLoader'
 import ErrorCard from "../component/ErrorCard"
+import { commonUiActions } from '../action/commonUiAction'
 
 const MeetUp = () => {
   const dispatch = useDispatch();
@@ -22,15 +23,10 @@ const MeetUp = () => {
       </div>);
   }
 
-  if (error) {
+  if (meetUpList.length === 0) {
     return (
-      <>
-        <div className='contents-header-btns'>
-          <WriteBtn type='meetUp' />
-        </div>
-        <ErrorCard errorMessage={error} />
-      </>
-    )
+      <ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />
+    );
   }
 
   return (
