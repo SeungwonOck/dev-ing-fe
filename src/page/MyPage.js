@@ -19,7 +19,6 @@ const MyPage = () => {
 
   const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost, following, followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
-  const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
   const stackList = [ 
     ["Java", "096F90"], ["JavaScript", "F7DF1E"],
     ["TypeScript", "3178C6"], ["Spring", "6DB33F"],
@@ -72,6 +71,8 @@ const MyPage = () => {
   if (!uniqueUser) {
     return <div>User not found</div>;
   }
+
+  const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
   
   return (
     <div className="my-page-container">
