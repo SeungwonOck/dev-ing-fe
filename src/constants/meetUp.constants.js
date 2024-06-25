@@ -26,5 +26,9 @@ export const JOIN_MEETUP_REQUEST = "JOIN_MEETUP_REQUEST";
 export const JOIN_MEETUP_SUCCESS = "JOIN_MEETUP_SUCCESS";
 export const JOIN_MEETUP_FAIL = "JOIN_MEETUP_FAIL";
 
+export const LEAVE_MEETUP_REQUEST = "LEAVE_MEETUP_REQUEST";
+export const LEAVE_MEETUP_SUCCESS = "LEAVE_MEETUP_SUCCESS";
+export const LEAVE_MEETUP_FAIL = "LEAVE_MEETUP_FAIL";
+
 export const CATEGORY = ["Frontend", "Backend", "Fullstack"];
 export const STATUS = ["active", "disactive"];

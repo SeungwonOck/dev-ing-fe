@@ -30,6 +30,7 @@ const MeetUpDetail = () => {
     }
 
     if (status === "cancel") {
+      dispatch(meetUpActions.leaveMeetUp(id, navigate));
       console.log("모임 참여 취소하기");
     }
   }
