@@ -180,6 +180,7 @@ const MyPage = () => {
 
       <TabContent
         tab={tab}
+        uniqueUser={uniqueUser}
         uniqueUserPost={uniqueUserPost}
         uniqueUserMeetUp={uniqueUserMeetUp}
         uniqueUserQna={uniqueUserQna}
@@ -233,7 +234,7 @@ const MyPage = () => {
   )
 }
 
-const TabContent = ({ tab, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
+const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
   if (tab === 0) {
     return <div className="myPage-tab-container">
       {uniqueUserPost && uniqueUserPost.map((post) => (
@@ -261,10 +262,10 @@ const TabContent = ({ tab, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) =>
     return <ScrapTab />
   }
   if (tab === 4) {
-    return <MyLikesTab />
+    return <MyLikesTab uniqueUser={uniqueUser} />
   }
   if (tab === 5) {
-    return <MyCommentsTab />
+    return <MyCommentsTab uniqueUserPost={uniqueUserPost} />
   }
 
 }
