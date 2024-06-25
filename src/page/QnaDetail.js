@@ -28,13 +28,13 @@ const QnaDetail = () => {
         selectedQna && setMarkdown(selectedQna.content);
     }, [selectedQna]);
 
-    if (!selectedQna || loading) {
-        return (
-            <div className="loading">
-                <ClipLoader color="#28A745" loading={loading} size={100} />
-            </div>
-        );
-    }
+    // if (!selectedQna || loading) {
+    //     return (
+    //         <div className="loading">
+    //             <ClipLoader color="#28A745" loading={loading} size={100} />
+    //         </div>
+    //     );
+    // }
 
     return (
         <div>
@@ -44,18 +44,25 @@ const QnaDetail = () => {
 
             <div className="qna-detail-container">
                 <div className="qna-detail-q-container">
-                    <div className="title">{selectedQna.title}</div>
+                    <div className="title">
+                        {selectedQna && selectedQna.title}
+                    </div>
                     <div className="qna-info">
-                        <div className="date">{selectedQna.createAt.date}</div>
+                        <div className="date">
+                            {selectedQna && selectedQna.createAt.date}
+                        </div>
                         <div className="author">
                             <span className="img">
                                 <img
-                                    src={selectedQna.author.profileImage}
+                                    src={
+                                        selectedQna &&
+                                        selectedQna.author.profileImage
+                                    }
                                     alt=""
                                 />
                             </span>
                             <span className="user-name">
-                                {selectedQna.author.userName}
+                                {selectedQna && selectedQna.author.userName}
                             </span>
                         </div>
                     </div>
@@ -69,16 +76,19 @@ const QnaDetail = () => {
                 <div className="qna-detail-q-container">
                     <AnswerInput getQnaDetail={getQnaDetail} />
                 </div>
-                <div className="question-num">{`${selectedQna.answerCount}개의 답변`}</div>
-                {selectedQna.answers.map((answer) => (
-                    <div className="answer">
-                        <Answer
-                            key={answer._id}
-                            answer={answer}
-                            getQnaDetail={getQnaDetail}
-                        />
-                    </div>
-                ))}
+                <div className="question-num">
+                    {selectedQna && `${selectedQna.answerCount}개의 답변`}
+                </div>
+                {selectedQna &&
+                    selectedQna.answers.map((answer) => (
+                        <div className="answer">
+                            <Answer
+                                key={answer._id}
+                                answer={answer}
+                                getQnaDetail={getQnaDetail}
+                            />
+                        </div>
+                    ))}
             </div>
         </div>
     );
