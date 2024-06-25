@@ -51,14 +51,15 @@ const PostComment = ({ commentList, user, postId }) => {
 
                     </div>
                     <div className='body'>
-                        {isOpenEditCommentInput && editCommentId === comment._id ? (
-                            <input 
-                                className='form-control'
-                                type='text'
-                                value={editCommentValue}
-                                onChange={(e) => setEditCommentValue(e.target.value)}
-                            />
-                        ) : ( comment.content )}
+                        <p>
+                            {isOpenEditCommentInput && editCommentId === comment._id ? (
+                                <textarea 
+                                    className='form-control'
+                                    value={editCommentValue}
+                                    onChange={(e) => setEditCommentValue(e.target.value)}
+                                />
+                            ) : ( comment.content )}
+                        </p>
                     </div>
                 </div>
             ))}

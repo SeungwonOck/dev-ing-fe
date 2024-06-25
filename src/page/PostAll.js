@@ -67,26 +67,8 @@ const PostAll = () => {
 
   return (
     <div className='post-all-container'> 
-      
-      <div className='following-toggle display-center-center'>
-        <div className='small-text'>팔로잉</div>
-        <input
-          className="react-switch-checkbox"
-          id={`view-following`}
-          type="checkbox"
-          checked={isFollowingState}
-          onChange={() => setIsFollowingState(prev => !prev)}
-        />
-        <label
-          className="react-switch-label"
-          htmlFor={`view-following`}
-        >
-          <span className={`react-switch-button`} />
-        </label>
-      </div>
 
       <div className='contents-header-btns'>
-
         <input 
           type='text' 
           placeholder='검색어를 입력하세요' 
@@ -110,6 +92,24 @@ const PostAll = () => {
         </Dropdown>
         <WriteBtn type='post'/>
       </div>
+
+      <div className='following-toggle display-center-center'>
+        <div className='small-text'>팔로잉</div>
+        <input
+          className="react-switch-checkbox"
+          id={`view-following`}
+          type="checkbox"
+          checked={isFollowingState}
+          onChange={() => setIsFollowingState(prev => !prev)}
+        />
+        <label
+          className="react-switch-label"
+          htmlFor={`view-following`}
+        >
+          <span className={`react-switch-button`} />
+        </label>
+      </div>
+
       {error ? <ErrorCard errorMessage={error}/> : postList?.map((post) => <PostCard key={post._id} post={post} searchQuery={searchQuery}/>)}
     </div>
   )
