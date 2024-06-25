@@ -3,7 +3,9 @@ const initialState = {
   loading: false,
   error: '',
   postList: [],
-  selectedPost: null
+  selectedPost: null,
+  isFollowing: false,
+  commentLoading: false
 };
 
 function postReducer(state = initialState, action) {
@@ -14,18 +16,26 @@ function postReducer(state = initialState, action) {
     case types.GET_POST_DETAIL_REQUEST:
     case types.POST_DELETE_REQUEST:
     case types.POST_EDIT_REQUEST:
-    case types.CREATE_POST_COMMENT_REQUEST:
     case types.ADD_LIKE_ON_POST_REQUEST:
     case types.ADD_SCRAP_REQUEST:
         return {...state, loading: true}
 
+    case types.CREATE_POST_COMMENT_REQUEST:
+    case types.UPDATE_POST_COMMENT_REQUEST:
+    case types.DELETE_POST_COMMENT_REQUEST:
+        return {...state, commentLoading: true}
+
     case types.POST_CREATE_SUCCESS:
     case types.POST_DELETE_SUCCESS:
     case types.POST_EDIT_SUCCESS:
-    case types.CREATE_POST_COMMENT_SUCCESS:
     case types.ADD_LIKE_ON_POST_SUCCESS:
     case types.ADD_SCRAP_SUCCESS:
       return {...state, loading: false, error: ''}
+
+    case types.CREATE_POST_COMMENT_SUCCESS:
+    case types.UPDATE_POST_COMMENT_SUCCESS:
+    case types.DELETE_POST_COMMENT_SUCCESS:
+      return {...state, commentLoading: false, error: ''}
       
     case types.GET_POST_DETAIL_SUCCESS:
       return {...state, loading: false, selectedPost: payload, error: ''}
@@ -38,11 +48,17 @@ function postReducer(state = initialState, action) {
     case types.GET_POST_DETAIL_FAIL:
     case types.POST_DELETE_FAIL:
     case types.POST_EDIT_FAIL:
-    case types.CREATE_POST_COMMENT_FAIL:
     case types.ADD_LIKE_ON_POST_FAIL:
     case types.ADD_SCRAP_FAIL:
         return {...state, loading: false, error:payload}
 
+    case types.CREATE_POST_COMMENT_FAIL:
+    case types.UPDATE_POST_COMMENT_FAIL:
+    case types.DELETE_POST_COMMENT_FAIL:
+      return {...state, commentLoading: false, error:payload}
+
+    case types.SET_ISFOLLOWING:
+        return {...state, isFollowing: payload}
     default:
         return state;
   }
