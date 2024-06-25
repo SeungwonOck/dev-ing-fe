@@ -44,8 +44,6 @@ const PostDetail = () => {
     const [ checkboxStates, setCheckboxStates ] = useState(initialCheckboxStates);
     const [ showComments, isShowComments ] = useState(false);
 
-    console.log(selectedPost)
-
     useEffect(()=>{
         dispatch(postActions.getPostDetail(id))
     },[id, dispatch])

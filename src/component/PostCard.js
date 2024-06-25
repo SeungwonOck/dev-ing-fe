@@ -38,7 +38,7 @@ const PostCard = ({ post, searchQuery }) => {
             <p>{post.title}</p>
           </div>
           <div className='content'>
-            <p>{post.content}</p>
+            <p>{post.content.replace(/!\[image\]\(.*?\)|#/g, '')}</p>
           </div>
           <div className='author'>
             <span className='img'><img src={post.author.profileImage} alt=''/></span>

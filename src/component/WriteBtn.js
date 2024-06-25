@@ -9,7 +9,10 @@ const WriteBtn = ({ type }) => {
     return (
         <>
             <div className='new-post-btn white-btn' onClick={() => navigate(`/${type}/write?type=new`)}>
-                <FontAwesomeIcon icon={faPencil}/> {type === 'post' ? '포스트 등록' : type === 'qna' ? '질문 등록' : '모임 등록'}
+                <FontAwesomeIcon icon={faPencil}/>
+                <span>
+                    {type === 'post' ? '포스트 등록' : type === 'qna' ? '질문 등록' : '모임 등록'}
+                </span>
             </div>
         </>
     )
