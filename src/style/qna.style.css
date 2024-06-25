@@ -18,8 +18,8 @@
 .qna-card-container {
     box-sizing: border-box;
     position: relative;
-    background: #FFFFFF;
-    border-bottom: 1px solid #28A745;
+    background: #ffffff;
+    border-bottom: 1px solid #28a745;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     padding: 20px;
@@ -27,17 +27,28 @@
     cursor: pointer;
 }
 
-.qna-card-container>.row>.col-md-8 {
+.qna-card-container .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: gray;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.qna-card-container > .row > .col-md-8 {
     padding: 10px;
 }
 
-.qna-card-answer-num{
-    padding : 5px;
-    border-bottom: 1px solid #28A745;
+.qna-card-answer-num {
+    padding: 5px;
+    border-bottom: 1px solid #28a745;
 }
 
 .qna-card-title {
-    color: #28A745;
+    color: #28a745;
     font-size: 1.8rem;
     margin-top: 10px;
 }
@@ -47,15 +58,15 @@
     height: fit-content;
 }
 
-.qna-card-container>.author {
+.qna-card-container > .author {
     display: flex;
     justify-content: end;
     margin-top: 15px;
     align-items: center;
-    color: #5A5A5A;
+    color: #5a5a5a;
 }
 
-.qna-card-container>.author>.img {
+.qna-card-container > .author > .img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -64,23 +75,23 @@
     overflow: hidden;
 }
 
-.qna-card-container>.author>.img>img {
+.qna-card-container > .author > .img > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.qna-card-container>.author>.name {
+.qna-card-container > .author > .name {
     font-size: 1rem;
 }
 
 /* Q&A write */
-.write-form>.top>.text {
+.write-form > .top > .text {
     color: #333333;
     font-size: 1.2rem;
 }
 
-.write-form>.top {
+.write-form > .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -94,18 +105,18 @@
     margin-bottom: 10px;
 }
 
-.qna-write-title>input {
-    border: 1px solid #E8EAEC;
-    background-color: #F2F2F2;
+.qna-write-title > input {
+    border: 1px solid #e8eaec;
+    background-color: #f2f2f2;
     padding: 1px;
     width: 100%;
 }
 
-.qna-write-title>.error {
+.qna-write-title > .error {
     color: red;
 }
 
-.w-md-editor-text{
+.w-md-editor-text {
     box-sizing: border-box;
     display: flex;
     height: 100%;
@@ -113,5 +124,5 @@
 }
 
 .w-md-editor-text-input {
-    flex : 1;
+    flex: 1;
 }
