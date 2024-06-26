@@ -35,11 +35,11 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                 <tbody>
                     {reportList?.length > 0 ? (
                         reportList.map((report, index) => (
-                            <React.Fragment key={index}>
+                            <React.Fragment key={`${index}-${report._id}`}>
                                 <tr className={`table-row cur-point ${detailInfo._id === report._id ? 'select' : ''}`} onClick={() => showDetailInfo(report)}>
                                     <td>{index + 1}</td>
+                                    <td onClick={() => navigate(`/post/${report.content}`)}><FontAwesomeIcon icon={faLink} className='blue'/></td>
                                     <td>{report.contentType}</td>
-                                    <td>{report.content}</td>
                                     <td>{report.reported.nickName}</td>
                                     
                                     {!isMobile && 
@@ -55,7 +55,7 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                                             <tr className='detail-info-tr'>
                                                 {!isMobile && <td className='blank-td'></td>}
                                                 <td className='f-bold hide-tab-header'>신고사유</td>
-                                                <td colSpan="12">{report.reasons.map((reason) => <div>{reason}</div>)}</td>
+                                                <td colSpan="12">{report.reasons.map((reason, index) => <div key={`${index}-${reason}`}>{reason}</div>)}</td>
                                             </tr>
                                     
 

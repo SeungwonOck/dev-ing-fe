@@ -4,18 +4,14 @@ import "../style/qna.style.css";
 import WriteBtn from "../component/WriteBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { qnaActions } from "../action/qnaAction";
-import ClipLoader from "react-spinners/ClipLoader";
+
 const Qna = () => {
     const dispatch = useDispatch();
     const { loading, qnaList, error } = useSelector((state) => state.qna);
 
-    const getQnaList = () => {
-        dispatch(qnaActions.getQnaList());
-    };
-
     useEffect(() => {
-        getQnaList();
-    }, []);
+        dispatch(qnaActions.getQnaList());
+    }, [dispatch]);
 
     return (
         <div>
@@ -26,7 +22,7 @@ const Qna = () => {
                     <WriteBtn type="qna" mode={"new"} />
                 </div>
                 <div className="qna-title no-drag">Q & A</div>
-                {qnaList.map((item) => (
+                {qnaList?.map((item) => (
                     <QnaCard
                         key={item._id}
                         author={item.author}
@@ -34,7 +30,6 @@ const Qna = () => {
                         content={item.content}
                         answerCount={item.answerCount}
                         id={item._id}
-                        getQnaList={getQnaList}
                     />
                 ))}
             </div>
