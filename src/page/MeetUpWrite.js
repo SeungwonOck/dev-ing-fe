@@ -275,15 +275,15 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
-                      defaultValue={formData?.category || ""}
+                      defaultValue={formData?.category || ''}
                       onChange={(event) => handleChange(event)}
                       required
                     >
-                      <option value="" disabled hidden>카테고리 선택</option>
-                      <option value="독서">독서</option>
-                      <option value="강의">강의</option>
-                      <option value="프로젝트">프로젝트</option>
-                      <option value="기타 스터디">기타 스터디</option>
+                      <option value='' disabled hidden>카테고리 선택</option>
+                      <option value='독서'>독서</option>
+                      <option value='강의'>강의</option>
+                      <option value='프로젝트'>프로젝트</option>
+                      <option value='기타 스터디'>기타 스터디</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -457,16 +457,17 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
-                      value={editFormData?.category || ""}
+                      value={editFormData?.category[0] || ''}
                       onChange={(event) => handleChange(event)}
                       required
                       disabled={true}
+                      multiple={false}
                     >
-                      <option value="" disabled hidden>카테고리 선택</option>
-                      <option value="독서">독서</option>
-                      <option value="강의">강의</option>
+                      <option value='' disabled hidden>카테고리 선택</option>
+                      <option value='독서'>독서</option>
+                      <option value='강의'>강의</option>
                       <option value="프로젝트">프로젝트</option>
-                      <option value="기타 스터디">기타 스터디</option>
+                      <option value='기타 스터디'>기타 스터디</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
