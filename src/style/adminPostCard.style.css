@@ -5,11 +5,12 @@
 }
 
 .admin-post-card {
-    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .admin-post-card:hover {
-    transform: scale(0.90);
+    transform: scale(0.95);
 }
 
 .admin-post-card .card-thumbnail {

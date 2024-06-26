@@ -1,39 +1,56 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions } from "../action/userAction";
-import ClipLoader from 'react-spinners/ClipLoader';
 import UserTable from "../component/UserTable";
 
 const Admin = () => {
   const dispatch = useDispatch();
+  const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 540)
   const { userList, loading } = useSelector((state) => state.user);
-  const tableHeader = [
+  const tableHeader = !isMobile ? [
     "#",
-    "Details",
-    "Description",
-    "Gender",
-    "Rank",
-    "Stacks",
-    "Following",
-    "Followers",
-    "isDelete",
-    "isBlock",
-    "Level",
-    "Report",
-    "CreatedAt"
+    "DEV",
+    "이름/이메일",
+    "성별",
+    "랭크",
+    "삭제",
+    "차단",
+    "레벨",
+    "신고",
+  ] : [
+    "DEV",
+    "이름/이메일",
+    "삭제",
+    "차단",
   ];
 
   useEffect(() => {
     dispatch(userActions.getUserList());
   }, [dispatch]);
 
+
+  useEffect(() => {
+      const handleResize = () => {
+          setIsMobile(window.innerWidth <= 540);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      handleResize();
+
+      return () => {
+          window.removeEventListener('resize', handleResize);
+      };
+  }, []); 
+
   return (
     <div className="locate-center">
       {loading ?
-        (<div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>) :
+        (<div className='loading'></div>) :
         <UserTable
           header={tableHeader}
-          data={userList}
+          userList={userList}
+          isMobile={isMobile}
         />
       }
     </div>

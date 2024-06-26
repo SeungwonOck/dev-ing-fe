@@ -12,6 +12,8 @@ import { postActions } from '../action/postAction';
 import WriteBtn from '../component/WriteBtn';
 import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 import MarkdownEditor from '@uiw/react-md-editor';
+import { reportActions } from '../action/reportAction';
+import { commonUiActions } from '../action/commonUiAction';
 
 const reasons = [ 
     '스팸홍보/도배글입니다.',
@@ -45,6 +47,12 @@ const PostDetail = () => {
     const [ showComments, isShowComments ] = useState(false);
 
     useEffect(()=>{
+        if(!isReportModalOpen) {
+            setCheckboxStates(initialCheckboxStates)
+        }
+    },[isReportModalOpen])
+
+    useEffect(()=>{
         dispatch(postActions.getPostDetail(id))
     },[id, dispatch])
 
@@ -71,9 +79,16 @@ const PostDetail = () => {
     }
 
     const sendReport = () => {
-        const id = selectedPost._id;
+        const reportedUserId = selectedPost.author._id;
+        const contentId = selectedPost._id;
         const reasons = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true);
-        console.log(id, reasons)
+        const contentType = 'post';
+        if(reasons.length === 0) {
+            dispatch(commonUiActions.showToastMessage('신고 사유를 선택해주세요.', 'error'))
+            return
+        }
+        dispatch(reportActions.createReport(reportedUserId, contentId, contentType, reasons))
+        setIsReportModalOpen(false)
     }
 
     const handleCheckboxChange = (e) => {

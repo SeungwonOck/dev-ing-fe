@@ -22,8 +22,8 @@
 .contents-footer > .like-comment-num .dropdown .dropdown-toggle::after { font-size: 14px !important; }
 .contents-footer > .like-comment-num .dropdown .dropdown-item { display: flex; gap: 10px; align-items: center; }
 
-.tags { padding: 10px; display: block; }
-.tags > .tag {
+.post-detail-card > .contents .tags { padding: 10px; display: block; }
+.post-detail-card > .contents .tags > .tag {
     display: inline-block;
     color: cornflowerblue;
     font-weight: 500;

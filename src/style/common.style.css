@@ -136,34 +136,6 @@ body {
     height: 100vh;
 }
 
-.table-container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-row {
-    vertical-align: middle;
-}
-
-.table-cell {
-    display: flex;
-    align-items: center;
-}
-
-.table-cell img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.table-cell .user-info {
-    display: flex;
-    flex-direction: column;
-}
-
 .green-btn,
 .white-btn,
 .coral-btn,
@@ -263,13 +235,6 @@ body {
     justify-content: center;
 }
 
-.locate-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
 .cur-point {
     cursor: pointer;
 }
@@ -341,6 +306,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.f-bold {
+    font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

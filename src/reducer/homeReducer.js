@@ -1,5 +1,7 @@
 import * as types from "../constants/home.constants";
 const initialState = {
+  loading: false,
+  error: '',
   homePost: [],
   homeMeetUp: [],
   homeQna: []
