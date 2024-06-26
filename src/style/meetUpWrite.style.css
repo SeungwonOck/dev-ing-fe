@@ -75,6 +75,31 @@
     object-fit: cover;
 }
 
+#meet-date {
+    box-sizing: border-box;
+    width: 600px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+}
+
+#meet-time {
+    box-sizing: border-box;
+    width: 600px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+}
+
+#custom-switch.form-check-input:checked {
+    background-color: #28A745;
+    border: none;
+}
+
 @media screen and (max-width: 600px) {
     .meetup-form>.mb-3>.form-label {
         width: 300px;

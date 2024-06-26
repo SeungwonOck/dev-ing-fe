@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Nav, Modal } from 'react-bootstrap'
 import PostTab from '../component/PostTab';
-import MeetUpTab from '../component/MeetUpTab';
-import QnaTab from '../component/QnaTab';
 import "../style/myPage.style.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { userActions } from '../action/userAction';
 import ClipLoader from 'react-spinners/ClipLoader';
+import MeetUpTab from '../component/MeetUpTab';
+import QnaTab from '../component/QnaTab';
+import ScrapTab from '../component/ScrapTab';
+import MyLikesTab from '../component/MyLikesTab';
+import MyCommentsTab from '../component/MyCommentsTab';
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -17,9 +20,19 @@ const MyPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
 
-  const { user, loading, uniqueUser, followSuccess, unfollowSuccess, uniqueUserPost, following, followers } = useSelector((state) => state.user);
+  const {
+    user,
+    loading,
+    uniqueUser,
+    followSuccess,
+    unfollowSuccess,
+    uniqueUserPost,
+    uniqueUserMeetUp,
+    uniqueUserQna,
+    following,
+    followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
-  const stackList = [ 
+  const stackList = [
     ["Java", "096F90"], ["JavaScript", "F7DF1E"],
     ["TypeScript", "3178C6"], ["Spring", "6DB33F"],
     ["HTML", "E34F26"], ["CSS3", "1572B6"],
@@ -64,6 +77,29 @@ const MyPage = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const getProfileImageRank = (rank) => {
+    switch (rank.toLowerCase()) {
+      case "entry":
+        return "entry";
+      case "bronze":
+        return "bronze";
+      case "silver":
+        return "silver";
+      case "gold":
+        return "gold";
+      case "platinum":
+        return "platinum";
+      case "diamond":
+        return "diamond";
+      case "master":
+        return "master";
+      case "challenger":
+        return "challenger";
+      default:
+        return "entry";
+    }
+  }
+
   if (loading) {
     return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
   }
@@ -73,17 +109,21 @@ const MyPage = () => {
   }
 
   const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
-  
+
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img src={uniqueUser.profileImage} alt="Profile" className="profile-image" />
+        <img
+          src={uniqueUser.profileImage}
+          alt="Profile"
+          className={`profile-image ${getProfileImageRank(uniqueUser.rank)}`}
+        />
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">
               {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
-              {!isCurrentUser &&(
-                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow }>
+              {!isCurrentUser && (
+                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow}>
                   {isFollowing ? "언팔로우" : "팔로우"}
                 </button>
               )}
@@ -94,13 +134,13 @@ const MyPage = () => {
                   const matchedStacks = stackList.find((item) => item[0] === stack)
                   return matchedStacks ? (
                     <img
-                    key={stack}
-                    src={`https://img.shields.io/badge/${matchedStacks[0]}-${matchedStacks[1]}?style=for-the-badge&logo=${matchedStacks[0]}&logoColor=white`}
-                    alt={stack}
+                      key={stack}
+                      src={`https://img.shields.io/badge/${matchedStacks[0]}-${matchedStacks[1]}?style=for-the-badge&logo=${matchedStacks[0]}&logoColor=white`}
+                      alt={stack}
                     />
-                    ) : null;
-                    }
-                    )}
+                  ) : null;
+                }
+              )}
             </div>
           </div>
           <div className="follow-info">
@@ -138,13 +178,19 @@ const MyPage = () => {
         </Nav.Item>
       </Nav>
 
-      <TabContent tab={tab} uniqueUserPost={uniqueUserPost} />
+      <TabContent
+        tab={tab}
+        uniqueUser={uniqueUser}
+        uniqueUserPost={uniqueUserPost}
+        uniqueUserMeetUp={uniqueUserMeetUp}
+        uniqueUserQna={uniqueUserQna}
+      />
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
             {modalType === 'following' ? 'Following' : 'Followers'}
-            </Modal.Title>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {modalType === 'following' ? (
@@ -188,21 +234,38 @@ const MyPage = () => {
   )
 }
 
-const TabContent = ({ tab, uniqueUserPost }) => {
+const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
   if (tab === 0) {
-    return <div className="post-tab-container">
+    return <div className="myPage-tab-container">
       {uniqueUserPost && uniqueUserPost.map((post) => (
-        <PostTab post={post} key={post._id}/>
+        <PostTab post={post} key={post._id} />
       ))}
     </div>
   }
 
   if (tab === 1) {
-    return <MeetUpTab />
+    return <div className="myPage-tab-container">
+      {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
+        <MeetUpTab meetUp={meetUp} key={meetUp._id} />
+      ))}
+    </div>
   }
 
   if (tab === 2) {
-    return <QnaTab />
+    return <>
+      {uniqueUserQna && uniqueUserQna.map((qna) => (
+        <QnaTab qna={qna} key={qna._id} />
+      ))}
+    </>
+  }
+  if (tab === 3) {
+    return <ScrapTab />
+  }
+  if (tab === 4) {
+    return <MyLikesTab uniqueUser={uniqueUser} />
+  }
+  if (tab === 5) {
+    return <MyCommentsTab uniqueUserPost={uniqueUserPost} />
   }
 
 }

@@ -1,37 +1,91 @@
-import React from 'react';
-import '../style/answer.style.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import "../style/answer.style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { qnaActions } from "../action/qnaAction";
+import { useParams } from "react-router-dom";
 
-const Answer = () => {
+const Answer = ({ answer, getQnaDetail }) => {
+    const { user } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const questionId = id;
+    const answerId = answer._id;
+    const [loading, setLoading] = useState(false);
+
+    const handleUpdate = () => {};
+
+    const handleDelete = async () => {
+        if (window.confirm("답변을 삭제하시겠습니까?")) {
+            try {
+                await dispatch(qnaActions.deleteAnswer(questionId, answerId));
+                getQnaDetail();
+            } catch (error) {
+                console.error("댓글 삭제 오류:", error.message);
+            }
+        }
+    };
+
+    const handleHeartClick = async () => {
+        setLoading(true);
+        try {
+            await dispatch(qnaActions.addLikeAnswer(questionId, answerId));
+            getQnaDetail(); // 하트 상태 업데이트 후 전체 QnA 디테일을 다시 가져옵니다.
+        } catch (error) {
+            console.error("하트 상태 업데이트 오류:", error.message);
+        }
+        setLoading(false);
+    };
+
     return (
-        <div className='answer'>
-            <div className='img'><img src="https://i.pinimg.com/236x/5a/62/b3/5a62b3fed105b814b56b25ecbae1af42.jpg" alt='' /></div>
-            <div className='header'>
-                <div className='left'>
-                    <div>멜로디</div>
-                    <div className='small-text'>|</div>
-                    <div className='small-text'>2024.06.19 14:34</div>
+        <div className="answer">
+            <div className="img">
+                <img src={answer.author.profileImage} alt="" />
+            </div>
+            <div className="header">
+                <div className="left">
+                    <div>{answer.author.userName}</div>
+                    <div className="small-text">|</div>
+                    <div className="small-text">{`${
+                        answer.createAt.date
+                    } ${answer.createAt.time.substring(0, 5)}`}</div>
+                    {answer.isUpdated && (
+                        <div className="small-text">수정됨</div>
+                    )}
                 </div>
 
-                {/* 유저 본인의 댓글일 경우에만 수정/삭제 가능하게 */}
-                {/* <div className='right small-text'>
-                    <div>수정</div>
-                    <div>삭제</div>
-                </div> */}
+                {user._id === answer.author._id && (
+                    <div className="right small-text">
+                        <div className="update-button" onClick={handleUpdate}>
+                            수정
+                        </div>
+                        <div className="delete-button" onClick={handleDelete}>
+                            삭제
+                        </div>
+                    </div>
+                )}
             </div>
-            <div className='upload-img'>
-                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fHww" />
-            </div>
-            <div className='body'>
-                오 저는 저 4번째 줄에 적힌 코드를 console.log("a"); 하니까 나오더라구요
-            </div>
-            <div className='likes'>
-                <FontAwesomeIcon icon={faHeart} className='coral' />{" "}
-                <span className='coral'>10</span>
+            {answer.image && (
+                <div className="upload-img">
+                    <img src={answer.image} />
+                </div>
+            )}
+            <div className="body">{answer.content}</div>
+            <div className="likes" onClick={handleHeartClick}>
+                <FontAwesomeIcon
+                    icon={
+                        answer.userLikes.includes(user._id)
+                            ? fullHeart
+                            : emptyHeart
+                    }
+                    className="coral"
+                />{" "}
+                <span className="coral">{answer.likes}</span>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Answer
+export default Answer;

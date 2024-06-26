@@ -104,11 +104,30 @@ const joinMeetUp = (id, navigate) => async (dispatch) => {
     }
 }
 
+const leaveMeetUp = (id, navigate) => async (dispatch) => {
+    try {
+        dispatch({ type: types.LEAVE_MEETUP_REQUEST });
+        const res = await api.post(`/meetup/leave`, { meetUpId: id });
+        console.log("joinMeetUp res", res);
+        if (res.status !== 200) {
+            throw new Error('모임 참여 취소에 실패하였습니다.')
+        } else {
+            dispatch({ type: types.LEAVE_MEETUP_SUCCESS, payload: res.data.data.meetUp });
+            dispatch(commonUiActions.showToastMessage("모임 참여 취소에 성공했습니다.", "success"));
+            navigate(`/meetup/${id}`);
+        }
+    } catch (error) {
+        dispatch({ type: types.LEAVE_MEETUP_FAIL, payload: error.message });
+        dispatch(commonUiActions.showToastMessage(error.message, "error"));
+    }
+}
+
 export const meetUpActions = {
     getMeetUpList,
     createMeetUp,
     deleteMeetUp,
     updateMeetUp,
     getMeetUpDetail,
-    joinMeetUp
+    joinMeetUp,
+    leaveMeetUp
 };

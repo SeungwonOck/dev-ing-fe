@@ -16,13 +16,6 @@ const MeetUp = () => {
     dispatch(meetUpActions.getMeetUpList());
   }, [])
 
-  // if (loading) {
-  //   return (
-  //     <div className='loading' >
-  //       <ClipLoader color="#28A745" loading={loading} size={100} />
-  //     </div>);
-  // }
-
   if (meetUpList.length === 0) {
     return (
       <ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />
