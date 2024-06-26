@@ -245,7 +245,7 @@ const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUs
   }
 
   if (tab === 1) {
-    return <div className="myPage-tab-container">
+    return <div className="meetUp-container">
       {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
       ))}

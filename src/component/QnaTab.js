@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 const QnaTab = ({ qna }) => {
     const navigate = useNavigate();
   return (
-        <Card className="qna-card" onClick={() => navigate(`/qna/${qna._id}`)}>
+        <Card className="qna-card cur-point" onClick={() => navigate(`/qna/${qna._id}`)}>
         <Card.Body>
             <Card.Title>{qna.title}</Card.Title>
             <div className="qna-tags">
