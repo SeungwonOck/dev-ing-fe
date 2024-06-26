@@ -44,7 +44,7 @@ const Answer = ({ answer, getQnaDetail }) => {
             <div className="img">
                 <img src={answer.author.profileImage} alt="" />
             </div>
-            <div className="header">
+            <div className="header no-drag">
                 <div className="left">
                     <div>{answer.author.userName}</div>
                     <div className="small-text">|</div>
@@ -73,7 +73,7 @@ const Answer = ({ answer, getQnaDetail }) => {
                 </div>
             )}
             <div className="body">{answer.content}</div>
-            <div className="likes" onClick={handleHeartClick}>
+            <div className="likes no-drag" onClick={handleHeartClick}>
                 <FontAwesomeIcon
                     icon={
                         answer.userLikes.includes(user._id)

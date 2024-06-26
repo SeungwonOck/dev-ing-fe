@@ -61,20 +61,6 @@ const QnaDetail = () => {
                 <div className="qna-detail-q-container">
                     <AnswerInput getQnaDetail={getQnaDetail} />
                 </div>
-                <div className="question-num">
-                    {selectedQna && `${selectedQna.answerCount}개의 답변`}
-                </div>
-                {selectedQna &&
-                    selectedQna.answers.map((answer) => (
-                        <div className="answer">
-                            <Answer
-                                key={answer._id}
-                                answer={answer}
-                                getQnaDetail={getQnaDetail}
-                            />
-                        </div>
-                    ))}
-                =======
                 <div className="question-num">{`${selectedQna?.answerCount}개의 답변`}</div>
                 {selectedQna?.answers.map((answer) => (
                     <div className="answer">
