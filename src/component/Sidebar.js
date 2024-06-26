@@ -23,7 +23,7 @@ const Sidebar = () => {
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin")}
           >
-            Admin Account
+            회원 정보
           </li>
           <li
             className="sidebar-item"
@@ -47,7 +47,7 @@ const Sidebar = () => {
             className="sidebar-item"
             onClick={() => handleSelectMenu("/admin/report")}
           >
-            Report
+            신고 관리
           </li>
         </ul>
       </div>

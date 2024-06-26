@@ -1,33 +1,13 @@
-
-/* 누나쇼핑몰에서 가져온 App.css */
-
-/* .menu {
-  display: flex;
-  list-style-type: none;
-  padding: 20px;
-}
-.menu li a {
-  text-decoration: none;
-  color:black;
-  margin-left:20px;
-} */
-
 .burger-menu {
     position: absolute;
     top: 20px;
     left: 20px;
     cursor: pointer;
 }
-
 .landing-search-box {
   right: 20px;
   position: absolute;
-
 }
-.sidebar {
-    max-width: 500px;
-}
-
 .search-box{
   border-bottom: 1px solid black;
   padding: 5px;
@@ -70,19 +50,16 @@
   border:none !important;
   margin-bottom: 10px;
 }
-
 .choice{
   font-size:11px;
   color: #63786a;
   font-weight: bold;
   height: 20px;
 }
-
 .new-product {
   font-size: 11px;
   height: 20px;
 }
-
 .error-message{
   text-align: left;
   width: 100%;
@@ -91,18 +68,13 @@
 .form-control:valid {
   background-color:  white !important;
 }
-
-
-
 .drop-down{
   margin-top:20px;
 }
-
 .add-button{
   margin-top:20px;
   width: 100%;
 }
-
 .card:hover{
   transform: scale(1.1);
   z-index: 1;
@@ -110,7 +82,6 @@
 .hide {
     visibility: hidden;
 }
-
 .side-menu {
     height: 100%;
     width: 250px;
@@ -167,19 +138,42 @@
   width: 100%;
 }
 
-
 #sidebar-wrapper {
     min-height: 100vh !important;
     background-color: red;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-
+.sidebar {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  max-width: 200px;
+  height: 100vh;
+  padding: 40px 0 0 0;
+  background-color: rgb(248,249,250);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.sidebar-toggle > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sidebar-area {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-top: 20px;
+}
 .sidebar-item {
-    color:black;
-    font-weight: bold;
-    padding: 20px 10px;
-    list-style-type: none;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:black;
+  font-weight: bold;
+  padding: 20px;
 }
 .sidebar-item:hover{
   color:white;
@@ -188,24 +182,6 @@
   border-radius: 20px;
   cursor: pointer;
 }
-
-.sidebar-area {
-    padding-left: 0;
-}
-.sidebar {
-    max-width: 300px;
-    padding:20px;
-    background-color: rgb(248,249,250);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    padding-left: 40px;
-}
-
-.sidebar-toggle {
-  position: fixed;
-  top: 20px;
-  padding: 5px;
-}
-
 .mobile-sidebar-toggle {
     display:none;
 }
@@ -213,7 +189,6 @@
 .display-flex {
   display:flex;
   align-items: center;
-
 }
 
 .admin-layout {
@@ -223,8 +198,11 @@
 .landing-search-box input {
   background-color: #FAF9F8;
 }
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 980px) {
+  .sidebar {
+    max-width: 150px;
+    padding: 30px 0 0 0;
+  }
   .hide {
     visibility: visible;
   }
@@ -242,14 +220,16 @@
     display: none;
   }
   .mobile-sidebar-toggle {
-    display:block;
-    margin: 15px;
+    display: block;
   }
   .sidebar {
-    max-width: 100%;
-    padding:0px;
+    width: 200px;
+    padding: 0px;
   }
   .mobile-sidebar {
-    max-height: 80px;
+    width: 100vw;
+    max-width: initial;
+    height: auto;
+    align-items: baseline;
   }
 }

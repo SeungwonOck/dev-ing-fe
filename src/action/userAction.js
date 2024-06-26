@@ -1,7 +1,6 @@
 import api from "../utils/api";
 import * as types from "../constants/user.constants";
 import { commonUiActions } from "./commonUiAction";
-import * as commonTypes from "../constants/commonUI.constants";
 
 const loginWithToken = () => async (dispatch) => {
   try {

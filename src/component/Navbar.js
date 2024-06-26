@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userActions } from "../action/userAction";
 import '../style/navbar.style.css'
 import { Dropdown } from "react-bootstrap";
@@ -16,14 +15,14 @@ const Navbar = ({ user }) => {
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
 
-  const onCheckEnter = (event) => {
-    if (event.key === "Enter") {
-      if (event.target.value === "") {
-        return navigate("/");
-      }
-      navigate(`?name=${event.target.value}`);
-    }
-  };
+  // const onCheckEnter = (event) => {
+  //   if (event.key === "Enter") {
+  //     if (event.target.value === "") {
+  //       return navigate("/");
+  //     }
+  //     navigate(`?name=${event.target.value}`);
+  //   }
+  // };
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -99,7 +98,7 @@ const Navbar = ({ user }) => {
           {user &&
             <Dropdown>
               <Dropdown.Toggle className="profile-dropdown">
-                <div className="img"><img width={25} src={user.profileImage}/></div>
+                <div className="img"><img width={25} src={user.profileImage} alt=''/></div>
                 <span>{user.nickName}</span>
               </Dropdown.Toggle>
         

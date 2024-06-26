@@ -5,6 +5,7 @@ import meetUpReducer from "./meetUpReducer";
 import qnaReducer from "./qnaReducer";
 import commonUiReducer from "./commonUIReducer";
 import homeReducer from "./homeReducer";
+import reportReducer from "./reportReducer";
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     meetUp: meetUpReducer,
     qna: qnaReducer,
     home: homeReducer,
-    ui: commonUiReducer,
+    report: reportReducer,
+    ui: commonUiReducer
   },
 });
 export default store;
