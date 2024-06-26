@@ -195,7 +195,6 @@ const MeetUpWrite = () => {
   }
 
   const errorController = (error) => {
-    console.log(error);
     dispatch(commonUiActions.showToastMessage("이미지 등록에 실패했습니다.", "error"));
   }
 
