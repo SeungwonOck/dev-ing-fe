@@ -32,7 +32,7 @@ const MyPage = () => {
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
-  const stackList = [ 
+  const stackList = [
     ["Java", "096F90"], ["JavaScript", "F7DF1E"],
     ["TypeScript", "3178C6"], ["Spring", "6DB33F"],
     ["HTML", "E34F26"], ["CSS3", "1572B6"],
@@ -109,7 +109,7 @@ const MyPage = () => {
   }
 
   const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
-  
+
   return (
     <div className="my-page-container">
       <div className="profile-section">
@@ -122,8 +122,8 @@ const MyPage = () => {
           <div className="user-info">
             <h2 className="user-name">
               {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
-              {!isCurrentUser &&(
-                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow }>
+              {!isCurrentUser && (
+                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow}>
                   {isFollowing ? "언팔로우" : "팔로우"}
                 </button>
               )}
@@ -134,13 +134,13 @@ const MyPage = () => {
                   const matchedStacks = stackList.find((item) => item[0] === stack)
                   return matchedStacks ? (
                     <img
-                    key={stack}
-                    src={`https://img.shields.io/badge/${matchedStacks[0]}-${matchedStacks[1]}?style=for-the-badge&logo=${matchedStacks[0]}&logoColor=white`}
-                    alt={stack}
+                      key={stack}
+                      src={`https://img.shields.io/badge/${matchedStacks[0]}-${matchedStacks[1]}?style=for-the-badge&logo=${matchedStacks[0]}&logoColor=white`}
+                      alt={stack}
                     />
-                    ) : null;
-                    }
-                    )}
+                  ) : null;
+                }
+              )}
             </div>
           </div>
           <div className="follow-info">
@@ -190,7 +190,7 @@ const MyPage = () => {
         <Modal.Header closeButton>
           <Modal.Title>
             {modalType === 'following' ? 'Following' : 'Followers'}
-            </Modal.Title>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {modalType === 'following' ? (
@@ -238,7 +238,7 @@ const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUs
   if (tab === 0) {
     return <div className="myPage-tab-container">
       {uniqueUserPost && uniqueUserPost.map((post) => (
-        <PostTab post={post} key={post._id}/>
+        <PostTab post={post} key={post._id} />
       ))}
     </div>
   }
@@ -246,17 +246,17 @@ const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUs
   if (tab === 1) {
     return <div className="myPage-tab-container">
       {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
-        <MeetUpTab meetUp={meetUp} key={meetUp._id}/>
+        <MeetUpTab meetUp={meetUp} key={meetUp._id} />
       ))}
     </div>
   }
 
   if (tab === 2) {
     return <>
-    {uniqueUserQna && uniqueUserQna.map((qna) => (
+      {uniqueUserQna && uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
-        ))}
-      </>
+      ))}
+    </>
   }
   if (tab === 3) {
     return <ScrapTab />

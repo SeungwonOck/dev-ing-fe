@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px;
+    padding: 40px 50px;
     border-bottom: 1px solid #eee;
 }
 
@@ -72,7 +72,7 @@
 }
 
 @media screen and (max-width: 980px) {
-    .nav-header { padding: 40px; }
+    .nav-header { padding: 30px 40px; }
 }
 
 @media screen and (max-width: 768px) {
