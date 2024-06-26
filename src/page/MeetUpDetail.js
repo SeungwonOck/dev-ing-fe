@@ -95,7 +95,7 @@ const MeetUpDetail = () => {
           <div className='title'>{selectedMeetUp?.title}</div>
           <div className='meetup-user'>
             <div className='date'>{selectedMeetUp?.createAt.date} {selectedMeetUp?.createAt.time}</div>
-            <div className='author'>
+            <div className='author' onClick={() => navigate(`/me/${selectedMeetUp?.organizer.nickName}`)}>
               <span className='img'><img src={selectedMeetUp?.organizer.profileImage} alt='' /></span>
               <span className='user-name'>{selectedMeetUp?.organizer.nickName}</span>
             </div>
