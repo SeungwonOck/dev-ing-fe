@@ -49,6 +49,7 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
+    setTab(0);
   }, [nickName, dispatch])
 
   useEffect(() => {
@@ -259,7 +260,7 @@ const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUs
     </>
   }
   if (tab === 3) {
-    return <ScrapTab />
+    return <ScrapTab uniqueUser={uniqueUser} />
   }
   if (tab === 4) {
     return <MyLikesTab uniqueUser={uniqueUser} />
