@@ -36,7 +36,7 @@ const MeetUp = () => {
         />
 
         <Dropdown>
-          <Dropdown.Toggle className="green-btn">
+          <Dropdown.Toggle className="white-btn">
             정렬
           </Dropdown.Toggle>
 
@@ -47,6 +47,19 @@ const MeetUp = () => {
             <Dropdown.Item onClick={() => getPostListByType('comments')}>댓글 순</Dropdown.Item>
             <Dropdown.Item onClick={() => getPostListByType('scrap')}>스크랩 순</Dropdown.Item>
             <Dropdown.Item onClick={() => getPostListByType('latest')}>최신 순</Dropdown.Item> */}
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown>
+          <Dropdown.Toggle className="white-btn">
+            카테고리
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Header>카테고리별로 모아보기</Dropdown.Header>
+            <Dropdown.Item>독서</Dropdown.Item>
+            <Dropdown.Item>강의</Dropdown.Item>
+            <Dropdown.Item>프로젝트</Dropdown.Item>
+            <Dropdown.Item>기타 스터디</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <WriteBtn type='meetUp' />
