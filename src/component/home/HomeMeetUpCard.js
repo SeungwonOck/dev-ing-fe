@@ -21,11 +21,11 @@ const HomeMeetUpCard = ({ meetUp }) => {
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: "#28A745", }} />
 
                     {meetUp.location === "online" ? 
-                        (<span> 온라인</span>) : 
+                        (<span> 온라인 · </span>) : 
                         (<span> {meetUp?.location.split(' ')[1]} · </span>)}
 
                     {meetUp.date.date === format(new Date(), 'yyyy.MM.dd') ? 
-                        (<span>오늘</span>) : 
+                        (<span> 오늘</span>) : 
                         (<span>{meetUp.date.date}</span>)}
                         
                 </div>

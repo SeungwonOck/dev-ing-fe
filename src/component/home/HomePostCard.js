@@ -10,7 +10,7 @@ const HomePostCard = ({ post }) => {
   }
   return (
     <div className='home-post-card' onClick={() => showPostDetail(post._id)}>
-        <div className='img'><img src={post.image || noImg} alt=''/></div>
+        {/* <div className='img'><img src={post.image || noImg} alt=''/></div> */}
         <div className='contents'>
           <div className='small-text'>
             <span className='like'>좋아요 <span className='coral'>{post.likes}</span></span>

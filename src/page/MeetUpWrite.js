@@ -27,7 +27,7 @@ const MeetUpWrite = () => {
   const { user } = useSelector((state) => state.user);
   const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
   // selectedMeetUp의 date를 다시 Date 객체로
-  const dateString = selectedMeetUp.date.date + " " + selectedMeetUp.date.time;
+  const dateString = selectedMeetUp?.date.date + " " + selectedMeetUp?.date.time;
   const dateObject = parse(dateString, 'yyyy.MM.dd HH:mm:ss', new Date());
 
   const [query, setQuery] = useSearchParams();

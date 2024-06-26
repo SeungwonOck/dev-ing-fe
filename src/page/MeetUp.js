@@ -16,12 +16,12 @@ const MeetUp = () => {
     dispatch(meetUpActions.getMeetUpList());
   }, [])
 
-  if (loading) {
-    return (
-      <div className='loading' >
-        <ClipLoader color="#28A745" loading={loading} size={100} />
-      </div>);
-  }
+  // if (loading) {
+  //   return (
+  //     <div className='loading' >
+  //       <ClipLoader color="#28A745" loading={loading} size={100} />
+  //     </div>);
+  // }
 
   if (meetUpList.length === 0) {
     return (

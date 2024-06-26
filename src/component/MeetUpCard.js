@@ -14,7 +14,7 @@ const MeetUpCard = ({ meetUp }) => {
 
     return (
         <div className='home-meet-up-card meet-up-card' onClick={() => goToMeetUpDetail(meetUp._id)}>
-            <div className='img'><img src={meetUp.image} alt='' /></div>
+            {/* <div className='img'><img src={meetUp.image} alt='' /></div> */}
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>
                 <div className='schedule green'>
