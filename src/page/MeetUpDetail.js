@@ -14,7 +14,6 @@ const MeetUpDetail = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { selectedMeetUp, loading } = useSelector((state) => state.meetUp);
-  console.log(selectedMeetUp);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
@@ -25,13 +24,11 @@ const MeetUpDetail = () => {
     if (status === "join") {
       if (window.confirm("참여하시겠습니까?")) {
         dispatch(meetUpActions.joinMeetUp(id, navigate));
-        console.log("스터디 참여!");
       }
     }
 
     if (status === "cancel") {
       dispatch(meetUpActions.leaveMeetUp(id, navigate));
-      console.log("모임 참여 취소하기");
     }
   }
 
@@ -95,7 +92,7 @@ const MeetUpDetail = () => {
           <div className='title'>{selectedMeetUp?.title}</div>
           <div className='meetup-user'>
             <div className='date'>{selectedMeetUp?.createAt.date} {selectedMeetUp?.createAt.time}</div>
-            <div className='author'>
+            <div className='author' onClick={() => navigate(`/me/${selectedMeetUp?.organizer.nickName}`)}>
               <span className='img'><img src={selectedMeetUp?.organizer.profileImage} alt='' /></span>
               <span className='user-name'>{selectedMeetUp?.organizer.nickName}</span>
             </div>

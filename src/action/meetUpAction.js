@@ -90,7 +90,6 @@ const joinMeetUp = (id, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.JOIN_MEETUP_REQUEST });
         const res = await api.post(`/meetup/join`, { meetUpId: id });
-        console.log("joinMeetUp res", res);
         if (res.status !== 200) {
             throw new Error('모임 참여에 실패하였습니다.')
         } else {
@@ -108,7 +107,6 @@ const leaveMeetUp = (id, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.LEAVE_MEETUP_REQUEST });
         const res = await api.post(`/meetup/leave`, { meetUpId: id });
-        console.log("joinMeetUp res", res);
         if (res.status !== 200) {
             throw new Error('모임 참여 취소에 실패하였습니다.')
         } else {
