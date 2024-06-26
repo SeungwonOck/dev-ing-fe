@@ -407,6 +407,7 @@ const MeetUpWrite = () => {
               </Modal>
               <Container className='meetup-container'>
                 <div className='title'>모임 수정</div>
+                <div className='highlight-text'>이미지와 모집 인원만 수정 가능합니다</div>
                 <Form className="meetup-form" onSubmit={submitMeeting}>
                   <Row className="meetup-user-info">
                     <Col className="meetup-user-info-img" md={2} xs={2}>
@@ -473,12 +474,13 @@ const MeetUpWrite = () => {
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">날짜<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
-                      id="meet-date"
+                      id="meet-date-disabled"
                       selected={selectedEditDate}
                       onChange={handleDateChange}
                       dateFormat="yyyy-MM-dd"
                       minDate={new Date()}
                       placeholderText='날짜를 선택해주세요'
+                      disabled={true}
                       required
                     />
                     {selectedEditDate &&
@@ -488,13 +490,14 @@ const MeetUpWrite = () => {
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">시간<a style={{ color: "#28A745" }}>*</a></Form.Label>{" "}
                     <DatePicker
-                      id="meet-time"
+                      id="meet-time-disabled"
                       selected={selectedEditTime}
                       onChange={handleTimeChange}
                       dateFormat="HH:mm"
                       showTimeSelect
                       showTimeSelectOnly
                       placeholderText='시간을 선택해주세요'
+                      disabled={true}
                       required
                     />
                     {selectedEditTime &&
@@ -509,6 +512,7 @@ const MeetUpWrite = () => {
                       checked={isOffline}
                       onChange={handleToggle}
                       label="오프라인으로 진행하면 눌러주세요"
+                      disabled={true}
                     />
                     <div>내 선택 : {isOffline ? (<span>오프라인</span>) : (<span>온라인</span>)}</div>
                     {
@@ -534,14 +538,13 @@ const MeetUpWrite = () => {
                           />
                           <Form.Control
                             value={detailAddress}
-                            className="form-input"
+                            className="form-input-disabled"
                             type="text"
                             placeholder="상세 주소"
                             onChange={(event) => setDetailAddress(event.target.value)}
+                            disabled
                             required
                           />
-
-                          <button className='white-btn' type="button" onClick={changeLocation}>주소 변경</button>
                         </>
                       )
                     }

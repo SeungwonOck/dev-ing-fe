@@ -327,6 +327,12 @@ body {
     font-weight: 600;
 }
 
+.highlight-text {
+    color: #f24e1e;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
 @media screen and (max-width: 768px) {
 
     .white-btn,
