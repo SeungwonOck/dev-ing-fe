@@ -265,7 +265,7 @@ const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUs
     return <MyLikesTab uniqueUser={uniqueUser} />
   }
   if (tab === 5) {
-    return <MyCommentsTab uniqueUserPost={uniqueUserPost} />
+    return <MyCommentsTab uniqueUser={uniqueUser} />
   }
 
 }
