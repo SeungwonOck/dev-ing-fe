@@ -119,10 +119,11 @@ const deleteAnswer = (questionId, answerId) => async (dispatch) => {
     }
 };
 
-const updateAnswer = (questionId, answerId) => async (dispatch) => {
+const updateAnswer = (questionId, answerId, content) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
-        const res = await api.put(`/qna/${questionId}/answer/${answerId}`);
+        const res = await api.put(`/qna/${questionId}/answer/${answerId}`, {content});
+        console.log(res)
         if (res.status !== 200) {
             throw new Error("QnA를 불러오는데 실패하였습니다.");
         } else {

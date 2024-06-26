@@ -45,7 +45,7 @@ const AnswerInput = ({ getQnaDetail }) => {
                                 as="textarea"
                                 type="text"
                                 rows={3}
-                                placeholder="댓글을 작성해주세요."
+                                placeholder="답변을 작성해주세요."
                                 onChange={(e) => setContent(e.target.value)}
                                 value={content}
                             />
