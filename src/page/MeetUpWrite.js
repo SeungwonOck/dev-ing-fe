@@ -343,7 +343,7 @@ const MeetUpWrite = () => {
                             className="form-input-disabled"
                             type="text"
                             placeholder="기본 주소"
-                            value={address}
+                            value={address === "online" ? "" : address}
                             disabled
                           />
                           <Form.Control
@@ -526,7 +526,7 @@ const MeetUpWrite = () => {
                             className="form-input-disabled"
                             type="text"
                             placeholder="기본 주소"
-                            value={address}
+                            value={address === "online" ? "" : address}
                             disabled
                           />
                           <Form.Control
