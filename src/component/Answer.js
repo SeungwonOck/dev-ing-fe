@@ -20,7 +20,6 @@ const Answer = ({ answer, getQnaDetail }) => {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(answer.content);
-    const team = team;
 
     const handleClose = () => {
         if (updatedContent) {
@@ -101,9 +100,8 @@ const Answer = ({ answer, getQnaDetail }) => {
                     <div>{answer.author.userName}</div>
                     <div className="small-text">|</div>
                     <div className="small-text">
-                        {`${
-                            answer.createAt.date
-                        } ${answer.createAt.time.substring(0, 5)}`}
+                        {`${answer.createAt.date
+                            } ${answer.createAt.time.substring(0, 5)}`}
                     </div>
                     {answer.isUpdated && (
                         <div className="small-text">수정됨</div>
