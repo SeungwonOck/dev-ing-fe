@@ -20,6 +20,7 @@ const Answer = ({ answer, getQnaDetail }) => {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(answer.content);
+    const team = team;
 
     const handleClose = () => {
         if (updatedContent) {
