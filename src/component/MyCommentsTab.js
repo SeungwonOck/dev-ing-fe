@@ -18,11 +18,11 @@ const MyCommentsTab = ({ uniqueUser }) => {
         if (postList) {
             const commentWithPosts = postList
                 .filter((post) => 
-                post.comments && post.comments.some((comment) => comment.author === uniqueUser._id)
+                post.comments && post.comments.some((comment) => !comment.isDelete && comment.author === uniqueUser._id)
                 )
                 .map((post) => ({
                     ...post,
-                    userComments: post.comments.filter((comment) => comment.author === uniqueUser._id),
+                    userComments: post.comments.filter((comment) => !comment.isDelete && comment.author === uniqueUser._id),
                 }))
             setMyComments(commentWithPosts)
         }
@@ -30,13 +30,19 @@ const MyCommentsTab = ({ uniqueUser }) => {
 
 
   return (
-    <div>
+    <div className="myComment-tab-container">
       {myComments.map((post) => (
-        <div className="myPage-tab" key={post._id}>
+        <div className="myComment-tab" key={post._id}>
           <div className="post-content" onClick={() => { navigate(`/post/${post._id}`) }}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
             <img src={post.image || meetingImg} alt="postImg" className="post-image" />
+            <div className="post-text">
+              <h3>{post.title}</h3>
+              <div className="post-details">
+                <span>Tags: {post.tags.join(", ")}</span>
+                <span>Likes: {post.userLikes.length}</span>
+                <span>Posted on: {post.createAt.date} at {post.createAt.time}</span>
+              </div>
+            </div>
           </div>
           <div className="comments-section">
             {post.userComments.map((comment) => (
@@ -47,7 +53,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 </div>
                 <div className="comment-content">
                   <p>{comment.content}</p>
-                        <span className="comment-date">{comment.createAt.date} {comment.createAt.time}</span>
+                  <span className="comment-date">{comment.createAt.date} at {comment.createAt.time}</span>
                 </div>
               </div>
             ))}
