@@ -23,15 +23,17 @@ const Answer = ({ answer, getQnaDetail }) => {
 
     const handleClose = () => {
         if (updatedContent) {
-            setShow(false)
+            setShow(false);
         }
-        handleUpdate()
+        handleUpdate();
     };
     const handleShow = () => setShow(true);
 
     const handleUpdate = async () => {
-        await dispatch(qnaActions.updateAnswer(questionId, answerId, updatedContent));
-        getQnaDetail()
+        await dispatch(
+            qnaActions.updateAnswer(questionId, answerId, updatedContent)
+        );
+        getQnaDetail();
     };
 
     const handleDelete = async () => {
@@ -64,13 +66,19 @@ const Answer = ({ answer, getQnaDetail }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>답변 내용</Form.Label>ㄹ
-                            <Form.Control 
-                                as="textarea" rows={3} 
+                        <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlTextarea1"
+                        >
+                            <Form.Label>답변 내용</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
                                 value={updatedContent}
-                                onChange={(e) => setUpdatedContent(e.target.value)}/>
-                                
+                                onChange={(e) =>
+                                    setUpdatedContent(e.target.value)
+                                }
+                            />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -92,7 +100,9 @@ const Answer = ({ answer, getQnaDetail }) => {
                     <div>{answer.author.userName}</div>
                     <div className="small-text">|</div>
                     <div className="small-text">
-                        {`${answer.createAt.date} ${answer.createAt.time.substring(0, 5)}`}
+                        {`${
+                            answer.createAt.date
+                        } ${answer.createAt.time.substring(0, 5)}`}
                     </div>
                     {answer.isUpdated && (
                         <div className="small-text">수정됨</div>
@@ -119,7 +129,9 @@ const Answer = ({ answer, getQnaDetail }) => {
             <div className="likes no-drag" onClick={handleHeartClick}>
                 <FontAwesomeIcon
                     icon={
-                        answer.userLikes.includes(user._id) ? fullHeart : emptyHeart
+                        answer.userLikes.includes(user._id)
+                            ? fullHeart
+                            : emptyHeart
                     }
                     className="coral"
                 />{" "}
