@@ -82,7 +82,7 @@ const PostDetail = () => {
         const reportedUserId = selectedPost.author._id;
         const contentId = selectedPost._id;
         const reasons = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true);
-        const contentType = 'post';
+        const contentType = 'Post';
         if(reasons.length === 0) {
             dispatch(commonUiActions.showToastMessage('신고 사유를 선택해주세요.', 'error'))
             return

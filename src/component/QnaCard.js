@@ -15,21 +15,16 @@ const QnaCard = ({ id, author, title, content, answerCount, getQnaList }) => {
         navigate(`/qna/${id}`);
     };
 
-    const handleDelete = async (event) => {
+    const handleDelete = (event) => {
         event.stopPropagation();
         if (window.confirm("정말로 이 QnA를 삭제하시겠습니까?")) {
-            try {
-                await dispatch(qnaActions.deleteQna(id));
-                getQnaList();
-            } catch (error) {
-                console.error("QnA 삭제 오류:", error.message);
-            }
+            dispatch(qnaActions.deleteQna(id));
         }
     };
 
-    const handleUpdate = async (event) => {
+    const handleUpdate = (event) => {
         event.stopPropagation();
-        await dispatch(qnaActions.getQnaDetail(id));
+        dispatch(qnaActions.getQnaDetail(id));
         navigate("/qna/write?type=update");
     };
 
@@ -54,7 +49,7 @@ const QnaCard = ({ id, author, title, content, answerCount, getQnaList }) => {
                     </div>
                 </Col>
             </Row>
-            {user._id.toString() === author._id && (
+            {user._id === author._id && (
                 <div className="right small-text no-drag">
                     <p
                         className="update-button"
