@@ -12,7 +12,7 @@ const MeetUpTab = ({meetUp}) => {
           <img src={image} alt="meetUpImage" className="meetup-image" />
           <div className="meetup-details">
           <h3 className="meetup-title">{meetUp.title}</h3>
-          <p className="meetup-location">{meetUp.location}</p>
+          <p className="meetup-location">{meetUp.location.replace(/;/g, ' ')}</p>
           <p className="meetup-date">{meetUp.date.date}</p>
           <p className="meetup-participants">
             Participants: {meetUp.currentParticipants} / {meetUp.maxParticipants}
