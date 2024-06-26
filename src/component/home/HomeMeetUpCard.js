@@ -25,7 +25,7 @@ const HomeMeetUpCard = ({ meetUp }) => {
                         (<span> {meetUp?.location.split(' ')[1]} · </span>)}
 
                     {meetUp.date.date === format(new Date(), 'yyyy.MM.dd') ? 
-                        (<span>오늘</span>) : 
+                        (<span> 오늘</span>) : 
                         (<span>{meetUp.date.date}</span>)}
                         
                 </div>
