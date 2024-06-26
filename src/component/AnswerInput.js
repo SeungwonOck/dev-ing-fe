@@ -32,7 +32,7 @@ const AnswerInput = ({ getQnaDetail }) => {
     return (
         <div>
             {user ? (
-                <div className="answer-input">
+                <div className="answer-input no-drag">
                     <div className="header">
                         <div className="img">
                             <img src={user.profileImage} alt="" />
@@ -45,7 +45,7 @@ const AnswerInput = ({ getQnaDetail }) => {
                                 as="textarea"
                                 type="text"
                                 rows={3}
-                                placeholder="댓글을 작성해주세요."
+                                placeholder="답변을 작성해주세요."
                                 onChange={(e) => setContent(e.target.value)}
                                 value={content}
                             />
