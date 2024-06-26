@@ -1,3 +1,7 @@
+.meetup-all-container {
+    position: relative;
+}
+
 .meet-up-container {
     display: flex;
     gap: 30px;
@@ -7,6 +11,6 @@
     padding-top: 30px;
 }
 
-.meet-up-container .meet-up-card > .contents {
+.meet-up-container .meet-up-card>.contents {
     gap: 6px;
 }

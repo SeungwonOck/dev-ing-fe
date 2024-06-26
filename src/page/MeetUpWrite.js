@@ -195,7 +195,6 @@ const MeetUpWrite = () => {
   }
 
   const errorController = (error) => {
-    console.log(error);
     dispatch(commonUiActions.showToastMessage("이미지 등록에 실패했습니다.", "error"));
   }
 
@@ -276,15 +275,15 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
-                      defaultValue={formData?.category || ""}
+                      defaultValue={formData?.category || ''}
                       onChange={(event) => handleChange(event)}
                       required
                     >
-                      <option value="" disabled hidden>카테고리 선택</option>
-                      <option value="독서">독서</option>
-                      <option value="강의">강의</option>
-                      <option value="프로젝트">프로젝트</option>
-                      <option value="기타 스터디">기타 스터디</option>
+                      <option value='' disabled hidden>카테고리 선택</option>
+                      <option value='독서'>독서</option>
+                      <option value='강의'>강의</option>
+                      <option value='프로젝트'>프로젝트</option>
+                      <option value='기타 스터디'>기타 스터디</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -343,7 +342,7 @@ const MeetUpWrite = () => {
                             className="form-input-disabled"
                             type="text"
                             placeholder="기본 주소"
-                            value={address}
+                            value={address === "online" ? "" : address}
                             disabled
                           />
                           <Form.Control
@@ -422,19 +421,20 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">모임 이름<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id="title"
-                      className="form-input"
+                      className="form-input-disabled"
                       value={editFormData.title}
                       type="text"
                       placeholder="모임 이름을 입력해주세요"
                       onChange={(event) => handleChange(event)}
                       required
+                      disabled={true}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">내용<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Control
                       id='description'
-                      className="form-input"
+                      className="form-input-disabled"
                       value={editFormData.description}
                       as="textarea"
                       type="text"
@@ -443,6 +443,7 @@ const MeetUpWrite = () => {
             ex)1주일 1번 노드JS 스터디 함께 해요!"
                       onChange={(event) => handleChange(event)}
                       required
+                      disabled={true}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -456,15 +457,17 @@ const MeetUpWrite = () => {
                     <Form.Label className="form-label">카테고리<a style={{ color: "#28A745" }}>*</a></Form.Label>
                     <Form.Select
                       id="category"
-                      value={editFormData?.category || ""}
+                      value={editFormData?.category[0] || ''}
                       onChange={(event) => handleChange(event)}
                       required
+                      disabled={true}
+                      multiple={false}
                     >
-                      <option value="" disabled hidden>카테고리 선택</option>
-                      <option value="독서">독서</option>
-                      <option value="강의">강의</option>
+                      <option value='' disabled hidden>카테고리 선택</option>
+                      <option value='독서'>독서</option>
+                      <option value='강의'>강의</option>
                       <option value="프로젝트">프로젝트</option>
-                      <option value="기타 스터디">기타 스터디</option>
+                      <option value='기타 스터디'>기타 스터디</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -526,7 +529,7 @@ const MeetUpWrite = () => {
                             className="form-input-disabled"
                             type="text"
                             placeholder="기본 주소"
-                            value={address}
+                            value={address === "online" ? "" : address}
                             disabled
                           />
                           <Form.Control
@@ -551,7 +554,7 @@ const MeetUpWrite = () => {
                       type="number"
                       placeholder="인원 수"
                       className="form-input"
-                      min={2}
+                      min={selectedMeetUp?.currentParticipants}
                       max={10}
                       onChange={(event) => handleChange(event)}
                     />

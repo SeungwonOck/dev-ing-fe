@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../style/home.style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,14 +7,27 @@ import { format } from 'date-fns';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
+    const [isFinish, setIsFinish] = useState(false);
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
     }
 
+    useEffect(() => {
+        if (meetUp?.currentParticipants == meetUp?.maxParticipants) {
+            setIsFinish(true);
+        }
+        else {
+            setIsFinish(false);
+        }
+    }, []);
+
     return (
         <div className='home-meet-up-card meet-up-card' onClick={() => goToMeetUpDetail(meetUp._id)}>
-            <div className='img'><img src={meetUp.image} alt='' loading="lazy" /></div>
+            <div className='img'>
+                <img src={meetUp.image} alt='' loading="lazy" />
+                <div className={'overlay' + (isFinish ? '-finish' : '')}>{isFinish ? "마감" : "모집중"}</div>
+            </div>
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>
                 <div className='schedule green'>

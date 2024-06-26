@@ -27,7 +27,6 @@ const loginWithEmail = ({ email, password }) => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_REQUEST })
     const res = await api.post('/auth/login', { email, password })
-    console.log("loginWithEmail response", res);
     if (res.status !== 200) {
       throw new Error(res.error)
     }
@@ -54,7 +53,6 @@ const register = ({ email, userName, password, gender, nickName }, navigate) => 
   try {
     dispatch({ type: types.REGISTER_REQUEST })
     const res = await api.post('/user', { email, userName, password, gender, nickName })
-    console.log("register response", res);
     if (res.status !== 200) {
       throw new Error(res.error)
     }
@@ -76,16 +74,16 @@ const getUserList = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_USER_LIST_REQUEST })
     const res = await api.get("/user/all")
-    dispatch({type: types.GET_USER_LIST_SUCCESS, payload: res.data.data})
+    dispatch({ type: types.GET_USER_LIST_SUCCESS, payload: res.data.data })
 
-  } catch (error){
-    dispatch({ type: types.GET_USER_LIST_FAIL, payload: error.message})
+  } catch (error) {
+    dispatch({ type: types.GET_USER_LIST_FAIL, payload: error.message })
   }
 }
 
 const updateUser = (userFormData) => async (dispatch) => {
   try {
-    dispatch({ type: types.UPDATE_USER_REQUEST})
+    dispatch({ type: types.UPDATE_USER_REQUEST })
     const res = await api.put('/user', userFormData);
     if (res.status !== 200) {
       throw new Error(res.error)
@@ -95,7 +93,6 @@ const updateUser = (userFormData) => async (dispatch) => {
       dispatch(commonUiActions.showToastMessage("정보 수정이 완료되었습니다.", "success"))
     }
   } catch (error) {
-    console.log(error)
     dispatch({ type: types.UPDATE_USER_FAIL, payload: error.message })
   }
 };
@@ -107,11 +104,11 @@ const getUserByNickName = (nickName) => async (dispatch) => {
     if (res.status !== 200) {
       throw new Error(res.error)
     } else {
-      dispatch({type: types.GET_USER_BY_NICKNAME_SUCCESS, payload: res.data.data})
+      dispatch({ type: types.GET_USER_BY_NICKNAME_SUCCESS, payload: res.data.data })
     }
 
   } catch (error) {
-    dispatch({type: types.GET_USER_BY_NICKNAME_FAIL, payload: error.message})
+    dispatch({ type: types.GET_USER_BY_NICKNAME_FAIL, payload: error.message })
   }
 }
 
@@ -122,10 +119,10 @@ const followUser = (nickName) => async (dispatch) => {
     if (res.status !== 200) {
       throw new Error(res.error)
     } else {
-      dispatch({type: types.FOLLOW_USER_SUCCESS, payload: res.data.data})
+      dispatch({ type: types.FOLLOW_USER_SUCCESS, payload: res.data.data })
     }
   } catch (error) {
-    dispatch({type: types.FOLLOW_USER_FAIL, payload: error.message})
+    dispatch({ type: types.FOLLOW_USER_FAIL, payload: error.message })
   }
 }
 
@@ -136,10 +133,10 @@ const unfollowUser = (nickName) => async (dispatch) => {
     if (res.status !== 200) {
       throw new Error(res.error)
     } else {
-      dispatch({type: types.UNFOLLOW_USER_SUCCESS, payload: res.data.data})
+      dispatch({ type: types.UNFOLLOW_USER_SUCCESS, payload: res.data.data })
     }
   } catch (error) {
-    dispatch({type: types.UNFOLLOW_USER_FAIL, payload: error.message})
+    dispatch({ type: types.UNFOLLOW_USER_FAIL, payload: error.message })
   }
 }
 

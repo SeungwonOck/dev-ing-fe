@@ -38,8 +38,10 @@ const QnaDetail = () => {
                 <div className="qna-detail-q-container">
                     <div className="title">{selectedQna?.title}</div>
                     <div className="qna-info">
-                        <div className="date">{selectedQna?.createAt.date}</div>
-                        <div className="author">
+                        <div className="date no-drag">
+                            {selectedQna?.createAt.date}
+                        </div>
+                        <div className="author no-drag">
                             <span className="img">
                                 <img
                                     src={selectedQna?.author.profileImage}
@@ -61,7 +63,7 @@ const QnaDetail = () => {
                 <div className="qna-detail-q-container">
                     <AnswerInput getQnaDetail={getQnaDetail} />
                 </div>
-                <div className="question-num">{`${selectedQna?.answerCount}개의 답변`}</div>
+                <div className="question-num no-drag">{`${selectedQna?.answerCount}개의 답변`}</div>
                 {selectedQna?.answers.map((answer) => (
                     <div className="answer">
                         <Answer
