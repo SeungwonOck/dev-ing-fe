@@ -15,7 +15,9 @@ const Answer = ({ answer, getQnaDetail }) => {
     const answerId = answer._id;
     const [loading, setLoading] = useState(false);
 
-    const handleUpdate = () => {};
+    const handleUpdate = () => {
+        // dispatch(qnaActions.updateAnswer);
+    };
 
     const handleDelete = async () => {
         if (window.confirm("답변을 삭제하시겠습니까?")) {
@@ -41,7 +43,7 @@ const Answer = ({ answer, getQnaDetail }) => {
 
     return (
         <div className="answer">
-            <div className="img">
+            <div className="img no-drag">
                 <img src={answer.author.profileImage} alt="" />
             </div>
             <div className="header no-drag">
@@ -57,7 +59,7 @@ const Answer = ({ answer, getQnaDetail }) => {
                 </div>
 
                 {user._id === answer.author._id && (
-                    <div className="right small-text">
+                    <div className="right small-text no-drag cur-point">
                         <div className="update-button" onClick={handleUpdate}>
                             수정
                         </div>

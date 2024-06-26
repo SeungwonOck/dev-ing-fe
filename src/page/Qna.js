@@ -29,7 +29,7 @@ const Qna = () => {
                     {/* contents-header-btns 위치는 common.style.css */}
                     <WriteBtn type="qna" />
                 </div>
-                <div className="qna-title">Q & A</div>
+                <div className="qna-title no-drag">Q & A</div>
                 {qnaList.map((item) => (
                     <QnaCard
                         key={item._id}

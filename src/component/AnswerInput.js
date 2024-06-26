@@ -32,7 +32,7 @@ const AnswerInput = ({ getQnaDetail }) => {
     return (
         <div>
             {user ? (
-                <div className="answer-input">
+                <div className="answer-input no-drag">
                     <div className="header">
                         <div className="img">
                             <img src={user.profileImage} alt="" />
