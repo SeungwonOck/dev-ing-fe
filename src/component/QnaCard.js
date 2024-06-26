@@ -10,6 +10,7 @@ const QnaCard = ({ id, author, title, content, answerCount, getQnaList }) => {
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
+
     const showQnaDetail = () => {
         //Q&A 디테일 페이지로 가기
         navigate(`/qna/${id}`);
@@ -29,6 +30,9 @@ const QnaCard = ({ id, author, title, content, answerCount, getQnaList }) => {
 
     const handleUpdate = async (event) => {
         event.stopPropagation();
+        await dispatch(qnaActions.getQnaDetail(id))
+        navigate('/qna/write?type=update')
+
     };
 
     return (

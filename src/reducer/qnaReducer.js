@@ -19,12 +19,12 @@ function qnaReducer(state = initialState, action) {
             return { ...state, loading: true };
 
         case types.QNA_CREATE_SUCCESS:
+        case types.QNA_ANSWER_UPDATE_SUCCESS:
             return { ...state, loading: false, error: "", newQnaId: payload };
 
         case types.QNA_ANSWER_CREATE_SUCCESS:
         case types.QNA_ANSWER_DELETE_SUCCESS:
         case types.QNA_ANSWER_ADDLIKE_SUCCESS:
-        case types.QNA_ANSWER_UPDATE_SUCCESS:
             return { ...state, loading: false, error: "" };
 
         case types.QNA_GET_SUCCESS:

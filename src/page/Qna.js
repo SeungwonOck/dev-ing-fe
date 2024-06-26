@@ -17,17 +17,13 @@ const Qna = () => {
         getQnaList();
     }, []);
 
-    useEffect(() => {
-        console.log(qnaList);
-    }, [qnaList]);
-
     return (
         <div>
             <div className="qna-container">
                 <div className="contents-header-btns">
                     {/* 이후 키워드에 따라 필터링하는 버튼이나 여타 다른 버튼 추가하게 될 때, 버튼들을 오른쪽 정렬로 모아두기 위함. */}
                     {/* contents-header-btns 위치는 common.style.css */}
-                    <WriteBtn type="qna" />
+                    <WriteBtn type="qna" mode={"new"} />
                 </div>
                 <div className="qna-title no-drag">Q & A</div>
                 {qnaList.map((item) => (

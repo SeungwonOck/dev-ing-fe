@@ -71,9 +71,24 @@ const deleteQna = (id, searchQuery) => async (dispatch) => {
     }
 };
 
-const updateQna = (formData, id, searchQuery) => async (dispatch) => {
+const updateQna = (formData, id) => async (dispatch) => {
     try {
-    } catch (error) {}
+        const { title, content } = formData;
+        console.log(title, content, id);
+        dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
+        const res = await api.put(`/qna/${id}`, { title, content });
+
+        if (res.status !== 200) {
+            throw new Error("QnA를 수정하는데 실패하였습니다.");
+        } else {
+            dispatch({ type: types.QNA_ANSWER_UPDATE_SUCCESS });
+        }
+    } catch (error) {
+        dispatch({
+            type: types.QNA_ANSWER_UPDATE_FAIL,
+            payload: error.message,
+        });
+    }
 };
 
 const createAnswer = (formData, id) => async (dispatch) => {
@@ -122,8 +137,10 @@ const deleteAnswer = (questionId, answerId) => async (dispatch) => {
 const updateAnswer = (questionId, answerId, content) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
-        const res = await api.put(`/qna/${questionId}/answer/${answerId}`, {content});
-        console.log(res)
+        const res = await api.put(`/qna/${questionId}/answer/${answerId}`, {
+            content,
+        });
+        console.log(res);
         if (res.status !== 200) {
             throw new Error("QnA를 불러오는데 실패하였습니다.");
         } else {

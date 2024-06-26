@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MarkdownEditor from "@uiw/react-md-editor";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import CloudinaryUploadWidgetForWrite from "../utils/CloudinaryUploadWidgetForWrite";
-import noImg from "../asset/img/no-image.png";
 import { qnaActions } from "../action/qnaAction";
 
 const initialFormData = {
@@ -14,15 +12,31 @@ const initialFormData = {
     content: "",
 };
 
-const QnaWrite = () => {
+const QnaWrite = ({ mode }) => {
     const [markDown, setMarkdown] = useState("");
     const [formData, setFormData] = useState({ ...initialFormData });
     const [titleError, setTitleError] = useState("");
     const [contentError, setContentError] = useState("");
     const { user } = useSelector((state) => state.user);
+    const { newQnaId, selectedQna } = useSelector((state) => state.qna);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { newQnaId } = useSelector((state) => state.qna);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const type = queryParams.get("type");
+
+    useEffect(() => {
+        if (type === "update" && selectedQna) {
+            setFormData({
+                title: selectedQna.title,
+                content: selectedQna.content,
+            });
+            setMarkdown(selectedQna.content);
+        } else {
+            setFormData({ ...initialFormData });
+            setMarkdown("");
+        }
+    }, [type, selectedQna]);
 
     useEffect(() => {
         if (!user) {
@@ -38,26 +52,26 @@ const QnaWrite = () => {
             setTitleError("");
         }
 
-        setFormData({ ...formData, content: markDown });
-        console.log("formData", formData);
-        console.log("markDown", markDown);
+        const newFormData = { ...formData, content: markDown };
 
-        await dispatch(qnaActions.createQna(formData));
-        navigate(`/qna/${newQnaId}`);
+        if (type === "new") {
+            await dispatch(qnaActions.createQna(newFormData));
+        } else {
+            await dispatch(qnaActions.updateQna(newFormData, selectedQna._id));
+        }
+
+        // navigate(`/qna/${newQnaId}`);
+        navigate("/qna");
     };
 
     const handleChange = (event) => {
         const { id, value } = event.target;
-        setFormData({ ...formData, [id]: value });
+        setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
     };
 
     const uploadContentImage = (url) => {
         setMarkdown(markDown + `![image](${url})`);
     };
-
-    useEffect(() => {
-        setFormData({ ...formData, content: markDown });
-    }, [markDown]);
 
     return (
         <div className="write-form-container">
@@ -67,7 +81,7 @@ const QnaWrite = () => {
                         <FontAwesomeIcon icon={faPencil} /> 질문하기
                     </div>
                     <button className="green-btn" onClick={createQuestion}>
-                        등록
+                        {type === "new" ? "등록" : "수정"}
                     </button>
                 </div>
                 <div className="qna-write-title">
@@ -77,7 +91,7 @@ const QnaWrite = () => {
                         placeholder="제목을 입력해주세요"
                         required
                         value={formData.title}
-                        onChange={(event) => handleChange(event)}
+                        onChange={handleChange}
                     />
                     <span className="error">{titleError}</span>
                 </div>
@@ -94,9 +108,7 @@ const QnaWrite = () => {
                             height={600}
                             value={markDown}
                             highlightEnable={false}
-                            onChange={(value, viewUpdate) => {
-                                setMarkdown(value);
-                            }}
+                            onChange={setMarkdown}
                         />
                     </div>
                 </div>
