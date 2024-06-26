@@ -72,16 +72,6 @@ const Navbar = ({ user }) => {
         </div>
       </div>
 
-
-
-      {/* 어드민 유저일때 보이는 어드민 링크 */}
-      {user && user.level === "admin" && (
-        <Link to="/admin" className="link-area">
-          ADMIN
-        </Link>
-      )}
-
-
       <div className="burger-menu hide">
         <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
       </div>
@@ -116,6 +106,7 @@ const Navbar = ({ user }) => {
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => navigate(`/me/${user.nickName}`)}>MY DEV</Dropdown.Item>
                 <Dropdown.Item onClick={() => navigate("/account")}>내 계정 정보</Dropdown.Item>
+                {user.level === "admin" ? <Dropdown.Item onClick={() => navigate("/admin")}>관리자페이지</Dropdown.Item>:''}
               </Dropdown.Menu>
             </Dropdown>}
 

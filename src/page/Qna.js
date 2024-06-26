@@ -21,14 +21,6 @@ const Qna = () => {
         console.log(qnaList);
     }, [qnaList]);
 
-    if (loading) {
-        return (
-            <div className="loading">
-                <ClipLoader color="#28A745" loading={loading} size={100} />
-            </div>
-        );
-    }
-
     return (
         <div>
             <div className="qna-container">

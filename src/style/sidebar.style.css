@@ -210,6 +210,19 @@
     display:none;
 }
 
+.display-flex {
+  display:flex;
+  align-items: center;
+
+}
+
+.admin-layout {
+  display: flex;
+}
+
+.landing-search-box input {
+  background-color: #FAF9F8;
+}
 
 @media screen and (max-width: 768px) {
   .hide {
@@ -218,7 +231,6 @@
   .menu {
     display: none;
   }
- 
   .nav-icon:last-child {
     margin-right: 0px;
   }
@@ -226,7 +238,6 @@
     margin-top: 20px;
     margin-bottom:30px
   }
-
   .sidebar-toggle {
     display: none;
   }
@@ -242,24 +253,3 @@
     max-height: 80px;
   }
 }
-.display-flex {
-  display:flex;
-  align-items: center;
-
-}
-
-.admin-layout {
-  display: flex;
-}
-
-.landing-search-box input {
-  background-color: #FAF9F8;
-}
-
-.link-area {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  margin-right: 20px;
-}
-
