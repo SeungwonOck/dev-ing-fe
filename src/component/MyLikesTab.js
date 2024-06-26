@@ -27,7 +27,7 @@ const MyLikesTab = ({uniqueUser}) => {
   return (
       <div className="myPage-tab-container">
       {likedPosts.map((post) => (
-        <div className="myPage-tab" key={post._id} onClick={() => { navigate(`/post/${post._id}`) }}>
+        <div className="myPage-tab cur-point" key={post._id} onClick={() => { navigate(`/post/${post._id}`) }}>
           <img src={post.image || meetingImg} alt="postImg" className="myPage-image" />
         </div>
       ))}

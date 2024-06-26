@@ -6,7 +6,7 @@ const PostTab = ({ post }) => {
     const navigate = useNavigate();
     const image = post.image || meetingImg
   return (
-    <div className="myPage-tab" onClick={() => { navigate(`/post/${post._id}`) }}>
+    <div className="myPage-tab cur-point" onClick={() => { navigate(`/post/${post._id}`) }}>
       <img src={image} alt="postImg" className="myPage-image" />
     </div>
   )
