@@ -54,7 +54,7 @@ const UserTable = ({ header, userList, isMobile }) => {
                                 {isShowDetailInfo && detailInfo._id === user._id && (
                                     <React.Fragment>
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>소개</td>
                                             <td colSpan="12">{detailInfo?.description}</td>
                                         </tr>
@@ -62,47 +62,47 @@ const UserTable = ({ header, userList, isMobile }) => {
                                         {isMobile &&
                                             <React.Fragment>
                                                 <tr className='detail-info-tr'>
-                                                    <td className='blank-td'></td>
-                                                    <td>성별</td>
+                                                    {!isMobile && <td className='blank-td'></td>}
+                                                    <td className='f-bold hide-tab-header'>성별</td>
                                                     <td colSpan="12">{detailInfo?.gender}</td>
                                                 </tr>
                                                 <tr className='detail-info-tr'>
-                                                    <td className='blank-td'></td>
-                                                    <td>랭크</td>
+                                                    {!isMobile && <td className='blank-td'></td>}
+                                                    <td className='f-bold hide-tab-header'>랭크</td>
                                                     <td colSpan="12">{detailInfo?.rank}</td>
                                                 </tr>
                                                 <tr className='detail-info-tr'>
-                                                    <td className='blank-td'></td>
-                                                    <td>레벨</td>
+                                                    {!isMobile && <td className='blank-td'></td>}
+                                                    <td className='f-bold hide-tab-header'>레벨</td>
                                                     <td colSpan="12">{detailInfo?.level}</td>
                                                 </tr>
                                             </React.Fragment>
                                         }
 
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>스택</td>
                                             <td colSpan="12">{detailInfo?.stacks.map((stack, index) => <div key={`${index}-${stack}`}>{stack}</div>)}</td>
                                         </tr>
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>팔로잉</td>
                                             <td colSpan="12">{detailInfo?.following.map((id, index) => <div key={`${index}-${id}`}>{id}</div>)}</td>
                                         </tr>
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>팔로워</td>
                                             <td colSpan="12">{detailInfo?.followers.map((id, index) => <div key={`${index}-${id}`}>{id}</div>)}</td>
                                         </tr>
                                         {isMobile &&
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>신고</td>
                                             <td colSpan="12">{detailInfo?.report}</td>
                                         </tr>
                                         }
                                         <tr className='detail-info-tr'>
-                                            <td className='blank-td'></td>
+                                            {!isMobile && <td className='blank-td'></td>}
                                             <td className='f-bold hide-tab-header'>가입일</td>
                                             <td colSpan="12">{user.createAt ? `${user.createAt.date} ${user.createAt.time}` : "Date Not Provided"}</td>
                                         </tr>

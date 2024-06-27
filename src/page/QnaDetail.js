@@ -8,7 +8,6 @@ import AnswerInput from "../component/AnswerInput";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { qnaActions } from "../action/qnaAction";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const QnaDetail = () => {
     const dispatch = useDispatch();
@@ -16,13 +15,9 @@ const QnaDetail = () => {
     const { id } = useParams();
     const [markDown, setMarkdown] = useState("");
 
-    const getQnaDetail = () => {
-        dispatch(qnaActions.getQnaDetail(id));
-    };
-
     useEffect(() => {
-        getQnaDetail();
-    }, [id]);
+        dispatch(qnaActions.getQnaDetail(id));
+    }, [id, dispatch]);
 
     useEffect(() => {
         selectedQna && setMarkdown(selectedQna.content);
@@ -61,16 +56,14 @@ const QnaDetail = () => {
                     </div>
                 </div>
                 <div className="qna-detail-q-container">
-                    <AnswerInput getQnaDetail={getQnaDetail} />
+                    <AnswerInput/>
                 </div>
+                
                 <div className="question-num no-drag">{`${selectedQna?.answerCount}개의 답변`}</div>
+
                 {selectedQna?.answers.map((answer) => (
-                    <div className="answer">
-                        <Answer
-                            key={answer._id}
-                            answer={answer}
-                            getQnaDetail={getQnaDetail}
-                        />
+                    <div className="answer" key={answer._id}>
+                        <Answer answer={answer}/>
                     </div>
                 ))}
             </div>
