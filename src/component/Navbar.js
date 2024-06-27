@@ -6,12 +6,13 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../action/userAction";
 import '../style/navbar.style.css'
 import { Dropdown } from "react-bootstrap";
+import messageIcon from '../asset/img/message-icon.png'
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   // const [ showSearchBox, setShowSearchBox ] = useState(false);
-  const menuList = ["POST", "MEETUP", "Q&A"];
+  const menuList = ["POST", "MEETUP", "Q&A" ];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
 
@@ -108,6 +109,8 @@ const Navbar = ({ user }) => {
                 {user.level === "admin" ? <Dropdown.Item onClick={() => navigate("/admin")}>관리자페이지</Dropdown.Item>:''}
               </Dropdown.Menu>
             </Dropdown>}
+
+            <img src={messageIcon} alt="message Icon" className="message-icon" onClick={() => {navigate('/chat')}}/>
 
           {user ? (
             <div onClick={logout} className="nav-icon green-btn">
