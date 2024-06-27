@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Nav, Modal } from 'react-bootstrap'
+import { Nav, Modal, Row, Col } from 'react-bootstrap'
 import PostTab from '../component/PostTab';
 import "../style/myPage.style.css"
 import { useDispatch, useSelector } from 'react-redux';
@@ -235,13 +235,20 @@ const MyPage = () => {
   )
 }
 
-const TabContent = ({ tab, uniqueUser,uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
+const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
   if (tab === 0) {
-    return <div className="myPage-tab-container">
+    return <Row>
+      {uniqueUserPost && uniqueUserPost.map((post) => (
+        <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
+          <PostTab post={post} key={post._id} />
+        </Col>
+      ))}
+    </Row>
+    {/* <div className="myPage-tab-container">
       {uniqueUserPost && uniqueUserPost.map((post) => (
         <PostTab post={post} key={post._id} />
       ))}
-    </div>
+    </div> */}
   }
 
   if (tab === 1) {

@@ -178,6 +178,43 @@
     color: #fff;
 }
 
+.mypagetab-card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.mypagetab-card {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.mypagetab-card:hover {
+    transform: scale(0.95);
+}
+
+.mypagetab-card .card-thumbnail {
+    height: 150px;
+    object-fit: cover;
+}
+
+.mypagetab-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 5px 5px;
+}
+
+.mypagetab-card .user-likes {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.mypagetab-card .card-footer {
+    text-align: left;
+    font-size: 0.8rem;
+}
+
 .myPage-tab-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -415,6 +452,7 @@
     .post-image {
         width: 100%;
         height: auto;
+        margin-right: 0;
         margin-bottom: 10px;
     }
 }
