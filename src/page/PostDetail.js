@@ -80,14 +80,14 @@ const PostDetail = () => {
 
     const sendReport = () => {
         const reportedUserId = selectedPost.author._id;
-        const contentId = selectedPost._id;
+        const postId = selectedPost._id;
         const reasons = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true);
         const contentType = 'Post';
         if(reasons.length === 0) {
             dispatch(commonUiActions.showToastMessage('신고 사유를 선택해주세요.', 'error'))
             return
         }
-        dispatch(reportActions.createReport(reportedUserId, contentId, contentType, reasons))
+        dispatch(reportActions.createReport(reportedUserId, postId, contentType, reasons))
         setIsReportModalOpen(false)
     }
 
@@ -192,7 +192,7 @@ const PostDetail = () => {
             </div>
             <div className="post-detail-card">
                 <div className='title'>{selectedPost?.title}</div>
-                <div>
+                <div className='detail-page-user-container'>
                     <div className='author'>
                         <span className='img'><img src={selectedPost?.author.profileImage} alt=''/></span>
                         <span className='user-name' onClick={() => navigate(`/me/${selectedPost?.author.nickName}`)}>{selectedPost?.author.nickName}</span>
