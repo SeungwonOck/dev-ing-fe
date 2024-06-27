@@ -85,10 +85,30 @@
     padding: .375rem .75rem;
 }
 
+#meet-date-disabled {
+    box-sizing: border-box;
+    width: 600px;
+    background: #E9ECEF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+}
+
 #meet-time {
     box-sizing: border-box;
     width: 600px;
     background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+}
+
+#meet-time-disabled {
+    box-sizing: border-box;
+    width: 600px;
+    background: #E9ECEF;
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     font-size: 1rem;
