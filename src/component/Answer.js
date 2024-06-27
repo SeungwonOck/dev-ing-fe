@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/answer.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
@@ -9,58 +9,40 @@ import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { FormLabel } from "react-bootstrap";
 
-const Answer = ({ answer, getQnaDetail }) => {
+const Answer = ({ answer }) => {
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const { id } = useParams();
     const questionId = id;
     const answerId = answer._id;
-    const [loading, setLoading] = useState(false);
-    const [show, setShow] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(answer.content);
+    const [isAnswerUpdateModalOpen, setIsAnswerUpdateModalOpen] = useState(false)
 
-    const handleClose = () => {
-        if (updatedContent) {
-            setShow(false);
+    useEffect(() => {
+        if (isAnswerUpdateModalOpen) {
+            setUpdatedContent(answer.content)
         }
-        handleUpdate();
-    };
-    const handleShow = () => setShow(true);
+    }, [isAnswerUpdateModalOpen])
 
-    const handleUpdate = async () => {
-        await dispatch(
-            qnaActions.updateAnswer(questionId, answerId, updatedContent)
-        );
-        getQnaDetail();
+    const handleUpdate = () => {
+        dispatch(qnaActions.updateAnswer(questionId, answerId, updatedContent));
+        setIsAnswerUpdateModalOpen(false)
     };
 
-    const handleDelete = async () => {
+    const handleDelete = () => {
         if (window.confirm("답변을 삭제하시겠습니까?")) {
-            try {
-                await dispatch(qnaActions.deleteAnswer(questionId, answerId));
-                getQnaDetail();
-            } catch (error) {
-                console.error("댓글 삭제 오류:", error.message);
-            }
+            dispatch(qnaActions.deleteAnswer(questionId, answerId));
         }
     };
 
-    const handleHeartClick = async () => {
-        setLoading(true);
-        try {
-            await dispatch(qnaActions.addLikeAnswer(questionId, answerId));
-            getQnaDetail(); // 하트 상태 업데이트 후 전체 QnA 디테일을 다시 가져옵니다.
-        } catch (error) {
-            console.error("하트 상태 업데이트 오류:", error.message);
-        }
-        setLoading(false);
+    const handleHeartClick = () => {
+        dispatch(qnaActions.addLikeAnswer(questionId, answerId));
     };
 
     return (
         <div className="answer">
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={isAnswerUpdateModalOpen} onHide={() => setIsAnswerUpdateModalOpen(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>답변 수정</Modal.Title>
                 </Modal.Header>
@@ -75,18 +57,16 @@ const Answer = ({ answer, getQnaDetail }) => {
                                 as="textarea"
                                 rows={3}
                                 value={updatedContent}
-                                onChange={(e) =>
-                                    setUpdatedContent(e.target.value)
-                                }
+                                onChange={(e) => setUpdatedContent(e.target.value)}
                             />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={() => setIsAnswerUpdateModalOpen(false)}>
                         닫기
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => handleUpdate()}>
                         저장
                     </Button>
                 </Modal.Footer>
@@ -110,10 +90,10 @@ const Answer = ({ answer, getQnaDetail }) => {
 
                 {user._id === answer.author._id && (
                     <div className="right small-text no-drag cur-point">
-                        <div className="update-button" onClick={handleShow}>
+                        <div className="update-button" onClick={() => setIsAnswerUpdateModalOpen(true)}>
                             수정
                         </div>
-                        <div className="delete-button" onClick={handleDelete}>
+                        <div className="delete-button" onClick={() => handleDelete()}>
                             삭제
                         </div>
                     </div>
@@ -125,7 +105,7 @@ const Answer = ({ answer, getQnaDetail }) => {
                 </div>
             )}
             <div className="body">{answer.content}</div>
-            <div className="likes no-drag" onClick={handleHeartClick}>
+            <div className="likes no-drag" onClick={() => handleHeartClick()}>
                 <FontAwesomeIcon
                     icon={
                         answer.userLikes.includes(user._id)

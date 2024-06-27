@@ -37,19 +37,20 @@ const getQnaDetail = (id) => async (dispatch) => {
     }
 };
 
-const createQna = (formData, searchQuery) => async (dispatch) => {
+const createQna = (formData, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_CREATE_REQUEST });
         const { title, content } = formData;
         const res = await api.post(`/qna`, { title, content });
 
         if (res.status !== 200) {
-            throw new Error("QnA를 생성하는데 실패하였습니다.");
+            throw new Error("질문 등록에 실패하였습니다.");
         } else {
             dispatch({
                 type: types.QNA_CREATE_SUCCESS,
                 payload: res.data.data.newQnA._id,
             });
+            navigate(`/qna/${res.data.data.newQnA._id}`)
         }
     } catch (error) {
         dispatch({ type: types.QNA_CREATE_FAIL, payload: error.message });
@@ -62,26 +63,27 @@ const deleteQna = (id, searchQuery) => async (dispatch) => {
         const res = await api.delete(`/qna/${id}`);
 
         if (res.status !== 200) {
-            throw new Error("QnA를 삭제하는데 실패하였습니다.");
+            throw new Error("질문 삭제에 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_DELETE_SUCCESS });
+            dispatch(getQnaList(id))
         }
     } catch (error) {
         dispatch({ type: types.QNA_DELETE_FAIL });
     }
 };
 
-const updateQna = (formData, id) => async (dispatch) => {
+const updateQna = (formData, id, navigate) => async (dispatch) => {
     try {
         const { title, content } = formData;
-        console.log(title, content, id);
         dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
         const res = await api.put(`/qna/${id}`, { title, content });
 
         if (res.status !== 200) {
-            throw new Error("QnA를 수정하는데 실패하였습니다.");
+            throw new Error("질문 수정에 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_ANSWER_UPDATE_SUCCESS });
+            navigate(`/qna/${id}`)
         }
     } catch (error) {
         dispatch({
@@ -91,23 +93,23 @@ const updateQna = (formData, id) => async (dispatch) => {
     }
 };
 
-const createAnswer = (formData, id) => async (dispatch) => {
+const createAnswer = (content, imageUrl, id) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_ANSWER_CREATE_REQUEST });
-        const { author, content, image } = formData;
         const res = await api.post("/qna/answer", {
             qnaId: id,
             content,
-            image,
+            image: imageUrl,
         });
 
         if (res.status !== 200) {
-            throw new Error("QnA를 불러오는데 실패하였습니다.");
+            throw new Error("답변 달기에 실패하였습니다.");
         } else {
             dispatch({
                 type: types.QNA_ANSWER_CREATE_SUCCESS,
                 payload: res.data.data.newAnswer,
             });
+            dispatch(getQnaDetail(id))
         }
     } catch (error) {
         dispatch({
@@ -122,9 +124,10 @@ const deleteAnswer = (questionId, answerId) => async (dispatch) => {
         dispatch({ type: types.QNA_ANSWER_DELETE_REQUEST });
         const res = await api.delete(`/qna/${questionId}/answer/${answerId}`);
         if (res.status !== 200) {
-            throw new Error("QnA를 불러오는데 실패하였습니다.");
+            throw new Error("답변 삭제에 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_ANSWER_DELETE_SUCCESS });
+            dispatch(getQnaDetail(questionId))
         }
     } catch (error) {
         dispatch({
@@ -138,13 +141,13 @@ const updateAnswer = (questionId, answerId, content) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
         const res = await api.put(`/qna/${questionId}/answer/${answerId}`, {
-            content,
+            content
         });
-        console.log(res);
         if (res.status !== 200) {
-            throw new Error("QnA를 불러오는데 실패하였습니다.");
+            throw new Error("답변 수정에 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_ANSWER_UPDATE_SUCCESS });
+            dispatch(getQnaDetail(questionId))
         }
     } catch (error) {
         dispatch({
@@ -166,6 +169,7 @@ const addLikeAnswer = (questionId, answerId) => async (dispatch) => {
             throw new Error("QnA를 불러오는데 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_ANSWER_ADDLIKE_SUCCESS });
+            dispatch(getQnaDetail(questionId))
         }
     } catch (error) {
         dispatch({
