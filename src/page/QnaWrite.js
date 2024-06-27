@@ -46,11 +46,21 @@ const QnaWrite = ({ mode }) => {
 
     const createQuestion = () => {
         if (formData.title === "") {
-            dispatch(commonUiActions.showToastMessage('제목을 입력해주세요.', 'error'));
+            dispatch(
+                commonUiActions.showToastMessage(
+                    "제목을 입력해주세요.",
+                    "error"
+                )
+            );
             return;
         }
-        if (markDown === '') {
-            dispatch(commonUiActions.showToastMessage('내용을 입력해주세요.', 'error'));
+        if (markDown === "") {
+            dispatch(
+                commonUiActions.showToastMessage(
+                    "내용을 입력해주세요.",
+                    "error"
+                )
+            );
             return;
         }
 
@@ -59,7 +69,9 @@ const QnaWrite = ({ mode }) => {
         if (type === "new") {
             dispatch(qnaActions.createQna(newFormData, navigate));
         } else {
-            dispatch(qnaActions.updateQna(newFormData, selectedQna._id, navigate));
+            dispatch(
+                qnaActions.updateQna(newFormData, selectedQna._id, navigate)
+            );
         }
     };
 
