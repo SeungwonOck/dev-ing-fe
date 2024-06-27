@@ -32,7 +32,7 @@ function qnaReducer(state = initialState, action) {
             return { ...state, loading: false, error: "" };
 
         case types.QNA_GET_SUCCESS:
-            return { ...state, loading: false, qnaList: payload };
+            return { ...state, loading: false, qnaList: payload, error: '' };
 
         case types.GET_ADMIN_QNA_LIST_SUCCESS:
             return { ...state, loading: false, adminQnaList: payload }

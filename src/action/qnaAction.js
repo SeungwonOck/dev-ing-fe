@@ -3,10 +3,12 @@ import * as types from "../constants/qna.constants";
 import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
-const getQnaList = (query) => async (dispatch) => {
+const getQnaList = (searchQuery) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_GET_REQUEST });
-        const res = await api.get("/qna/all");
+        const res = await api.get("/qna/all", {
+            params: { ...searchQuery },
+        });
         if (res.status !== 200) {
             throw new Error("QnA를 불러오는데 실패하였습니다.");
         } else {
@@ -40,8 +42,8 @@ const getQnaDetail = (id) => async (dispatch) => {
 const createQna = (formData, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_CREATE_REQUEST });
-        const { title, content } = formData;
-        const res = await api.post(`/qna`, { title, content });
+        const { title, content, category } = formData;
+        const res = await api.post(`/qna`, { title, content, category });
 
         if (res.status !== 200) {
             throw new Error("질문 등록에 실패하였습니다.");
@@ -57,7 +59,7 @@ const createQna = (formData, navigate) => async (dispatch) => {
     }
 };
 
-const deleteQna = (id, searchQuery) => async (dispatch) => {
+const deleteQna = (id, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.QNA_DELETE_REQUEST });
         const res = await api.delete(`/qna/${id}`);
@@ -66,7 +68,8 @@ const deleteQna = (id, searchQuery) => async (dispatch) => {
             throw new Error("질문 삭제에 실패하였습니다.");
         } else {
             dispatch({ type: types.QNA_DELETE_SUCCESS });
-            dispatch(getQnaList(id))
+            dispatch(getQnaList())
+            navigate('/qna')
         }
     } catch (error) {
         dispatch({ type: types.QNA_DELETE_FAIL });
@@ -75,9 +78,9 @@ const deleteQna = (id, searchQuery) => async (dispatch) => {
 
 const updateQna = (formData, id, navigate) => async (dispatch) => {
     try {
-        const { title, content } = formData;
+        const { title, content, category } = formData;
         dispatch({ type: types.QNA_ANSWER_UPDATE_REQUEST });
-        const res = await api.put(`/qna/${id}`, { title, content });
+        const res = await api.put(`/qna/${id}`, { title, content, category });
 
         if (res.status !== 200) {
             throw new Error("질문 수정에 실패하였습니다.");
