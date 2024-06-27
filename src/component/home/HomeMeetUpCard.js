@@ -17,6 +17,7 @@ const HomeMeetUpCard = ({ meetUp }) => {
             <div className='img'>
                 <img src={meetUp.image} alt='' />
                 <div className={'overlay' + (meetUp?.isClosed ? '-finish' : '')}>{meetUp?.isClosed ? "마감" : "모집중"}</div>
+                <div className={'category-overlay'}>{meetUp?.category}</div>
             </div>
             <div className='contents'>
                 <div className='title'>{meetUp.title}</div>
