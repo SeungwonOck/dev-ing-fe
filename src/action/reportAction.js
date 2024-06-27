@@ -2,12 +2,16 @@ import api from "../utils/api";
 import * as types from "../constants/report.constants";
 import { commonUiActions } from "./commonUiAction";
 
-const createReport = (reportedUserId, contentId, contentType, reasons) => async (dispatch) => {
+const createReport = (reportedUserId, postId, meetUpId, qnaId, contentType, reasons) => async (dispatch) => {
+
+  console.log(reportedUserId, postId, meetUpId, qnaId, contentType, reasons)
   try {
         dispatch({type: types.CREATE_REPORT_REQUEST})
         const res = await api.post('/report', {
             reportedUserId,
-            contentId,
+            postId,
+            meetUpId,
+            qnaId,
             contentType,
             reasons
         })

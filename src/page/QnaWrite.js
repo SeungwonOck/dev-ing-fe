@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import CloudinaryUploadWidgetForWrite from "../utils/CloudinaryUploadWidgetForWrite";
 import { qnaActions } from "../action/qnaAction";
+import { commonUiActions } from "../action/commonUiAction";
 
 const initialFormData = {
     title: "",
@@ -15,7 +16,6 @@ const initialFormData = {
 const QnaWrite = ({ mode }) => {
     const [markDown, setMarkdown] = useState("");
     const [formData, setFormData] = useState({ ...initialFormData });
-    const [titleError, setTitleError] = useState("");
     const [contentError, setContentError] = useState("");
     const { user } = useSelector((state) => state.user);
     const { newQnaId, selectedQna } = useSelector((state) => state.qna);
@@ -46,22 +46,33 @@ const QnaWrite = ({ mode }) => {
 
     const createQuestion = () => {
         if (formData.title === "") {
-            setTitleError("📌 제목을 입력해주세요");
+            dispatch(
+                commonUiActions.showToastMessage(
+                    "제목을 입력해주세요.",
+                    "error"
+                )
+            );
             return;
-        } else {
-            setTitleError("");
+        }
+        if (markDown === "") {
+            dispatch(
+                commonUiActions.showToastMessage(
+                    "내용을 입력해주세요.",
+                    "error"
+                )
+            );
+            return;
         }
 
         const newFormData = { ...formData, content: markDown };
 
         if (type === "new") {
-            dispatch(qnaActions.createQna(newFormData));
+            dispatch(qnaActions.createQna(newFormData, navigate));
         } else {
-            dispatch(qnaActions.updateQna(newFormData, selectedQna._id));
+            dispatch(
+                qnaActions.updateQna(newFormData, selectedQna._id, navigate)
+            );
         }
-
-        // navigate(`/qna/${newQnaId}`);
-        navigate("/qna");
     };
 
     const handleChange = (event) => {
@@ -93,7 +104,6 @@ const QnaWrite = ({ mode }) => {
                         value={formData.title}
                         onChange={handleChange}
                     />
-                    <span className="error">{titleError}</span>
                 </div>
                 <div style={{ marginBottom: "10px" }}>
                     <strong className="small-btn">본문에 사진 추가 </strong>

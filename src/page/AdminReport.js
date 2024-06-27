@@ -9,8 +9,8 @@ const AdminReport = () => {
   const { reportList } = useSelector((state) => state.report);
   const tableHeader = !isMobile ? [
     "#",
+    "링크",
     "카테고리",
-    "글제목",
     "작성자",
     "신고자",
     "신고일시",

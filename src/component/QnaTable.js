@@ -56,7 +56,7 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
                                             <React.Fragment>
                                                 <tr className='detail-info-tr'>
                                                     <td className='blank-td'></td>
-                                                    <td className='f-bold'>작성날짜</td>
+                                                    <td className='f-bold'>작성일</td>
                                                     <td colSpan="12">{detailInfo?.createAt.date} {detailInfo?.createAt.time}</td>
                                                 </tr>
                                                 <tr className='detail-info-tr'>
