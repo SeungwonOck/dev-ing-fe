@@ -6,16 +6,18 @@ import qnaReducer from "./qnaReducer";
 import commonUiReducer from "./commonUIReducer";
 import homeReducer from "./homeReducer";
 import reportReducer from "./reportReducer";
+import chatReducer from "./chatReducer";
 
 const store = configureStore({
-  reducer: {
-    user: userReducer,
-    post: postReducer,
-    meetUp: meetUpReducer,
-    qna: qnaReducer,
-    home: homeReducer,
-    report: reportReducer,
-    ui: commonUiReducer
-  },
+    reducer: {
+        user: userReducer,
+        post: postReducer,
+        meetUp: meetUpReducer,
+        qna: qnaReducer,
+        home: homeReducer,
+        report: reportReducer,
+        ui: commonUiReducer,
+        chat: chatReducer,
+    },
 });
 export default store;
