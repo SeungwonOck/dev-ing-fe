@@ -260,7 +260,7 @@ const MeetUpDetail = () => {
             (<></>)
             :
             (
-              (selectedMeetUp?.participants.length === selectedMeetUp?.maxParticipants) ?
+              (selectedMeetUp?.isClosed) ?
                 (<div className='meetup-btn-container'>
                   <button className='white-btn-disabled' disabled={true} >모집 마감</button>
                 </div>)
