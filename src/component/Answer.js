@@ -77,7 +77,7 @@ const Answer = ({ answer }) => {
             </div>
             <div className="header no-drag">
                 <div className="left">
-                    <div>{answer.author.userName}</div>
+                    <div>{answer.author.nickName}</div>
                     <div className="small-text">|</div>
                     <div className="small-text">
                         {`${answer.createAt.date
