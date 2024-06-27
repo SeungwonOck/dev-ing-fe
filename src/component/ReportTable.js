@@ -3,10 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { Table } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { reportActions } from '../action/reportAction';
 
 const ReportTable = ({ header, reportList, isMobile }) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [ isShowDetailInfo, setIsShowDetailInfo ] = useState(false);
     const [ detailInfo, setDetailInfo ] = useState([]);
 
@@ -20,7 +23,9 @@ const ReportTable = ({ header, reportList, isMobile }) => {
         setIsShowDetailInfo(true);
     }
 
-    console.log(reportList)
+    const toggleConfirmReport = (id) => {
+        dispatch(reportActions.updateReport(id))
+    }
 
     return (
         <div className="overflow-x">
@@ -33,13 +38,25 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {reportList?.length > 0 ? (
+                    {reportList?.length > 0 ? ( 
                         reportList.map((report, index) => (
-                            <React.Fragment key={index}>
+                            <React.Fragment key={`${index}-${report._id}`}>
                                 <tr className={`table-row cur-point ${detailInfo._id === report._id ? 'select' : ''}`} onClick={() => showDetailInfo(report)}>
-                                    <td>{index + 1}</td>
+                                    {!isMobile && <td>{index + 1}</td>}
+                                    <td onClick={() => 
+                                        navigate(`/${report.contentType.toLowerCase()}/${report.contentType === 'Post' ? report.postId._id :
+                                                                                        report.contentType === 'MeetUp' ? report.meetUpId._id :
+                                                                                        report.contentType === 'QnA' ? report.qnaId._id : ''
+                                        }`)
+                                    }>
+                                        <FontAwesomeIcon icon={faLink} className='blue'/>
+                                    </td>
                                     <td>{report.contentType}</td>
-                                    <td>{report.content}</td>
+                                    <td>
+                                        {report.contentType === 'MeetUp' ? report.meetUpId.title : 
+                                        report.contentType === 'Post' ? report.postId.title : 
+                                        report.qnaId.title}
+                                    </td>
                                     <td>{report.reported.nickName}</td>
                                     
                                     {!isMobile && 
@@ -48,14 +65,41 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                                             <td className='date'>{report.createAt.date} {report.createAt.time}</td>
                                         </React.Fragment>
                                     }
-                                    <td><span className={`${report.isConfirmed ? 'coral' : 'blue'}`}>{report.isConfirmed ? 'Yes' : 'No'}</span></td>
+                                    {/* 신고승인 토글버튼 */}
+                                    <td className='toggle-td'>
+                                        <input
+                                            className="react-switch-checkbox"
+                                            id={`admin-confirm-${report._id}`}
+                                            type="checkbox"
+                                            checked={report.isConfirmed}
+                                            onChange={()=> toggleConfirmReport(report._id)}
+                                        />
+                                        <label
+                                            className="react-switch-label"
+                                            htmlFor={`admin-confirm-${report._id}`}
+                                        >
+                                        <span className={`react-switch-button`} />
+                                        </label>
+                                    </td>
                                 </tr>
                                 {isShowDetailInfo && detailInfo._id === report._id && (
                                     <React.Fragment>
+                                        {isMobile &&
+                                            <React.Fragment>
+                                                <tr className='detail-info-tr'>
+                                                    <td className='f-bold hide-tab-header'>내용</td>
+                                                    <td colSpan="12">
+                                                        {detailInfo.contentType === 'MeetUp' ? detailInfo.meetUpId.description : 
+                                                        detailInfo.contentType === 'Post' ? detailInfo.postId.content : 
+                                                        detailInfo.qnaId.content}
+                                                    </td>
+                                                </tr>
+                                            </React.Fragment>
+                                        }
                                             <tr className='detail-info-tr'>
                                                 {!isMobile && <td className='blank-td'></td>}
                                                 <td className='f-bold hide-tab-header'>신고사유</td>
-                                                <td colSpan="12">{report.reasons.map((reason) => <div>{reason}</div>)}</td>
+                                                <td colSpan="12">{detailInfo.reasons.map((reason, index) => <div key={`${index}-${reason}`}>{reason}</div>)}</td>
                                             </tr>
                                     
 
@@ -63,7 +107,7 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                                             <React.Fragment>
                                                 <tr className='detail-info-tr'>
                                                     <td className='f-bold hide-tab-header'>신고자</td>
-                                                    <td colSpan="12">{report.reporter.nickName}</td>
+                                                    <td colSpan="12">{detailInfo.reporter.nickName}</td>
                                                 </tr>
                                                 <tr className='detail-info-tr'>
                                                     <td className='f-bold hide-tab-header'>신고일시</td>
@@ -79,7 +123,7 @@ const ReportTable = ({ header, reportList, isMobile }) => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={header.length}>No Data to show</td>
+                            <td colSpan={header.length}>신고 내역이 없습니다</td>
                         </tr>
                     )}
                 </tbody>

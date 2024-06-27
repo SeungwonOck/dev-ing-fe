@@ -39,9 +39,9 @@
 }
   
 /* 스위치 버튼을 클릭하는 순간 버튼이 늘어나는듯한 동적 모션 */
-.react-switch-label:active .react-switch-button {
+/* .react-switch-label:active .react-switch-button {
     width: 30px;
-}
+} */
 
 
 @media screen and (max-width: 480px) {

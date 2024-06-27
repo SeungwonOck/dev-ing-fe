@@ -6,7 +6,7 @@ import MeetUpTable from "../component/MeetUpTable";
 const AdminMeetUp = () => {
   const dispatch = useDispatch();
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768)
-  const { meetUpList } = useSelector((state) => state.meetUp);
+  const { adminMeetUpList } = useSelector((state) => state.meetUp);
   const tableHeader = !isMobile ? [
     "#",
     "링크",
@@ -15,15 +15,17 @@ const AdminMeetUp = () => {
     "카테고리",
     "작성일",
     "삭제여부",
+    "공개제한"
   ] : [
     "링크",
     "제목",
     "작성자",
     "카테고리",
+    "공개제한"
   ];
 
   useEffect(() => {
-    dispatch(meetUpActions.getMeetUpList());
+    dispatch(meetUpActions.getAdminMeetUpList());
   }, [dispatch]);
 
 
@@ -43,10 +45,10 @@ const AdminMeetUp = () => {
 
   return (
     <div className="locate-center">
-      {meetUpList &&
+      {adminMeetUpList &&
         <MeetUpTable
           header={tableHeader}
-          meetUpList={meetUpList}
+          meetUpList={adminMeetUpList}
           isMobile={isMobile}
         />
       }

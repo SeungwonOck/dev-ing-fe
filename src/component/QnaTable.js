@@ -2,10 +2,13 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { Table } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { qnaActions } from '../action/qnaAction';
 
 const QnaTable = ({ header, qnaList, isMobile }) => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ isShowDetailInfo, setIsShowDetailInfo ] = useState(false);
     const [ detailInfo, setDetailInfo ] = useState([]);
@@ -20,7 +23,9 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
         setIsShowDetailInfo(true);
     }
 
-    console.log(qnaList)
+    const toggleBlock = (id) => {
+        dispatch(qnaActions.blockQna(id))
+    }
 
     return (
         <div className="overflow-x">
@@ -46,9 +51,25 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
                                         <React.Fragment>
                                             <td className='date'>{qna.createAt.date} {qna.createAt.time}</td>
                                             <td>{qna.answerCount}</td>
-                                            <td><span className={`${qna.isBlock ? 'coral' : 'blue'}`}>{qna.isBlock ? 'Yes' : 'No'}</span></td>
+                                            <td><span className={`${qna.isDelete ? 'coral' : 'blue'}`}>{qna.isDelete ? 'Yes' : 'No'}</span></td>
                                         </React.Fragment>
                                     }
+                                    {/* 신고승인 토글버튼 */}
+                                    <td className='toggle-td'>
+                                        <input
+                                            className="react-switch-checkbox"
+                                            id={`admin-confirm-${qna._id}`}
+                                            type="checkbox"
+                                            checked={qna.isBlock}
+                                            onChange={()=> toggleBlock(qna._id)}
+                                        />
+                                        <label
+                                            className="react-switch-label"
+                                            htmlFor={`admin-confirm-${qna._id}`}
+                                        >
+                                        <span className={`react-switch-button`} />
+                                        </label>
+                                    </td>
                                 </tr>
                                 {isShowDetailInfo && detailInfo._id === qna._id && (
                                     <React.Fragment>
@@ -56,7 +77,7 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
                                             <React.Fragment>
                                                 <tr className='detail-info-tr'>
                                                     <td className='blank-td'></td>
-                                                    <td className='f-bold'>작성날짜</td>
+                                                    <td className='f-bold'>작성일</td>
                                                     <td colSpan="12">{detailInfo?.createAt.date} {detailInfo?.createAt.time}</td>
                                                 </tr>
                                                 <tr className='detail-info-tr'>
@@ -83,7 +104,7 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
                                             <tr className='detail-info-tr f-bold'>
                                                 {!isMobile &&<td className='blank-td'></td>}
                                                 <td className='blank-td'></td>
-                                                <td colSpan={3} className='hide-tab-header'>내용</td>
+                                                <td colSpan={4} className='hide-tab-header'>내용</td>
                                                 <td className='hide-tab-header'>작성자</td>
                                                 <td className='hide-tab-header'>좋아요수</td>
                                                 {!isMobile && <td className='hide-tab-header'>작성일</td>}
@@ -102,7 +123,7 @@ const QnaTable = ({ header, qnaList, isMobile }) => {
                                             <tr className='detail-info-tr' key={`${index}-${ans._id}`}>
                                                 {!isMobile &&<td className='blank-td'></td>}
                                                 <td className='blank-td'></td>
-                                                <td colSpan={3}>{ans.content}</td>
+                                                <td colSpan={4}>{ans.content}</td>
                                                 <td className='cur-point' onClick={() => navigate(`/me/${ans.author.nickName}`)}>{ans.author.nickName}</td>
                                                 <td>{ans.likes}</td>
                                                 {!isMobile && <td className='date'>{ans.createAt.date} {ans.createAt.time}</td>}

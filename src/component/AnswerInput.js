@@ -6,21 +6,16 @@ import { useSelector, useDispatch } from "react-redux";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 import { qnaActions } from "../action/qnaAction";
 
-const AnswerInput = ({ getQnaDetail }) => {
+const AnswerInput = () => {
     const { id } = useParams();
     const [content, setContent] = useState("");
     const { user } = useSelector((state) => state.user);
     const [imageUrl, setImageUrl] = useState("");
     const dispatch = useDispatch();
 
-    const fetchCreateAnswer = async (e) => {
+    const fetchCreateAnswer = (e) => {
         e.preventDefault();
-        const newAnswer = {
-            content: content,
-            image: imageUrl,
-        };
-        await dispatch(qnaActions.createAnswer(newAnswer, id));
-        getQnaDetail();
+        dispatch(qnaActions.createAnswer(content, imageUrl, id));
         setContent("");
         setImageUrl("");
     };

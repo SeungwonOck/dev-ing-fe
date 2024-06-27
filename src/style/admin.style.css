@@ -55,9 +55,9 @@
     word-break: break-all;
     vertical-align: middle;
 }
-.user-table > tbody > .detail-info-tr > td:nth-child(2) {
+/* .user-table > tbody > .detail-info-tr > td:nth-child(2) {
     font-weight: 600;
-}
+} */
 .locate-center table .select > td {
     background-color: #ebf7fa;
     color: #00799e;
@@ -72,7 +72,7 @@
     border: 1px solid rgb(240, 240, 240);
 }
 .locate-center table .date {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 .locate-center table .title > p {
     word-break: break-all;
@@ -87,6 +87,19 @@
     color: #00799e;
     text-decoration: underline;
 }
+.post-content-td > p {
+    max-height: 200px;
+    overflow: auto;
+}
+.locate-center table .detail-info-tr .tag {
+    padding: 4px 6px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 121, 158, 0.5);
+    border-radius: 5px;
+    color: #00799e;
+    margin: 2px;
+}
+
 @media screen and (max-width: 980px) {
     .admin-page > .contents {
         margin-left: 0px;

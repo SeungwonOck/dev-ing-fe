@@ -6,7 +6,7 @@ import QnaTable from "../component/QnaTable";
 const AdminQna = () => {
   const dispatch = useDispatch();
   const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768)
-  const { qnaList } = useSelector((state) => state.qna);
+  const { adminQnaList } = useSelector((state) => state.qna);
   const tableHeader = !isMobile ? [
     "#",
     "링크",
@@ -16,15 +16,17 @@ const AdminQna = () => {
     "작성일",
     "답변 수",
     "삭제여부",
+    "공개제한",
   ] : [
     "링크",
     "제목",
     "작성자",
     "카테고리",
+    "공개제한"
   ];
 
   useEffect(() => {
-    dispatch(qnaActions.getQnaList());
+    dispatch(qnaActions.getAdminQnaList());
   }, [dispatch]);
 
 
@@ -44,10 +46,10 @@ const AdminQna = () => {
 
   return (
     <div className="locate-center">
-      {qnaList &&
+      {adminQnaList &&
         <QnaTable
           header={tableHeader}
-          qnaList={qnaList}
+          qnaList={adminQnaList}
           isMobile={isMobile}
         />
       }

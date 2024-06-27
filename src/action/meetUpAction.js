@@ -3,10 +3,12 @@ import * as types from "../constants/meetUp.constants";
 import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
-const getMeetUpList = (query) => async (dispatch) => {
+const getMeetUpList = (searchQuery) => async (dispatch) => {
     try {
         dispatch({ type: types.MEETUP_GET_REQUEST })
-        const res = await api.get(`/meetup/all`);
+        const res = await api.get(`/meetup/all`, {
+            params: { ...searchQuery },
+        });
         if (res.status !== 200) {
             throw new Error('모임들을 불러오는데 실패하였습니다.')
         } else {
@@ -120,6 +122,39 @@ const leaveMeetUp = (id, navigate) => async (dispatch) => {
     }
 }
 
+const blockMeetUp = (id) => async (dispatch) => {
+    try {
+        dispatch({type: types.BLOCK_MEETUP_REQUEST})
+        const res = await api.put(`/meetup/block/${id}`);
+        if(res.status !== 200) {
+            throw new Error('공개 제한에 실패하였습니다.')
+        } else {
+            dispatch({type: types.BLOCK_MEETUP_SUCCESS});
+            dispatch(getAdminMeetUpList())
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.BLOCK_MEETUP_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+} 
+
+const getAdminMeetUpList = () => async (dispatch) => {
+    try {
+        dispatch({type: types.GET_ADMIN_MEETUP_LIST_REQUEST})
+        const res = await api.get('/admin/meetup');
+        if(res.status !== 200) {
+            throw new Error('모임이 없습니다.')
+        } else {
+            dispatch({type: types.GET_ADMIN_MEETUP_LIST_SUCCESS, payload: res.data.data.adminMeetUpList });
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.GET_ADMIN_MEETUP_LIST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
 export const meetUpActions = {
     getMeetUpList,
     createMeetUp,
@@ -127,5 +162,7 @@ export const meetUpActions = {
     updateMeetUp,
     getMeetUpDetail,
     joinMeetUp,
-    leaveMeetUp
+    leaveMeetUp,
+    blockMeetUp,
+    getAdminMeetUpList
 };

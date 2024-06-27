@@ -21,6 +21,9 @@ const AdminQna = lazy(() => import('../page/AdminQna'));
 const AdminMeetUp = lazy(() => import('../page/AdminMeetUp'));
 const AdminReport = lazy(() => import('../page/AdminReport'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const ChatList = lazy(() => import('../page/ChatList'));
+const ChatRoom = lazy(() => import('../page/ChatRoom'));
+
 
 const AppRouter = () => {
   return (
@@ -41,6 +44,8 @@ const AppRouter = () => {
           <Route path="/meetup/:id" element={<MeetUpDetail />} />
           <Route path="/meetup/write" element={<MeetUpWrite />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/chat" element={<ChatList />} />
+          <Route path="/chat/:roomId" element={<ChatRoom />} />
         </Route>
         <Route element={<PrivateRoute permissionLevel="admin" />}>
           <Route path="/admin" element={<Admin />} />
