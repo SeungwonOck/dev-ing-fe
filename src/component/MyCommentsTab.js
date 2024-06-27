@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import meetingImg from "../asset/img/meeting-img-01.jpg"
 import { postActions } from '../action/postAction';
+import { qnaActions } from "../action/qnaAction";
+import { Dropdown } from 'react-bootstrap';
 
 const MyCommentsTab = ({ uniqueUser }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { postList } = useSelector((state) => state.post)
-    const [myComments, setMyComments] = useState([]);
+    const { qnaList } = useSelector((state) => state.qna);
+    const [myPostComments, setMyPostComments] = useState([]);
+    const [myQnaComments, setMyQnaComments] = useState([]);
+    const [selectedTab, setSelectedTab] = useState("all")
+    const [dropdownText, setDropdownText] = useState("전체 댓글")
 
     useEffect(() => {
         dispatch(postActions.getPostList());
+        dispatch(qnaActions.getQnaList());
     }, [])
 
     useEffect(() => {
@@ -24,14 +31,44 @@ const MyCommentsTab = ({ uniqueUser }) => {
                     ...post,
                     userComments: post.comments.filter((comment) => !comment.isDelete && comment.author === uniqueUser._id),
                 }))
-            setMyComments(commentWithPosts)
+            setMyPostComments(commentWithPosts)
         }
     }, [postList, uniqueUser])
 
+    useEffect(() => {
+        if (qnaList) {
+            const commentWithQnas = qnaList
+                .filter((qna) => 
+                qna.answers && qna.answers.some((answer) =>!answer.isDelete && answer.author._id === uniqueUser._id)
+            )
+                .map((qna) => ({
+                    ...qna,
+                    userComments: qna.answers.filter((answer) =>!answer.isDelete && answer.author._id === uniqueUser._id),
+                }))
+            setMyQnaComments(commentWithQnas)
+        }
+    }, [qnaList, uniqueUser])
+
+    const handleSelect = (tab, text) => {
+        setSelectedTab(tab);
+        setDropdownText(text);
+    };
+
 
   return (
-    <div className="myComment-tab-container">
-      {myComments.map((post) => (
+      <div className="myComment-tab-container">
+        <Dropdown>
+            <Dropdown.Toggle className="white-btn">
+                {dropdownText}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+                <Dropdown.Item onClick={() => handleSelect('all', '전체 댓글')}>전체 댓글</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleSelect('posts', '게시물')}>게시물</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleSelect('qna', 'QnA')}>QnA</Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
+      {(selectedTab === 'all' || selectedTab === 'posts') && myPostComments.map((post) => (
         <div className="myComment-tab" key={post._id}>
           <div className="post-content" onClick={() => { navigate(`/post/${post._id}`) }}>
             <img src={post.image || meetingImg} alt="postImg" className="post-image" />
@@ -54,6 +91,34 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 <div className="comment-content">
                   <p>{comment.content}</p>
                   <span className="comment-date">{comment.createAt.date} at {comment.createAt.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+        {(selectedTab === 'all' || selectedTab === 'qna') && myQnaComments.map((qna) => (
+        <div className="myComment-tab" key={qna._id}>
+          <div className="post-content" onClick={() => { navigate(`/qna/${qna._id}`) }}>
+            <div className="post-text">
+              <h3>{qna.title}</h3>
+              <div className="post-details">
+                <span>Contents: {qna.content.slice(0,10)} ...</span>
+                <span>Tags: {qna.tags.join(", ")}</span>
+                <span>게시일: {qna.createAt.date} at {qna.createAt.time}</span>
+              </div>
+            </div>
+          </div>
+          <div className="comments-section">
+            {qna.userComments.map((answer) => (
+              <div className="comment" key={answer._id}>
+                <div className="comment-author">
+                  <img src={uniqueUser.profileImage} alt="author" className="author-image" />
+                  <span className="author-name">{uniqueUser.userName}</span>
+                </div>
+                <div className="comment-content">
+                  <p>{answer.content}</p>
+                  <span className="comment-date">{answer.createAt.date} at {answer.createAt.time}</span>
                 </div>
               </div>
             ))}
