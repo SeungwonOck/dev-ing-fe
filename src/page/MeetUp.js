@@ -15,12 +15,12 @@ const MeetUp = () => {
   const [query, setQuery] = useSearchParams();
   const { meetUpList, loading, error } = useSelector((state) => state.meetUp);
   const [keywordValue, setKeywordValue] = useState('');
-  const [isClosedState, setIsClosedState] = useState(false);
+  const [isRecruitState, setisRecruitState] = useState(false);
   const [searchQuery, setSearchQuery] = useState({
     type: query.get("type") || '',
     keyword: query.get("keyword") || '',
     category: query.get("category") || '',
-    isClosed: false,
+    isRecruit: false,
   });
 
   useEffect(() => {
@@ -29,8 +29,8 @@ const MeetUp = () => {
   }, [searchQuery, searchQuery.type, searchQuery.keyword, searchQuery.category])
 
   useEffect(() => {
-    setSearchQuery({ ...searchQuery, isClosed: isClosedState })
-  }, [isClosedState])
+    setSearchQuery({ ...searchQuery, isRecruit: isRecruitState })
+  }, [isRecruitState])
 
   const updateQueryParams = () => {
     const { keyword, type, category } = searchQuery;
@@ -112,8 +112,8 @@ const MeetUp = () => {
           className="react-switch-checkbox"
           id={`view-following`}
           type="checkbox"
-          checked={isClosedState}
-          onChange={() => setIsClosedState(prev => !prev)}
+          checked={isRecruitState}
+          onChange={() => setisRecruitState(prev => !prev)}
         />
         <label
           className="react-switch-label"
