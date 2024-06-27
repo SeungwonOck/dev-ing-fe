@@ -44,7 +44,7 @@ const QnaWrite = ({ mode }) => {
         }
     }, [user]);
 
-    const createQuestion = async () => {
+    const createQuestion = () => {
         if (formData.title === "") {
             setTitleError("📌 제목을 입력해주세요");
             return;
@@ -55,9 +55,9 @@ const QnaWrite = ({ mode }) => {
         const newFormData = { ...formData, content: markDown };
 
         if (type === "new") {
-            await dispatch(qnaActions.createQna(newFormData));
+            dispatch(qnaActions.createQna(newFormData));
         } else {
-            await dispatch(qnaActions.updateQna(newFormData, selectedQna._id));
+            dispatch(qnaActions.updateQna(newFormData, selectedQna._id));
         }
 
         // navigate(`/qna/${newQnaId}`);
