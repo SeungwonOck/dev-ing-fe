@@ -17,13 +17,13 @@ const Answer = ({ answer }) => {
     const questionId = id;
     const answerId = answer._id;
     const [updatedContent, setUpdatedContent] = useState(answer.content);
-    const [ isAnswerUpdateModalOpen, setIsAnswerUpdateModalOpen ] = useState(false)
+    const [isAnswerUpdateModalOpen, setIsAnswerUpdateModalOpen] = useState(false)
 
-    useEffect(()=>{
-        if(isAnswerUpdateModalOpen) {
+    useEffect(() => {
+        if (isAnswerUpdateModalOpen) {
             setUpdatedContent(answer.content)
         }
-    },[isAnswerUpdateModalOpen])
+    }, [isAnswerUpdateModalOpen])
 
     const handleUpdate = () => {
         dispatch(qnaActions.updateAnswer(questionId, answerId, updatedContent));
@@ -80,9 +80,8 @@ const Answer = ({ answer }) => {
                     <div>{answer.author.userName}</div>
                     <div className="small-text">|</div>
                     <div className="small-text">
-                        {`${
-                            answer.createAt.date
-                        } ${answer.createAt.time.substring(0, 5)}`}
+                        {`${answer.createAt.date
+                            } ${answer.createAt.time.substring(0, 5)}`}
                     </div>
                     {answer.isUpdated && (
                         <div className="small-text">수정됨</div>

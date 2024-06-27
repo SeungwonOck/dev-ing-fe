@@ -7,21 +7,66 @@ import { useDispatch, useSelector } from 'react-redux'
 import { meetUpActions } from '../action/meetUpAction'
 import ErrorCard from "../component/ErrorCard"
 import { Dropdown } from 'react-bootstrap';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const MeetUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [query, setQuery] = useSearchParams();
   const { meetUpList, loading, error } = useSelector((state) => state.meetUp);
-  const [showFinish, setShowFinish] = useState(false);
+  const [keywordValue, setKeywordValue] = useState('');
+  const [isClosedState, setIsClosedState] = useState(false);
+  const [searchQuery, setSearchQuery] = useState({
+    type: query.get("type") || '',
+    keyword: query.get("keyword") || '',
+    category: query.get("category") || '',
+    isClosed: false,
+  });
 
   useEffect(() => {
-    dispatch(meetUpActions.getMeetUpList());
-  }, [])
+    dispatch(meetUpActions.getMeetUpList({ ...searchQuery }));
+    updateQueryParams();
+  }, [searchQuery, searchQuery.type, searchQuery.keyword, searchQuery.category])
 
-  if (meetUpList.length === 0) {
-    return (
-      <ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />
-    );
-  }
+  useEffect(() => {
+    setSearchQuery({ ...searchQuery, isClosed: isClosedState })
+  }, [isClosedState])
+
+  const updateQueryParams = () => {
+    const { keyword, type, category } = searchQuery;
+    const queryParams = new URLSearchParams();
+
+    if (keyword) queryParams.set('keyword', keyword);
+    if (type) queryParams.set('type', type);
+    if (category) queryParams.set('category', category);
+
+    navigate(`/meetup?${queryParams.toString()}`);
+  };
+
+  const onCheckEnter = (e) => {
+    if (e.key === "Enter") {
+      setSearchQuery(prevState => ({
+        ...prevState,
+        keyword: e.target.value || ''
+      }));
+      updateQueryParams();
+    }
+  };
+
+  const getMeetUpListByType = (type) => {
+    setSearchQuery(prevState => ({
+      ...prevState,
+      type: type
+    }));
+    updateQueryParams();
+  };
+  const getMeetUpListByCategory = (category) => {
+    setSearchQuery(prevState => ({
+      ...prevState,
+      category: category
+    }));
+    updateQueryParams();
+  };
 
   return (
     <div className='meetup-all-container'>
@@ -30,9 +75,9 @@ const MeetUp = () => {
           type='text'
           placeholder='검색어를 입력하세요'
           className='form-control search-input'
-        // value={keywordValue}
-        // onKeyUp={(e) => onCheckEnter(e)}
-        // onChange={(e) => setKeywordValue(e.target.value)}
+          value={keywordValue}
+          onKeyUp={(e) => onCheckEnter(e)}
+          onChange={(e) => setKeywordValue(e.target.value)}
         />
 
         <Dropdown>
@@ -41,12 +86,8 @@ const MeetUp = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item>최신 순</Dropdown.Item>
-            <Dropdown.Item>마감임박 순</Dropdown.Item>
-            {/* <Dropdown.Item onClick={() => getPostListByType('popularity')}>좋아요 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('comments')}>댓글 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('scrap')}>스크랩 순</Dropdown.Item>
-            <Dropdown.Item onClick={() => getPostListByType('latest')}>최신 순</Dropdown.Item> */}
+            <Dropdown.Item onClick={() => getMeetUpListByType('latest')}>최근등록 순</Dropdown.Item>
+            <Dropdown.Item onClick={() => getMeetUpListByType('closed')}>마감임박 순</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown>
@@ -56,10 +97,10 @@ const MeetUp = () => {
 
           <Dropdown.Menu>
             <Dropdown.Header>카테고리별로 모아보기</Dropdown.Header>
-            <Dropdown.Item>독서</Dropdown.Item>
-            <Dropdown.Item>강의</Dropdown.Item>
-            <Dropdown.Item>프로젝트</Dropdown.Item>
-            <Dropdown.Item>기타 스터디</Dropdown.Item>
+            <Dropdown.Item onClick={() => getMeetUpListByCategory('독서')}>독서</Dropdown.Item>
+            <Dropdown.Item onClick={() => getMeetUpListByCategory('강의')}>강의</Dropdown.Item>
+            <Dropdown.Item onClick={() => getMeetUpListByCategory('프로젝트')}>프로젝트</Dropdown.Item>
+            <Dropdown.Item onClick={() => getMeetUpListByCategory('기타 스터디')}>기타 스터디</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <WriteBtn type='meetUp' />
@@ -71,8 +112,8 @@ const MeetUp = () => {
           className="react-switch-checkbox"
           id={`view-following`}
           type="checkbox"
-          checked={showFinish}
-          onChange={() => setShowFinish(prev => !prev)}
+          checked={isClosedState}
+          onChange={() => setIsClosedState(prev => !prev)}
         />
         <label
           className="react-switch-label"
@@ -83,8 +124,14 @@ const MeetUp = () => {
       </div>
 
       <div className='meet-up-container'>
-        {meetUpList &&
-          meetUpList.map((meetUp) => <MeetUpCard key={meetUp._id} meetUp={meetUp} />)}
+        {
+          meetUpList.length === 0 ?
+            (<ErrorCard errorMessage={"현재 모집 중인 모임이 없습니다."} />)
+            :
+            (meetUpList &&
+              meetUpList.map((meetUp) => <MeetUpCard key={meetUp._id} meetUp={meetUp} />)
+            )
+        }
       </div>
     </div>
   )
