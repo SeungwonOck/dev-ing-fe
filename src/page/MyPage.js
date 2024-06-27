@@ -145,6 +145,15 @@ const MyPage = () => {
             </div>
           </div>
           <div className="follow-info">
+            <div className="follow-item">
+              <p className="follow-label">나의 활동</p>
+              <p className="follow-count">
+                {uniqueUserPost.length
+                  + uniqueUserMeetUp.length
+                  + uniqueUserQna.length
+                  + uniqueUser.scrap.length}
+              </p>
+            </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
               <p className="follow-label">Followers</p>
               <p className="follow-count">{uniqueUser.followers ? uniqueUser.followers.length : 0}</p>
@@ -244,11 +253,6 @@ const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueU
         </Col>
       ))}
     </Row>
-    {/* <div className="myPage-tab-container">
-      {uniqueUserPost && uniqueUserPost.map((post) => (
-        <PostTab post={post} key={post._id} />
-      ))}
-    </div> */}
   }
 
   if (tab === 1) {

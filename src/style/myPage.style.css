@@ -215,30 +215,6 @@
     font-size: 0.8rem;
 }
 
-.myPage-tab-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.myPage-tab {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
-
-.myPage-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    aspect-ratio: 1 /1;
-}
-
 .meetup-container {
     display: flex;
     flex-direction: row;

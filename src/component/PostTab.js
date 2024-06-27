@@ -39,8 +39,4 @@ const PostTab = ({ post }) => {
   )
 }
 
-{/* <div className="myPage-tab cur-point" onClick={() => { navigate(`/post/${post._id}`) }}>
-      <img src={image} alt="postImg" className="myPage-image" />
-    </div> */}
-
 export default PostTab
