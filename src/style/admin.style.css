@@ -87,6 +87,19 @@
     color: #00799e;
     text-decoration: underline;
 }
+.post-content-td > p {
+    max-height: 200px;
+    overflow: auto;
+}
+.locate-center table .detail-info-tr .tag {
+    padding: 4px 6px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 121, 158, 0.5);
+    border-radius: 5px;
+    color: #00799e;
+    margin: 2px;
+}
+
 @media screen and (max-width: 980px) {
     .admin-page > .contents {
         margin-left: 0px;

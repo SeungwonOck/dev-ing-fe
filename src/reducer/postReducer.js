@@ -5,7 +5,8 @@ const initialState = {
   postList: [],
   selectedPost: null,
   isFollowing: false,
-  commentLoading: false
+  commentLoading: false,
+  adminPostList: []
 };
 
 function postReducer(state = initialState, action) {
@@ -18,6 +19,8 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_REQUEST:
     case types.ADD_LIKE_ON_POST_REQUEST:
     case types.ADD_SCRAP_REQUEST:
+    case types.BLOCK_POST_REQUEST:
+    case types.GET_ADMIN_POST_LIST_REQUEST:
         return {...state, loading: true}
 
     case types.CREATE_POST_COMMENT_REQUEST:
@@ -30,6 +33,7 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_SUCCESS:
     case types.ADD_LIKE_ON_POST_SUCCESS:
     case types.ADD_SCRAP_SUCCESS:
+    case types.BLOCK_POST_SUCCESS:
       return {...state, loading: false, error: ''}
 
     case types.CREATE_POST_COMMENT_SUCCESS:
@@ -43,6 +47,9 @@ function postReducer(state = initialState, action) {
     case types.POST_GET_SUCCESS:
         return {...state, loading: false, postList: payload, error: ''}
 
+    case types.GET_ADMIN_POST_LIST_SUCCESS:
+        return { ...state, loading: false, adminPostList: payload, error: ''}
+
     case types.POST_CREATE_FAIL:
     case types.POST_GET_FAIL:
     case types.GET_POST_DETAIL_FAIL:
@@ -50,6 +57,8 @@ function postReducer(state = initialState, action) {
     case types.POST_EDIT_FAIL:
     case types.ADD_LIKE_ON_POST_FAIL:
     case types.ADD_SCRAP_FAIL:
+    case types.BLOCK_POST_FAIL:
+    case types.GET_ADMIN_POST_LIST_FAIL:
         return {...state, loading: false, error:payload}
 
     case types.CREATE_POST_COMMENT_FAIL:

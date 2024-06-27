@@ -3,8 +3,6 @@ import * as types from "../constants/report.constants";
 import { commonUiActions } from "./commonUiAction";
 
 const createReport = (reportedUserId, postId, meetUpId, qnaId, contentType, reasons) => async (dispatch) => {
-
-  console.log(reportedUserId, postId, meetUpId, qnaId, contentType, reasons)
   try {
         dispatch({type: types.CREATE_REPORT_REQUEST})
         const res = await api.post('/report', {
@@ -27,11 +25,20 @@ const createReport = (reportedUserId, postId, meetUpId, qnaId, contentType, reas
   }
 };
 
-const updateReport = (userFormData) => async (dispatch) => {
+const updateReport = (reportId) => async (dispatch) => {
   try {
-
+      dispatch({type: types.UPDATE_REPORT_REQUEST});
+      const res = await api.put(`/report`, { reportId });
+      if(res.status !== 200) {
+        throw new Error('신고 승인에 실패하였습니다.')
+    } else {
+        dispatch({type: types.UPDATE_REPORT_SUCCESS, payload: res.data.data})
+        dispatch(commonUiActions.showToastMessage(res.data.message, "success"))
+        dispatch(getAllReport())
+    }
   } catch (error) {
-
+    dispatch({type: types.UPDATE_REPORT_FAIL, payload: error.message})
+    dispatch(commonUiActions.showToastMessage(error.message, "error"))
   }
 };
 
@@ -47,7 +54,7 @@ const getAllReport = () => async (dispatch) => {
         }
   } catch (error) {
         dispatch({type: types.GET_ALL_REPORT_FAIL, payload: error.message})
-        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+        // dispatch(commonUiActions.showToastMessage(error.message, "error"))
   }
 }
 
