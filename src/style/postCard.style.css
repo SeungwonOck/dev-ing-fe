@@ -27,7 +27,7 @@
     justify-content: space-between;
 }
 .post-card > .contents > .info > .title > p { 
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
