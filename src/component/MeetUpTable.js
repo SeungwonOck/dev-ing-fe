@@ -2,10 +2,12 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { Table } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { meetUpActions } from '../action/meetUpAction';
 
 const MeetUpTable = ({ header, meetUpList, isMobile }) => {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ isShowDetailInfo, setIsShowDetailInfo ] = useState(false);
     const [ detailInfo, setDetailInfo ] = useState([]);
@@ -20,7 +22,9 @@ const MeetUpTable = ({ header, meetUpList, isMobile }) => {
         setIsShowDetailInfo(true);
     }
 
-    console.log(meetUpList)
+    const toggleBlock = (id) => {
+        dispatch(meetUpActions.blockMeetUp(id))
+    }
 
     return (
         <div className="overflow-x">
@@ -45,9 +49,26 @@ const MeetUpTable = ({ header, meetUpList, isMobile }) => {
                                     {!isMobile && 
                                         <React.Fragment>
                                             <td className='date'>{meetUp.createAt.date} {meetUp.createAt.time}</td>
-                                            <td><span className={`${meetUp.isBlock ? 'coral' : 'blue'}`}>{meetUp.isBlock ? 'Yes' : 'No'}</span></td>
+                                            <td><span className={`${meetUp.isDelete ? 'coral' : 'blue'}`}>{meetUp.isDelete ? 'Yes' : 'No'}</span></td>
                                         </React.Fragment>
                                     }
+                                    {/* 신고승인 토글버튼 */}
+                                    <td className='toggle-td'>
+                                        <input
+                                            className="react-switch-checkbox"
+                                            id={`admin-confirm-${meetUp._id}`}
+                                            type="checkbox"
+                                            checked={meetUp.isBlock}
+                                            onChange={()=> toggleBlock(meetUp._id)}
+                                        />
+                                        <label
+                                            className="react-switch-label"
+                                            htmlFor={`admin-confirm-${meetUp._id}`}
+                                        >
+                                        <span className={`react-switch-button`} />
+                                        </label>
+                                    </td>
+
                                 </tr>
                                 {isShowDetailInfo && detailInfo._id === meetUp._id && (
                                     <React.Fragment>

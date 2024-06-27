@@ -167,16 +167,51 @@ const addScrap = (postId, isPrivate) => async (dispatch) => {
     }
 }
 
+const blockPost = (id) => async (dispatch) => {
+    try {
+        dispatch({type: types.BLOCK_POST_REQUEST})
+        const res = await api.put(`/post/block/${id}`);
+        if(res.status !== 200) {
+            throw new Error('공개 제한에 실패하였습니다.')
+        } else {
+            dispatch({type: types.BLOCK_POST_SUCCESS});
+            dispatch(getAdminPostList())
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.BLOCK_POST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+const getAdminPostList = () => async (dispatch) => {
+    try {
+        dispatch({type: types.GET_ADMIN_POST_LIST_REQUEST})
+        const res = await api.get('/admin/post');
+        if(res.status !== 200) {
+            throw new Error('포스트가 없습니다.')
+        } else {
+            dispatch({type: types.GET_ADMIN_POST_LIST_SUCCESS, payload: res.data.data.adminPostList });
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.GET_ADMIN_POST_LIST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
 
 export const postActions = {
-    getPostList,
-    createPost,
-    deletePost,
-    updatePost,
-    getPostDetail,
-    createComment,
-    updateComment,
-    deleteComment,
-    toggleLike,
-    addScrap
+  getPostList,
+  createPost,
+  deletePost,
+  updatePost,
+  getPostDetail,
+  createComment,
+  updateComment,
+  deleteComment,
+  toggleLike,
+  addScrap,
+  blockPost,
+  getAdminPostList
 };

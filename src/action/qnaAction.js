@@ -179,6 +179,41 @@ const addLikeAnswer = (questionId, answerId) => async (dispatch) => {
     }
 };
 
+const blockQna = (id) => async (dispatch) => {
+    try {
+        dispatch({type: types.BLOCK_QNA_REQUEST})
+        const res = await api.put(`/qna/block/${id}`);
+        if(res.status !== 200) {
+            throw new Error('공개 제한에 실패하였습니다.')
+        } else {
+            dispatch({type: types.BLOCK_QNA_SUCCESS});
+            dispatch(getAdminQnaList())
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.BLOCK_QNA_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
+const getAdminQnaList = () => async (dispatch) => {
+    try {
+        dispatch({type: types.GET_ADMIN_QNA_LIST_REQUEST})
+        const res = await api.get('/admin/qna');
+
+        console.log(res)
+        if(res.status !== 200) {
+            throw new Error('포스트가 없습니다.')
+        } else {
+            dispatch({type: types.GET_ADMIN_QNA_LIST_SUCCESS, payload: res.data.data.adminQnaList });
+            dispatch(commonUiActions.showToastMessage(res.message, "success"))
+        }
+    } catch (error) {
+        dispatch({type: types.GET_ADMIN_QNA_LIST_FAIL, payload: error.message})
+        dispatch(commonUiActions.showToastMessage(error.message, "error"))
+    }
+}
+
 export const qnaActions = {
     getQnaList,
     createQna,
@@ -189,4 +224,6 @@ export const qnaActions = {
     deleteAnswer,
     addLikeAnswer,
     updateAnswer,
+    blockQna,
+    getAdminQnaList
 };

@@ -80,6 +80,8 @@ const PostDetail = () => {
 
     const sendReport = () => {
         const reportedUserId = selectedPost.author._id;
+        const meetUpId = undefined;
+        const qnaId = undefined;
         const postId = selectedPost._id;
         const reasons = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true);
         const contentType = 'Post';
@@ -87,7 +89,7 @@ const PostDetail = () => {
             dispatch(commonUiActions.showToastMessage('신고 사유를 선택해주세요.', 'error'))
             return
         }
-        dispatch(reportActions.createReport(reportedUserId, postId, contentType, reasons))
+        dispatch(reportActions.createReport(reportedUserId, postId, meetUpId, qnaId, contentType, reasons))
         setIsReportModalOpen(false)
     }
 

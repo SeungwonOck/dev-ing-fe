@@ -1,25 +1,58 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import PostTable from "../component/PostTable";
 import { postActions } from '../action/postAction';
-import AdminPostCard from '../component/AdminPostCard';
-import { Row, Col } from 'react-bootstrap'
 
 const AdminPost = () => {
   const dispatch = useDispatch();
-  const { postList } = useSelector((state) => state.post);
-  
+  const [ isMobile, setIsMobile ] = useState(window.innerWidth <= 768)
+  const { adminPostList } = useSelector((state) => state.post);
+  const tableHeader = !isMobile ? [
+    "#",
+    "링크",
+    "카테고리",
+    "제목",
+    "작성자",
+    "작성일",
+    "공개제한"
+  ] : [
+    "링크",
+    "카테고리",
+    "제목",
+    "작성자",
+    "공개제한",
+  ];
+
   useEffect(() => {
-    dispatch(postActions.getPostList());
-  }, [dispatch])
+    dispatch(postActions.getAdminPostList());
+  }, [dispatch]);
+
+
+  useEffect(() => {
+      const handleResize = () => {
+          setIsMobile(window.innerWidth <= 768);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      handleResize();
+
+      return () => {
+          window.removeEventListener('resize', handleResize);
+      };
+  }, []); 
 
   return (
-    <Row>
-      {postList?.map((post) => (
-        <Col key={post._id} xs={12} sm={6} md={4} lg={3}>
-          <AdminPostCard post={post} />
-        </Col>
-      ))}
-    </Row>
+    <div className="locate-center">
+      {adminPostList &&
+        <PostTable
+          header={tableHeader}
+          postList={adminPostList}
+          isMobile={isMobile}
+        />
+      }
+      
+    </div>
   )
 }
 
