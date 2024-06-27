@@ -57,6 +57,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
 
   return (
       <div className="myComment-tab-container">
+        <div className="contents-header-btns">      
         <Dropdown>
             <Dropdown.Toggle className="white-btn">
                 {dropdownText}
@@ -68,6 +69,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 <Dropdown.Item onClick={() => handleSelect('qna', 'QnA')}>QnA</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
+        </div>
       {(selectedTab === 'all' || selectedTab === 'posts') && myPostComments.map((post) => (
         <div className="myComment-tab" key={post._id}>
           <div className="post-content" onClick={() => { navigate(`/post/${post._id}`) }}>
@@ -101,9 +103,9 @@ const MyCommentsTab = ({ uniqueUser }) => {
         <div className="myComment-tab" key={qna._id}>
           <div className="post-content" onClick={() => { navigate(`/qna/${qna._id}`) }}>
             <div className="post-text">
-              <h3>{qna.title}</h3>
+              <h3>Q. {qna.title}</h3>
               <div className="post-details">
-                <span>Contents: {qna.content.slice(0,10)} ...</span>
+                <span>{qna.answers.filter(comment => !comment.isDelete).length} 개의 답변</span>
                 <span>Tags: {qna.tags.join(", ")}</span>
                 <span>게시일: {qna.createAt.date} at {qna.createAt.time}</span>
               </div>

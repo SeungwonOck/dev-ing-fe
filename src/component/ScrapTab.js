@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { postActions } from '../action/postAction';
 import meetingImg from "../asset/img/meeting-img-01.jpg"
+import { Col, Row, Card, Badge } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
 
 const ScrapTab = ({uniqueUser}) => {
     const dispatch = useDispatch();
@@ -31,13 +35,34 @@ const ScrapTab = ({uniqueUser}) => {
 
 
   return (
-    <div className="myPage-tab-container">
+      <Row>
       {scrapedPost.map((post) => (
-        <div className="myPage-tab cur-point" key={post._id} onClick={() => { navigate(`/post/${post._id}`) }}>
-          <img src={post.image || meetingImg} alt="postImg" className="myPage-image" />
-        </div>
+          <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
+                <Card className="mypagetab-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
+                <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
+                <Card.Body>
+                <Card.Title>{post.title}</Card.Title>
+                <div className="tags">
+                    {post.tags.map((tag, index) => (
+                    <Badge key={index} bg="secondary" className="me-1">#{tag}</Badge>
+                    ))}
+                </div>
+                <div className="user-likes mt-2">
+                    <span className="me-3">
+                        <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} /> {post.likes}
+                    </span>
+                    <span>
+                        <FontAwesomeIcon icon={faComment} /> {post.comments.filter(comment => !comment.isDelete).length}
+                    </span>
+                </div>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                생성 날짜: {post.createAt.date} {post.createAt.time}
+                </Card.Footer>
+            </Card>
+          </Col>
       ))}
-    </div>
+    </Row>
   )
 }
 
