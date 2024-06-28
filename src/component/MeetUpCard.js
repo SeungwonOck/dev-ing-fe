@@ -8,28 +8,11 @@ import { ko } from 'date-fns/locale';
 
 const MeetUpCard = ({ meetUp }) => {
     const navigate = useNavigate();
-    // user agent 문자열 가져오기
-    const userAgent = navigator.userAgent;
-    // iPhone, iPod, iPad 여부 확인
-    const isiOS = /iPad|iPhone|iPod/.test(userAgent);
-    const today = new Date();
     const parsedMeetUpDate = parse(meetUp?.date.date.replace(/\./g, '/'), 'yyyy/MM/dd', new Date());
-
-    // if (isiOS) {
-    //     console.log("사용자는 iPhone, iPod 또는 iPad를 사용 중입니다.");
-    // } else {
-    //     console.log("사용자는 iPhone, iPod 또는 iPad를 사용 중이 아닙니다.");
-    // }
-
-    // const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
-    // console.log("userAgent", window.navigator.userAgent);
 
     const goToMeetUpDetail = () => {
         navigate(`/meetUp/${meetUp._id}`);
     }
-
-    console.log(meetUp?.date.date);
-    console.log(meetUp?.date.time);
 
     return (
         <div className='home-meet-up-card meet-up-card' onClick={() => goToMeetUpDetail(meetUp._id)}>
@@ -44,28 +27,14 @@ const MeetUpCard = ({ meetUp }) => {
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: "#28A745", }} />{" "}
                     {meetUp.location === "online" ? (<span>온라인 </span>) : (<span>{meetUp?.location.split(' ')[1]} </span>)}
                     {
-                        isiOS ?
-                            (
-                                isToday(parsedMeetUpDate) ?
-                                    (<span>{"· "}오늘</span>)
-                                    :
-                                    (<span>
-                                        {"· "}
-                                        {format(parsedMeetUpDate, 'M.d(EEE)', { locale: ko })}{" "}
-                                        {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
-                                    </span>)
-                            )
+                        isToday(parsedMeetUpDate) ?
+                            (<span>{"· "}오늘</span>)
                             :
-                            (
-                                isToday(parsedMeetUpDate) ?
-                                    (<span>{"· "}오늘</span>)
-                                    :
-                                    (<span>
-                                        {"· "}
-                                        {format(parsedMeetUpDate, 'M.d(EEE)', { locale: ko })}{" "}
-                                        {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
-                                    </span>)
-                            )
+                            (<span>
+                                {"· "}
+                                {format(parsedMeetUpDate, 'M.d(EEE)', { locale: ko })}{" "}
+                                {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
+                            </span>)
 
                     }
                 </div>
