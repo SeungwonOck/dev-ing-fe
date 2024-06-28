@@ -6,15 +6,18 @@ import HomeMeetUpCard from '../component/home/HomeMeetUpCard';
 import '../style/home.style.css';
 import { meetUpActions } from '../action/meetUpAction';
 import { homeActions } from '../action/homeAction';
+import { qnaActions } from '../action/qnaAction';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { homePost } = useSelector((state) => state.home);
   const { meetUpList } = useSelector((state) => state.meetUp);
+  const { qnaList } = useSelector((state) => state.qna);
 
   useEffect(() => {
     dispatch(homeActions.getHomeData())
     dispatch(meetUpActions.getMeetUpList());
+    dispatch(qnaActions.getQnaList());
   },[])
 
   return (
@@ -25,9 +28,9 @@ const Home = () => {
             <div>Coding Story.</div>
         </div>
         <h5 className='sub-title'>데빙에서 개발자들의 다양한 이야기들을 만나보세요.</h5>
-        <div className='post-container'>{homePost && homePost.map((post)=><HomePostCard key={post._id} post={post}/>)}</div>
-        <div className='meet-up-container'>{meetUpList && meetUpList.map((meetUp) => <HomeMeetUpCard key={meetUp._id} meetUp={meetUp}/>)}</div>
-        <div className='qna-container'><HomeQnaCard/><HomeQnaCard/><HomeQnaCard/></div>
+        <div className='post-container'>{homePost?.map((post)=><HomePostCard key={post._id} post={post}/>)}</div>
+        <div className='meet-up-container'>{meetUpList?.map((meetUp) => <HomeMeetUpCard key={meetUp._id} meetUp={meetUp}/>)}</div>
+        <div className='qna-container'>{qnaList?.map((qna) => <HomeQnaCard key={qna._id} qna={qna}/>)}</div>
     </div>
   )
 }
