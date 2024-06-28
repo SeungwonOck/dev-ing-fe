@@ -14,7 +14,7 @@ const Home = () => {
 
     
   useEffect(() => {
-    dispatch(homeActions.getHomeData())
+    dispatch(homeActions.getHomePostData())
     dispatch(homeActions.getHomeMeetUpData());
     dispatch(qnaActions.getQnaList());
   },[])
