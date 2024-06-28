@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../style/home.style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { parse, format } from 'date-fns';
+import { parse, format, isToday } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 const MeetUpCard = ({ meetUp }) => {
