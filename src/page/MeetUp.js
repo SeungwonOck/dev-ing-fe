@@ -82,7 +82,7 @@ const MeetUp = () => {
               onChange={(e) => setKeywordValue(e.target.value)}
           />
           <Dropdown>
-            <Dropdown.Toggle variant='primary'>
+            <Dropdown.Toggle className='gradient-btn-pink'>
               카테고리
             </Dropdown.Toggle>
 
@@ -96,7 +96,7 @@ const MeetUp = () => {
           </Dropdown>
 
           <Dropdown>
-            <Dropdown.Toggle variant='warning'>
+            <Dropdown.Toggle className='gradient-btn-blue'>
               정렬
             </Dropdown.Toggle>
 
