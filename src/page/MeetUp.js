@@ -71,7 +71,16 @@ const MeetUp = () => {
   return (
     <div className='meetup-all-container'>
       <div className='meetup-header'>
+        
         <div className='contents-header-btns'>
+          <input
+              type='text'
+              placeholder='검색어를 입력하세요'
+              className='form-control search-input'
+              value={keywordValue}
+              onKeyUp={(e) => onCheckEnter(e)}
+              onChange={(e) => setKeywordValue(e.target.value)}
+          />
           <Dropdown>
             <Dropdown.Toggle className="white-btn">
               정렬
@@ -97,15 +106,6 @@ const MeetUp = () => {
           </Dropdown>
           <WriteBtn type='meetUp' />
         </div>
-
-        <input
-            type='text'
-            placeholder='검색어를 입력하세요'
-            className='form-control search-input'
-            value={keywordValue}
-            onKeyUp={(e) => onCheckEnter(e)}
-            onChange={(e) => setKeywordValue(e.target.value)}
-        />
       </div>
 
       <div className='following-toggle display-center-center'>
