@@ -377,6 +377,9 @@ body {
     display: none;
 }
 
+.gradient-btn-pink { background: linear-gradient(45deg, #ffe9ab, #ffb1b1); color: #161616; border: none; } 
+.gradient-btn-blue { background: linear-gradient(45deg, #affdcb, #56b8bd); color: #161616; border: none; } 
+
 @media screen and (max-width: 768px) {
 
     .white-btn,

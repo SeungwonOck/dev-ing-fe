@@ -67,7 +67,7 @@ const Qna = () => {
                     />
                     
                     <Dropdown>
-                        <Dropdown.Toggle variant='primary'>
+                        <Dropdown.Toggle className='gradient-btn-pink'>
                             카테고리
                         </Dropdown.Toggle>
 
