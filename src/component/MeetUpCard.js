@@ -40,7 +40,16 @@ const MeetUpCard = ({ meetUp }) => {
                     {meetUp.location === "online" ? (<span>온라인 </span>) : (<span>{meetUp?.location.split(' ')[1]} </span>)}
                     {
                         isiOS ?
-                            (<></>)
+                            (
+                                meetUp.date.date.replace(/./g, "/") === format(new Date().replace(/-/g, "/"), 'yyyy/MM/dd') ?
+                                    (<span>{"· "}오늘</span>)
+                                    :
+                                    (<span>
+                                        {"· "}
+                                        {format(meetUp.date.date, 'M/d(EEE)', { locale: ko })}{" "}
+                                        {format(parse(meetUp.date.time, 'HH:mm:ss', new Date()), 'a h:mm', { locale: ko })}
+                                    </span>)
+                            )
                             :
                             (
                                 meetUp.date.date === format(new Date(), 'yyyy.MM.dd') ?
