@@ -48,6 +48,7 @@ const ChatRoom = () => {
         if (value.trim()) {
             socket.emit("chat message", {
                 userName: user.userName,
+                userProfileImage: user.profileImage,
                 roomId,
                 message: value,
             });
@@ -66,11 +67,13 @@ const ChatRoom = () => {
                 <div className="chat-messages">
                     {selectedChatRoom.chat.map((message, index) => (
                         <div key={index} className="chat-message">
+                            <img src={message.userProfileImage}></img>
                             {message.userName}: {message.message}
                         </div>
                     ))}
                     {messages.map((message, index) => (
                         <div key={index} className="chat-message">
+                            <img src={message.userProfileImage}></img>
                             {message.userName}: {message.message}
                         </div>
                     ))}
