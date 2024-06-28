@@ -221,6 +221,7 @@
     font-size: 40px;
     font-weight: 700;
     color: rgba(124, 209, 144, 0.5);
+    -webkit-color: rgba(124, 209, 144, 0.5);
     transform: rotate(-10deg);
 }
 
