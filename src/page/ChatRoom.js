@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import "../style/chatroom.style.css";
@@ -15,6 +15,8 @@ const ChatRoom = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
 
+    const chatBottomRef = useRef(null);
+
     useEffect(() => {
         dispatch(chatActions.getChatRoom(roomId));
     }, []);
@@ -24,12 +26,8 @@ const ChatRoom = () => {
         socket.emit("join room", roomId);
 
         // 방에서 메시지 수신
-        socket.on("chat message", (userName, message) => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { userName, message },
-            ]);
-            dispatch(chatActions.saveChatMessage(roomId, userName, message));
+        socket.on("chat message", (savedMessage) => {
+            setMessages((prevMessages) => [...prevMessages, savedMessage]);
         });
 
         // 클린업 함수
@@ -37,6 +35,13 @@ const ChatRoom = () => {
             socket.off("chat message");
         };
     }, [roomId]);
+
+    useEffect(() => {
+        // 스크롤 항상 맨 아래로 이동
+        if (chatBottomRef.current) {
+            chatBottomRef.current.scrollIntoView({ behavior: "instant" });
+        }
+    }, [messages]);
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -69,6 +74,8 @@ const ChatRoom = () => {
                             {message.userName}: {message.message}
                         </div>
                     ))}
+                    {/* 스크롤 항상 맨 아래로 이동 */}
+                    <div ref={chatBottomRef}></div>
                 </div>
                 <div className="chat-input">
                     <form onSubmit={handleSubmit}>
