@@ -27,7 +27,7 @@ const HomeMeetUpCard = ({ meetUp }) => {
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: "#28A745", }} />
 
                     {meetUp.location === "online" ? 
-                        (<span> 온라인 · </span>) : 
+                        (<span> 온라인</span>) :
                         (<span> {meetUp?.location.split(' ')[1]}</span>)}
 
                     {
