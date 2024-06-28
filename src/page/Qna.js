@@ -67,7 +67,7 @@ const Qna = () => {
                     />
                     
                     <Dropdown>
-                        <Dropdown.Toggle>
+                        <Dropdown.Toggle variant='primary'>
                             카테고리
                         </Dropdown.Toggle>
 

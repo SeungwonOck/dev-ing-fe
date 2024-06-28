@@ -5,7 +5,7 @@ const HomeQnaCard = ({ qna }) => {
   const navigate = useNavigate();
 
     const goToQnaDetail = () => {
-        navigate(`/meetUp/${qna._id}`);
+        navigate(`/qna/${qna._id}`);
     }
   return (
     <div className='home-qna-card' onClick={() => goToQnaDetail()}>
