@@ -82,17 +82,7 @@ const MeetUp = () => {
               onChange={(e) => setKeywordValue(e.target.value)}
           />
           <Dropdown>
-            <Dropdown.Toggle className="white-btn">
-              정렬
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => getMeetUpListByType('latest')}>최근등록 순</Dropdown.Item>
-              <Dropdown.Item onClick={() => getMeetUpListByType('closed')}>마감임박 순</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Dropdown>
-            <Dropdown.Toggle className="white-btn">
+            <Dropdown.Toggle variant='primary'>
               카테고리
             </Dropdown.Toggle>
 
@@ -104,6 +94,18 @@ const MeetUp = () => {
               <Dropdown.Item onClick={() => getMeetUpListByCategory('기타 스터디')}>기타 스터디</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
+
+          <Dropdown>
+            <Dropdown.Toggle variant='warning'>
+              정렬
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => getMeetUpListByType('latest')}>최근등록 순</Dropdown.Item>
+              <Dropdown.Item onClick={() => getMeetUpListByType('closed')}>마감임박 순</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          
           <WriteBtn type='meetUp' />
         </div>
       </div>

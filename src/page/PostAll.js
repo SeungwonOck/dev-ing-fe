@@ -79,7 +79,7 @@ const PostAll = () => {
         />
         
         <Dropdown>
-          <Dropdown.Toggle>
+          <Dropdown.Toggle variant='warning'>
             정렬
           </Dropdown.Toggle>
 
