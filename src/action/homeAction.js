@@ -3,7 +3,7 @@ import * as types from "../constants/home.constants";
 import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
-const getHomeData = () => async (dispatch) => {
+const getHomePostData = () => async (dispatch) => {
     try {
         dispatch({ type: types.GET_HOME_DATA_REQUEST })
         const res = await api.get(`/home`);
@@ -34,6 +34,6 @@ const getHomeMeetUpData = () => async (dispatch) => {
 };
 
 export const homeActions = {
-    getHomeData,
+    getHomePostData,
     getHomeMeetUpData,
 };

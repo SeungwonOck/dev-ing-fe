@@ -131,3 +131,16 @@
 .answer > .likes {
     cursor: pointer;
 }
+
+
+@media screen and (max-width: 768px) {
+    .answer-input { padding: 0; }
+}
+
+@media screen and (max-width: 540px) {
+    .qna-detail-q-container { margin: 10px 4px; padding: 20px 14px; }
+    .qna-detail-q-container > .title { font-size: 22px; text-align: center; }
+    .detail-page-user-container > .author { padding: 10px 0; }
+    .answer { padding: 16px 6px 16px 40px; }
+    .answer > .img { left: 0px; }
+}
