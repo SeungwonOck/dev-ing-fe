@@ -112,6 +112,11 @@
     cursor: pointer;
 }
 
+.my-activity {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .description {
     text-align: center;
     margin-top: 10px;
