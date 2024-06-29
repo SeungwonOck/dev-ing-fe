@@ -87,6 +87,8 @@ const Login = () => {
               </Row>
             </Form.Group>
 
+            <Link to='/forgetPassword'>비밀번호를 잊으셨나요?</Link>
+
             <div className="login-button-container">
               <Button className='login-button' type="submit">
                 로그인

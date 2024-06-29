@@ -13,6 +13,7 @@ const initialState = {
   followers: [],
   followSuccess: false,
   unfollowSuccess: false,
+  findUser: null
 };
 
 function userReducer(state = initialState, action) {
@@ -27,12 +28,16 @@ function userReducer(state = initialState, action) {
     case types.FOLLOW_USER_REQUEST:
     case types.UNFOLLOW_USER_REQUEST:
     case types.GOOGLE_LOGIN_REQUEST:
+    case types.FORGET_PASSWORD_REQUEST:
       return { ...state, loading: true }
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
     case types.UPDATE_USER_SUCCESS:
     case types.GOOGLE_LOGIN_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
+    
+    case types.FORGET_PASSWORD_SUCCESS:
+      return { ...state, loading: false, findUser: payload.findUser, error: '' }
 
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false, error: "" }
@@ -65,6 +70,7 @@ function userReducer(state = initialState, action) {
     case types.FOLLOW_USER_FAIL:
     case types.UNFOLLOW_USER_FAIL:
     case types.GOOGLE_LOGIN_FAIL:
+    case types.FORGET_PASSWORD_FAIL:
       return { ...state, loading: false, error: payload };
     case types.TOKEN_LOGIN_FAIL:
       return { ...state, loading: false };

@@ -28,7 +28,7 @@
     z-index: 9999;
     top: 0px;
     right: -500px;
-    width: 450px;
+    width: 400px;
     height: 100vh;
     background: linear-gradient(to left bottom, #FDFFB6, #93D2F1);
     transition: all 0.5s ease;
