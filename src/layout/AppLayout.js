@@ -21,7 +21,6 @@ const AppLayout = ({ children }) => {
 
   return (
     <div>
-      <ChatBtn/>
       <ToastMessage />
       { !location.pathname.includes("/me/") && location.pathname.includes("admin") ? (
         <div className="admin-page">
@@ -34,6 +33,7 @@ const AppLayout = ({ children }) => {
         </div>
       ) : (
         <>
+          {user && <ChatBtn/>}
           <Navbar user={user} />
           <CustomContainer children={children}></CustomContainer>
         </>

@@ -17,6 +17,7 @@ const ChatBtn = () => {
     const { chatRoomList, selectedChatRoom } = useSelector((state) => state.chat);
     const chatRoom = useRef(null);
     const chatIn = useRef(null);
+    const messagesEndRef = useRef(null);
     const [ roomId, setRoomId ] = useState(null);
     const [ value, setValue ] = useState("");
     const [ messages, setMessages ] = useState([]);
@@ -36,6 +37,29 @@ const ChatBtn = () => {
             chatRoom.current.style.right = '-500px';
         }
     }
+
+    //메세지가 업데이트될때마다 스크롤을 부드럽게 아래로 내림
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+    
+    //메세지가 업데이트될때마다 스크롤을 부드럽게 아래로 내림
+    const enterChatRoomAndScrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView();
+        }
+    };
+
+    useEffect(()=>{
+        enterChatRoomAndScrollToBottom();
+    },[selectedChatRoom])
+
+    useEffect(() => {
+        // 메시지가 업데이트될 때마다 스크롤을 맨 아래로 내림
+        scrollToBottom();
+    }, [messages]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,17 +104,20 @@ const ChatBtn = () => {
     }
 
     const backToChatRoomList = () => {
-        setIsGoBackBtnShow(false)
+        getSelectedChatRoom('')
+        setValue('')
         chatIn.current.style.display = 'none';
+        setRoomId(null)
+        setIsGoBackBtnShow(false)
     }
 
     const showChatIn = () => {
-        setIsGoBackBtnShow(true)
         chatIn.current.style.display = 'flex';
+        setIsGoBackBtnShow(true);
+        scrollToBottom();
     }
 
-    console.log(selectedChatRoom)
-
+    console.log(chatRoomList)
 
     return (
         <>
@@ -131,6 +158,7 @@ const ChatBtn = () => {
                                         )}
                                     </div>
                                 ))}
+                                <div ref={messagesEndRef}></div>
                             </div>
                             <div className="chat-input">
                                 <form onSubmit={handleSubmit} className='form-control'>
@@ -161,7 +189,13 @@ const ChatBtn = () => {
                                         <div className='img'>
                                             <img src={img} alt=''/>
                                         </div>
-                                        <div className='category'>독서</div>
+                                        <div 
+                                            className={`category ${chatRoom.roomId.category === '독서' ? 'green' :
+                                                                   chatRoom.roomId.category === '프로젝트' ? 'violet' :
+                                                                   chatRoom.roomId.category === '강의' ? 'blue' : 'red'
+                                            }`}>
+                                            {chatRoom.roomId.category}
+                                        </div>
                                     </div>
                                     <div className='right'>
                                         <div className='room-title'>

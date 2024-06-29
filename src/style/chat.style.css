@@ -172,12 +172,12 @@
 }
 .chat-room > .chat-list > .chat:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    /* border-radius: 20px; */
+    border-radius: 20px;
 }
 .chat-room > .chat-list > .chat > .content {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 18px;
 }
 .chat-room > .chat-list > .chat > .content > .left {
     position: relative;
@@ -203,15 +203,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2px 8px;
-    /* background-color: rgb(255, 87, 27); */
-    background-color: rgb(0, 107, 32);
+    padding: 2px 8px;    
     border-radius: 20px;
     font-size: 12px;
     white-space: nowrap;
     color: #fff;
     border: 2px solid #fff;
 }
+.chat-room > .chat-list > .chat > .content > .left > .green { background-color: rgb(0, 107, 32); }
+.chat-room > .chat-list > .chat > .content > .left > .violet { background-color: rgb(97, 44, 139); }
+.chat-room > .chat-list > .chat > .content > .left > .blue { background-color: rgb(23, 15, 131); }
+.chat-room > .chat-list > .chat > .content > .left > .red { background-color: rgb(255, 87, 27); }
+
 .chat-room > .chat-list > .chat > .content > .right > .room-title {
     display: flex;
 }
@@ -275,7 +278,7 @@
         height: 94px;
     }
     .chat-room > .chat-list > .chat-in > .chat-messages {
-        padding: 0px 16px 0px 10px;
+        padding: 0px 10px;
     }
     .chat-room > .chat-list > .chat-in > .chat-messages > .recipient > .right > .message,
     .chat-room > .chat-list > .chat-in > .chat-messages > .sender > .right > .message {
@@ -288,5 +291,8 @@
     .chat-icon {
         width: 55px;
         height: 55px;
+    }
+    .chat-room {
+        width: 100%;
     }
 }
