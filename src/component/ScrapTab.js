@@ -1,44 +1,41 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { postActions } from '../action/postAction';
 import meetingImg from "../asset/img/meeting-img-01.jpg"
 import { Col, Row, Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 
-const ScrapTab = ({uniqueUser}) => {
-    const dispatch = useDispatch();
+const ScrapTab = ({uniqueUser, uniqueUserScrap}) => {
     const navigate = useNavigate();
-    const { postList } = useSelector((state) => state.post);
     const { user } = useSelector((state) => state.user)
     const [scrapedPost, setScrapedPost] = useState([]);
     const isCurrentUser = user && user._id === uniqueUser._id;
 
-
     useEffect(() => {
-        dispatch(postActions.getPostList())
-    }, [])
-
-    useEffect(() => {
-        if (postList && uniqueUser.scrap) {
-            const filteredScrap = postList.filter((post) => 
-                uniqueUser.scrap.some((scrapItem) => 
-                scrapItem.post === post._id && 
-                (isCurrentUser || !scrapItem.isPrivate)
-                )
+        if (uniqueUserScrap) {
+            const filteredScrap = uniqueUserScrap.filter((post) => 
+                isCurrentUser || !post.isPrivate
             );
             setScrapedPost(filteredScrap);
-            }
-    }, [postList, uniqueUser.scrap, isCurrentUser]);
+        }
+    }, [uniqueUserScrap, isCurrentUser]);
+
+    const handleCardClick = (post) => {
+        if (post.isDelete) {
+            alert("삭제된 포스트입니다");
+        } else {
+            navigate(`/post/${post._id}`);
+        }
+    }
 
 
   return (
       <Row>
       {scrapedPost.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
-                <Card className="mypagetab-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
+                <Card className="mypagetab-card shadow-sm" onClick={() => handleCardClick(post)}>
                 <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
                 <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
