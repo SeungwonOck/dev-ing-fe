@@ -117,6 +117,8 @@ const ChatBtn = () => {
         scrollToBottom();
     }
 
+    console.log(chatRoom)
+
     return (
         <>
             {chatRoomList &&
