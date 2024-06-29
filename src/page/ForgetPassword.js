@@ -35,7 +35,7 @@ const ForgetPassword = () => {
         if(!password) {
             dispatch(commonUiActions.showToastMessage('변경할 비밀번호를 입력하세요', 'error'))
         } else {
-            console.log(password)
+            console.log()
         }
     }
 
