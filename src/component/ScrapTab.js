@@ -49,7 +49,9 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
       {scrapedPost.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
                 <Card className="mypagetab-card shadow-sm scrap-card" onClick={() => handleCardClick(post)}>
-                    {isCurrentUser && <div className='state-btns'>
+
+                    {isCurrentUser && 
+                    <div className='state-btns'>
                         <div 
                             className={`private-toggle-btn blue-btn small-btn 
                             ${uniqueUser.scrap.find((i)=> i.post === post._id && i.isPrivate) ? 'private' : 'public'}`}
@@ -70,6 +72,7 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
                             삭제
                         </div>
                     </div>}
+
                     <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
                     <Card.Body>
                     <Card.Title>{post.title}</Card.Title>
