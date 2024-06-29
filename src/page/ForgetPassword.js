@@ -9,6 +9,7 @@ const ForgetPassword = () => {
     const dispatch = useDispatch();
     const { findUser } = useSelector((state) => state.user);
     const [ nickName, setNickName ] = useState(null);
+    const [ name, setName ] = useState(null);
     const [ email, setEmail ] = useState(null);
     const [ password, setPassword ] = useState(null);
     const [ activeTab, setActiveTab ] = useState('name');
@@ -19,6 +20,8 @@ const ForgetPassword = () => {
         if(activeTab === 'name') {
             if(!nickName) {
                 dispatch(commonUiActions.showToastMessage('닉네임을 입력하세요', 'error'))
+            } else if(!name) {
+                dispatch(commonUiActions.showToastMessage('이름을 입력하세요', 'error'))
             } else {
                 dispatch(userActions.forgetPassword(nickName, email))
             }
@@ -35,7 +38,7 @@ const ForgetPassword = () => {
         if(!password) {
             dispatch(commonUiActions.showToastMessage('변경할 비밀번호를 입력하세요', 'error'))
         } else {
-            console.log(password)
+            console.log()
         }
     }
 
@@ -43,6 +46,7 @@ const ForgetPassword = () => {
         if(activeTab === 'name') {
             setEmail(null)
         } else {
+            setName(null)
             setNickName(null)
         }
     },[activeTab])
@@ -65,8 +69,9 @@ const ForgetPassword = () => {
                     onSelect={(key) => setActiveTab(key)}
                     fill
                 >
-                    <Tab eventKey="name" title="닉네임으로 찾기">
-                        <input type='text' className='form-control' value={nickName} onChange={(e) => setNickName(e.target.value)} placeholder='이름을 입력하세요'/>
+                    <Tab eventKey="name" title="닉네임/이름으로 찾기">
+                        <input type='text' className='form-control mb-1' value={nickName} onChange={(e) => setNickName(e.target.value)} placeholder='닉네임을 입력하세요'/>
+                        <input type='text' className='form-control' value={name} onChange={(e) => setName(e.target.value)} placeholder='이름을 입력하세요'/>
                     </Tab>
                     <Tab eventKey="email" title="이메일로 찾기">
                         <input type='text' className='form-control' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='이메일을 입력하세요'/>
