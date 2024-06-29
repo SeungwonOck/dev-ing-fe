@@ -40,6 +40,7 @@ const MyPage = () => {
     uniqueUserScrap,
     uniqueUserLikes,
     uniqueUserPostComments,
+    uniqueUserQnaComments,
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
@@ -88,6 +89,25 @@ const MyPage = () => {
   }
 
   const handleCloseModal = () => setShowModal(false);
+
+  const getTotalCommentsLength = (comments) => {
+    if (!comments || comments.length === 0) {
+        return 0;
+    }
+    return comments.reduce((totalLength, comment) => {
+        return totalLength + (comment.userComments ? comment.userComments.length : 0);
+    }, 0);
+  };
+
+  const getTotalAnswersLength = (answers) => {
+    if (!answers || answers.length === 0) {
+        return 0;
+    }
+    return answers.reduce((totalLength, answer) => {
+        // comment.answers 배열이 존재하고 길이가 있는 경우에만 합산
+        return totalLength + (answer.userComments ? answer.userComments.length : 0);
+    }, 0);
+  };
 
   const getProfileImageRank = (rank) => {
     switch (rank.toLowerCase()) {
@@ -167,7 +187,7 @@ const MyPage = () => {
                   + uniqueUserQna.length
                   + uniqueUserScrap.length
                   + uniqueUserLikes.length
-                  + uniqueUserPostComments.length}
+                  + getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}
               </p>
             </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
@@ -213,6 +233,7 @@ const MyPage = () => {
         uniqueUserScrap={uniqueUserScrap}
         uniqueUserLikes={uniqueUserLikes}
         uniqueUserPostComments={uniqueUserPostComments}
+        uniqueUserQnaComments={uniqueUserQnaComments}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -262,7 +283,7 @@ const MyPage = () => {
                 <p>Qna: {uniqueUserQna.length}</p>
                 <p>스크랩: {uniqueUserScrap.length}</p>
                 <p>나의 좋아요: {uniqueUserLikes.length}</p>
-                <p>나의 댓글: {uniqueUserPostComments.length}</p>
+                <p>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
           </div>}
         </Modal.Body>
       </Modal>
@@ -278,7 +299,8 @@ const TabContent = ({
   uniqueUserQna,
   uniqueUserScrap,
   uniqueUserLikes,
-  uniqueUserPostComments,}) => {
+  uniqueUserPostComments,
+  uniqueUserQnaComments, }) => {
   if (tab === 0) {
     return <Row>
       {uniqueUserPost && uniqueUserPost.map((post) => (
@@ -311,7 +333,11 @@ const TabContent = ({
     return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
   if (tab === 5) {
-    return <MyCommentsTab uniqueUser={uniqueUser} uniqueUserPostComments={uniqueUserPostComments} />
+    return <MyCommentsTab
+      uniqueUser={uniqueUser}
+      uniqueUserPostComments={uniqueUserPostComments}
+      uniqueUserQnaComments={uniqueUserQnaComments}
+    />
   }
 
 }
