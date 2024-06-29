@@ -157,7 +157,7 @@ const AccountPage = () => {
             </div>
           </div>
           <div className='others'>
-            <div><strong>닉네임: </strong>{user?.nickName} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" onClick={updateNickName}>닉네임 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
+            <div><strong>닉네임: </strong>{user?.nickName} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" className="white-btn" onClick={updateNickName}>닉네임 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
             {IsUpdateNickName &&
               (<div>
                 {error && (
@@ -181,7 +181,7 @@ const AccountPage = () => {
                 </Form.Control.Feedback>
               </div>)}
             <div><strong>이메일: </strong>{user?.email}</div>
-            <div><strong>성별: </strong>{user?.gender} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" onClick={updateGender}>성별 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
+            <div><strong>성별: </strong>{user?.gender} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" className="white-btn" onClick={updateGender}>성별 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
             {IsUpdateGender &&
               (<Form.Select
                 defaultValue=""
