@@ -101,7 +101,8 @@ const Login = () => {
               </Button>
             </div>
 
-            <div>
+            <div className="display-center-center" style={{ marginTop: "30px" }}>
+              <div>- 외부 계정으로 로그인 -</div>
               <GoogleLogin
                 onSuccess={handleGoogleLogin}
                 onError={() => {
