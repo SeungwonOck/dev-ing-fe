@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router";
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/Login'));
 const Register = lazy(() => import('../page/Register'));
+const ForgetPassword = lazy(() => import('../page/ForgetPassword'));
 const PostAll = lazy(() => import('../page/PostAll'));
 const PostDetail = lazy(() => import('../page/PostDetail'));
 const PostWrite = lazy(() => import('../page/PostWrite'));
@@ -32,6 +33,7 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/me/:nickName" element={<MyPage />} />
         <Route element={<PrivateRoute permissionLevel="user" />}>
           <Route path="/post" element={<PostAll />} />

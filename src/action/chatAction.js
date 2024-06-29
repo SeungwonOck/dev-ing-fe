@@ -65,6 +65,7 @@ const saveChatMessage = (roomId, userName, message) => async (dispatch) => {
         dispatch({ type: types.CHAT_SAVE_REQUEST });
 
         const res = await api.post(`/chat/${roomId}`, { userName, message });
+        console.log('newChat', res)
         if (res.status !== 200) {
             throw new Error("대화방을 불러오는데 실패하였습니다.");
         } else {
