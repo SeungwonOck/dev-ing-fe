@@ -77,6 +77,8 @@ const ChatBtn = () => {
         chatRoom.current.style.right = '0px';
     }
 
+    console.log(selectedChatRoom)
+
     return (
         <>
             {chatRoomList &&
