@@ -11,6 +11,14 @@ import QnaTab from '../component/QnaTab';
 import ScrapTab from '../component/ScrapTab';
 import MyLikesTab from '../component/MyLikesTab';
 import MyCommentsTab from '../component/MyCommentsTab';
+import  entry  from "../asset/img/entry.png"
+import  bronze  from "../asset/img/bronze.png"
+import  silver  from "../asset/img/silver.png"
+import  gold  from "../asset/img/gold.png"
+import  platinum  from "../asset/img/platinum.png"
+import  diamond  from "../asset/img/diamond.png"
+import  master  from "../asset/img/master.png"
+import  challenger  from "../asset/img/challenger.png"
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +35,7 @@ const MyPage = () => {
     followSuccess,
     unfollowSuccess,
     uniqueUserPost,
+    uniqueUserScrap,
     uniqueUserMeetUp,
     uniqueUserQna,
     following,
@@ -81,23 +90,23 @@ const MyPage = () => {
   const getProfileImageRank = (rank) => {
     switch (rank.toLowerCase()) {
       case "entry":
-        return "entry";
+        return entry;
       case "bronze":
-        return "bronze";
+        return bronze;
       case "silver":
-        return "silver";
+        return silver
       case "gold":
-        return "gold";
+        return gold;
       case "platinum":
-        return "platinum";
+        return platinum;
       case "diamond":
-        return "diamond";
+        return diamond;
       case "master":
-        return "master";
+        return master
       case "challenger":
-        return "challenger";
+        return challenger;
       default:
-        return "entry";
+        return entry;
     }
   }
 
@@ -110,11 +119,18 @@ const MyPage = () => {
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img
-          src={uniqueUser.profileImage}
-          alt="Profile"
-          className={`profile-image ${getProfileImageRank(uniqueUser.rank)}`}
-        />
+        <div className="profile-images">
+          <img
+            src={uniqueUser.profileImage}
+            alt="Profile"
+            className="profile-image"
+          />
+          <img
+            src={`${getProfileImageRank(uniqueUser.rank)}`}
+            className="profile-rank"
+            alt="Rank"
+          />
+        </div>
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">
@@ -188,6 +204,7 @@ const MyPage = () => {
         tab={tab}
         uniqueUser={uniqueUser}
         uniqueUserPost={uniqueUserPost}
+        uniqueUserScrap={uniqueUserScrap}
         uniqueUserMeetUp={uniqueUserMeetUp}
         uniqueUserQna={uniqueUserQna}
       />
@@ -240,7 +257,7 @@ const MyPage = () => {
   )
 }
 
-const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
+const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserScrap, uniqueUserMeetUp, uniqueUserQna }) => {
   if (tab === 0) {
     return <Row>
       {uniqueUserPost && uniqueUserPost.map((post) => (
@@ -267,7 +284,7 @@ const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueU
     </>
   }
   if (tab === 3) {
-    return <ScrapTab uniqueUser={uniqueUser} />
+    return <ScrapTab uniqueUser={uniqueUser} uniqueUserScrap={uniqueUserScrap} />
   }
   if (tab === 4) {
     return <MyLikesTab uniqueUser={uniqueUser} />
