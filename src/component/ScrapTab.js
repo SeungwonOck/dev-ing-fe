@@ -8,31 +8,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 
-const ScrapTab = ({uniqueUser}) => {
+const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { postList } = useSelector((state) => state.post);
     const { user } = useSelector((state) => state.user)
     const [scrapedPost, setScrapedPost] = useState([]);
     const isCurrentUser = user && user._id === uniqueUser._id;
 
-
     useEffect(() => {
-        dispatch(postActions.getPostList()) 
-    }, [])
-
-    useEffect(() => {
-        if (postList && uniqueUser.scrap) {
-            const filteredScrap = postList.filter((post) => 
-                uniqueUser.scrap.some((scrapItem) => 
-                    scrapItem.post === post._id &&
-                    !scrapItem.isDelete &&
-                    (isCurrentUser || !scrapItem.isPrivate)
-                )
+        if (uniqueUserScrap) {
+            const filteredScrap = uniqueUserScrap.filter((post) => 
+                isCurrentUser || !post.isPrivate
             );
             setScrapedPost(filteredScrap);
-            }
-    }, [postList, uniqueUser.scrap, isCurrentUser]);
+        }
+    }, [uniqueUserScrap, isCurrentUser]);
+
+    const handleCardClick = (post) => {
+        if (post.isDelete) {
+            alert("삭제된 포스트입니다");
+        } else {
+            navigate(`/post/${post._id}`);
+        }
+    }
 
     const handleScrapPrivate = (postId) => {
         dispatch(postActions.toggleScrapPrivate(user.nickName, postId))
@@ -46,7 +44,7 @@ const ScrapTab = ({uniqueUser}) => {
       <Row>
       {scrapedPost.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
-                <Card className="mypagetab-card shadow-sm scrap-card" onClick={() => { navigate(`/post/${post._id}`) }}>
+                <Card className="mypagetab-card shadow-sm scrap-card" onClick={() => handleCardClick(post)}>
                     {isCurrentUser && <div className='state-btns'>
                         <div 
                             className={`private-toggle-btn blue-btn small-btn 
