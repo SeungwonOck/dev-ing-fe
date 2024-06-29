@@ -228,7 +228,7 @@ const setNewPassword = (userId, password, navigate) => async (dispatch) => {
         }
     } catch (error) {
         dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_FAIL });
-        dispatch(commonUiActions.showToastMessage(error, 'error'));
+        dispatch(commonUiActions.showToastMessage(error.message, 'error'));
     }
 }
 
