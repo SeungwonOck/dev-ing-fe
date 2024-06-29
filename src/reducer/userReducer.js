@@ -31,6 +31,7 @@ function userReducer(state = initialState, action) {
     case types.UNFOLLOW_USER_REQUEST:
     case types.GOOGLE_LOGIN_REQUEST:
     case types.FORGET_PASSWORD_REQUEST:
+    case types.SET_PASSWORD_WHEN_FORGET_REQUEST:
       return { ...state, loading: true }
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
@@ -42,6 +43,7 @@ function userReducer(state = initialState, action) {
       return { ...state, loading: false, findUser: payload.findUser, error: '' }
 
     case types.REGISTER_SUCCESS:
+    case types.SET_PASSWORD_WHEN_FORGET_SUCCESS:
       return { ...state, loading: false, error: "" }
     case types.FOLLOW_USER_SUCCESS:
       return { ...state, loading: false, followSuccess: true }
@@ -75,6 +77,7 @@ function userReducer(state = initialState, action) {
     case types.UNFOLLOW_USER_FAIL:
     case types.GOOGLE_LOGIN_FAIL:
     case types.FORGET_PASSWORD_FAIL:
+    case types.SET_PASSWORD_WHEN_FORGET_FAIL:
       return { ...state, loading: false, error: payload };
     case types.TOKEN_LOGIN_FAIL:
       return { ...state, loading: false };
@@ -82,6 +85,9 @@ function userReducer(state = initialState, action) {
       return { ...state, user: null }
     case types.CLEAR_ERROR:
       return { ...state, error: '' }
+
+    case types.SET_FIND_USER:
+      return { ...state, findUser: null}
     default:
       return state;
   }

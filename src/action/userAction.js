@@ -196,13 +196,14 @@ const blockUser = (userId) => async (dispatch) => {
 }
 
 
-const forgetPassword = (nickName, email) => async (dispatch) => {
+const forgetPassword = (nickName, userName, email) => async (dispatch) => {
     try {
         dispatch({ type: types.FORGET_PASSWORD_REQUEST })
-        const res =  await api.post('/user/forgetpassword', { nickName, email })
+        const res =  await api.post('/user/forgetpassword', { nickName, userName, email })
         if (res.status !== 200) {
           throw new Error(res.error)
         } else {
+          console.log(res)
           dispatch({ type: types.FORGET_PASSWORD_SUCCESS, payload: res.data.data })
           dispatch(getUserList())
           dispatch(commonUiActions.showToastMessage(res.message, 'success'))
@@ -213,6 +214,23 @@ const forgetPassword = (nickName, email) => async (dispatch) => {
     }
 }
 
+const setNewPassword = (userId, password, navigate) => async (dispatch) => {
+    try {
+        dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_REQUEST })
+        const res =  await api.post('/user/resetpassword', { userId, password })
+        if (res.status !== 200) {
+          throw new Error(res.error)
+        } else {
+          dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_SUCCESS });
+          dispatch(commonUiActions.showToastMessage('비밀번호가 변경되었습니다', 'success'));
+          navigate('/login');
+          dispatch({ type: types.SET_FIND_USER, payload: null })
+        }
+    } catch (error) {
+        dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_FAIL });
+        dispatch(commonUiActions.showToastMessage(error, 'error'));
+    }
+}
 
 
 export const userActions = {
@@ -231,5 +249,6 @@ export const userActions = {
   followUser,
   unfollowUser,
   blockUser,
-  forgetPassword
+  forgetPassword,
+  setNewPassword
 };
