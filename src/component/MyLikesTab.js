@@ -18,7 +18,7 @@ const MyLikesTab = ({uniqueUserLikes}) => {
 
   return (
       <Row>
-      {likedPosts.map((post) => (
+      {likedPosts.length !== 0 ? likedPosts.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
                 <Card className="mypagetab-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
                 <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
@@ -43,7 +43,7 @@ const MyLikesTab = ({uniqueUserLikes}) => {
                 </Card.Footer>
             </Card>
           </Col>
-      ))}
+      )) : "아직 좋아요한 포스트가 없습니다."}
     </Row>
   )
 }

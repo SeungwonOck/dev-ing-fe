@@ -303,27 +303,27 @@ const TabContent = ({
   uniqueUserQnaComments, }) => {
   if (tab === 0) {
     return <Row>
-      {uniqueUserPost && uniqueUserPost.map((post) => (
+      {uniqueUserPost.length !== 0 ? uniqueUserPost.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
           <PostTab post={post} key={post._id} />
         </Col>
-      ))}
+      )) : "아직 포스트를 게시하지 않았습니다"}
     </Row>
   }
 
   if (tab === 1) {
     return <div className="meetUp-container">
-      {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
+      {uniqueUserMeetUp.length !== 0 ? uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
-      ))}
+      )) : "아직 MeetUp을 만들지 않았습니다"}
     </div>
   }
 
   if (tab === 2) {
     return <>
-      {uniqueUserQna && uniqueUserQna.map((qna) => (
+      {uniqueUserQna.length !== 0 ? uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
-      ))}
+      )) : "아직 Qna를 게시하지 않았습니다"}
     </>
   }
   if (tab === 3) {
