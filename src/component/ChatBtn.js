@@ -23,6 +23,8 @@ const ChatBtn = () => {
     const [ messages, setMessages ] = useState([]);
     const [ isGoBackBtnShow, setIsGoBackBtnShow ] = useState(false);
 
+    console.log(chatRoomList)
+
     useEffect(() => {
         dispatch(chatActions.getChatRoomList());
 
@@ -116,8 +118,6 @@ const ChatBtn = () => {
         setIsGoBackBtnShow(true);
         scrollToBottom();
     }
-
-    console.log(chatRoom)
 
     return (
         <>
