@@ -8,6 +8,8 @@ import { meetUpActions } from '../action/meetUpAction'
 import ErrorCard from "../component/ErrorCard"
 import { Dropdown } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const MeetUp = () => {
   const dispatch = useDispatch();
@@ -68,19 +70,29 @@ const MeetUp = () => {
     updateQueryParams();
   };
 
+  const searchKeywordBySearchIcon = () => {
+    setSearchQuery(prevState => ({
+      ...prevState,
+      keyword: keywordValue || ''
+    }));
+    updateQueryParams();
+  }
+
   return (
     <div className='meetup-all-container'>
       <div className='meetup-header'>
         
         <div className='contents-header-btns'>
-          <input
-              type='text'
-              placeholder='검색어를 입력하세요'
-              className='form-control search-input'
-              value={keywordValue}
-              onKeyUp={(e) => onCheckEnter(e)}
-              onChange={(e) => setKeywordValue(e.target.value)}
-          />
+          <div className='form-control search-input'>
+            <input
+                type='text'
+                placeholder='검색어를 입력하세요'
+                value={keywordValue}
+                onKeyUp={(e) => onCheckEnter(e)}
+                onChange={(e) => setKeywordValue(e.target.value)}
+            />
+            <FontAwesomeIcon icon={faSearch} onClick={() => searchKeywordBySearchIcon()}/>
+          </div>
           <Dropdown>
             <Dropdown.Toggle className='gradient-btn-pink'>
               카테고리

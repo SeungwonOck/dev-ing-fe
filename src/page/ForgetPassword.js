@@ -4,50 +4,59 @@ import '../style/forgetPassword.style.css'
 import { commonUiActions } from '../action/commonUiAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../action/userAction';
+import { useNavigate } from 'react-router-dom';
 
 const ForgetPassword = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { findUser } = useSelector((state) => state.user);
-    const [ nickName, setNickName ] = useState(null);
-    const [ name, setName ] = useState(null);
-    const [ email, setEmail ] = useState(null);
-    const [ password, setPassword ] = useState(null);
+    const [ nickName, setNickName ] = useState('');
+    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ confirmPassword, setConfirmPassword ] = useState('');
     const [ activeTab, setActiveTab ] = useState('name');
-
-    console.log(findUser)
     
     const findPassword = () => {
         if(activeTab === 'name') {
-            if(!nickName) {
+            if(nickName === '') {
                 dispatch(commonUiActions.showToastMessage('닉네임을 입력하세요', 'error'))
-            } else if(!name) {
+            } else if(name === '') {
                 dispatch(commonUiActions.showToastMessage('이름을 입력하세요', 'error'))
             } else {
-                dispatch(userActions.forgetPassword(nickName, email))
+                dispatch(userActions.forgetPassword(nickName, name, email))
             }
         } else {
-            if(!email) {
+            if(email === '') {
                 dispatch(commonUiActions.showToastMessage('이메일을 입력하세요', 'error'))
             } else {
-                dispatch(userActions.forgetPassword(nickName, email))
+                dispatch(userActions.forgetPassword(nickName, name, email))
             }
         }
     }
 
     const setNewPassword = () => {
-        if(!password) {
+        if(password === '') {
             dispatch(commonUiActions.showToastMessage('변경할 비밀번호를 입력하세요', 'error'))
-        } else {
-            console.log()
+            return;
+        } 
+        if(confirmPassword === '') {
+            dispatch(commonUiActions.showToastMessage('비밀번호를 한번 더 입력해주세요', 'error'))
+            return;
+        } 
+        if(password !== confirmPassword) {
+            dispatch(commonUiActions.showToastMessage('비밀번호가 일치하지 않습니다', 'error'))
+            return;
         }
+        dispatch(userActions.setNewPassword(findUser[0]._id, password, navigate))
     }
 
     useEffect(()=>{
         if(activeTab === 'name') {
-            setEmail(null)
+            setEmail('')
         } else {
-            setName(null)
-            setNickName(null)
+            setName('')
+            setNickName('')
         }
     },[activeTab])
     
@@ -56,7 +65,8 @@ const ForgetPassword = () => {
             <div className='title'>비밀번호 찾기</div>
             {findUser ? 
             <>
-                <input type='text' className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='변경할 비밀번호를 입력하세요'/>
+                <input type='text' className='form-control mb-1' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='변경할 비밀번호를 입력하세요'/>
+                <input type='text' className='form-control' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='비밀번호를 다시 입력해주세요'/>
                 <div className='send-btn' onClick={() => setNewPassword()}>비밀번호 변경하기</div>
             </>
             :

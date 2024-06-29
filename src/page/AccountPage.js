@@ -226,7 +226,6 @@ const AccountPage = () => {
               <Form.Control
                 type="text"
                 placeholder="소개글을 입력해주세요"
-                required
                 value={userFormData.description}
                 onChange={(e) => handleChange(e)}
               />

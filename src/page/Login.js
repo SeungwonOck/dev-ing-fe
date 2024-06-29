@@ -1,3 +1,4 @@
+import * as types from "../constants/user.constants";
 import React, { useState, useEffect } from "react";
 import "../style/login.style.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +14,10 @@ const Login = () => {
   const { user, error, loading } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(()=>{
+    dispatch({ type: types.SET_FIND_USER, payload: null })
+  },[])
 
   useEffect(() => {
     // user가 있으면 메인 페이지로 이동 - 이미 로그인한 유저는 로그인 페이지에 못 들어오게 막기 위함
@@ -87,7 +92,9 @@ const Login = () => {
               </Row>
             </Form.Group>
 
-            <Link to='/forgetPassword'>비밀번호를 잊으셨나요?</Link>
+            <div className="login-button-container">
+              <Link to='/forgetPassword'>비밀번호를 잊으셨나요?</Link>
+            </div>
 
             <div className="login-button-container">
               <Button className='login-button' type="submit">
