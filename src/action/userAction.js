@@ -196,6 +196,24 @@ const blockUser = (userId) => async (dispatch) => {
 }
 
 
+const forgetPassword = (nickName, email) => async (dispatch) => {
+    try {
+        dispatch({ type: types.FORGET_PASSWORD_REQUEST })
+        const res =  await api.post('/user/forgetpassword', { nickName, email })
+        if (res.status !== 200) {
+          throw new Error(res.error)
+        } else {
+          dispatch({ type: types.FORGET_PASSWORD_SUCCESS, payload: res.data.data })
+          dispatch(getUserList())
+          dispatch(commonUiActions.showToastMessage(res.message, 'success'))
+        }
+    } catch (error) {
+        dispatch({ type: types.FORGET_PASSWORD_FAIL })
+        dispatch(commonUiActions.showToastMessage(error, 'error'))
+    }
+}
+
+
 
 export const userActions = {
   loginWithToken,
@@ -212,5 +230,6 @@ export const userActions = {
   getUserByNickName,
   followUser,
   unfollowUser,
-  blockUser
+  blockUser,
+  forgetPassword
 };
