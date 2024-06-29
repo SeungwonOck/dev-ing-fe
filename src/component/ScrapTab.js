@@ -14,11 +14,15 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
     const { user } = useSelector((state) => state.user)
     const [scrapedPost, setScrapedPost] = useState([]);
     const isCurrentUser = user && user._id === uniqueUser._id;
+    console.log("uniqueUserScrap", uniqueUserScrap)
 
     useEffect(() => {
         if (uniqueUserScrap) {
             const filteredScrap = uniqueUserScrap.filter((post) => 
-                isCurrentUser || !post.isPrivate
+                uniqueUser.scrap.some((scrapItem) => 
+                scrapItem.post === post._id && 
+                (isCurrentUser || !scrapItem.isPrivate)
+                )
             );
             setScrapedPost(filteredScrap);
         }
