@@ -101,10 +101,6 @@ const MyPage = () => {
     }
   }
 
-  if (loading) {
-    return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
-  }
-
   if (!uniqueUser) {
     return <div>User not found</div>;
   }

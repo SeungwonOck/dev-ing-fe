@@ -18,48 +18,77 @@ const ScrapTab = ({uniqueUser}) => {
 
 
     useEffect(() => {
-        dispatch(postActions.getPostList())
+        dispatch(postActions.getPostList()) 
     }, [])
 
     useEffect(() => {
         if (postList && uniqueUser.scrap) {
             const filteredScrap = postList.filter((post) => 
                 uniqueUser.scrap.some((scrapItem) => 
-                scrapItem.post === post._id && 
-                (isCurrentUser || !scrapItem.isPrivate)
+                    scrapItem.post === post._id &&
+                    !scrapItem.isDelete &&
+                    (isCurrentUser || !scrapItem.isPrivate)
                 )
             );
             setScrapedPost(filteredScrap);
             }
     }, [postList, uniqueUser.scrap, isCurrentUser]);
 
+    const handleScrapPrivate = (postId) => {
+        dispatch(postActions.toggleScrapPrivate(user.nickName, postId))
+    }
+
+    const handleDeleteScrap = (postId) => {
+        dispatch(postActions.deleteScrap(user.nickName, postId))
+    }
 
   return (
       <Row>
       {scrapedPost.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
-                <Card className="mypagetab-card shadow-sm" onClick={() => { navigate(`/post/${post._id}`) }}>
-                <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
-                <Card.Body>
-                <Card.Title>{post.title}</Card.Title>
-                <div className="tags">
-                    {post.tags.map((tag, index) => (
-                    <Badge key={index} bg="secondary" className="me-1">#{tag}</Badge>
-                    ))}
-                </div>
-                <div className="user-likes mt-2">
-                    <span className="me-3">
-                        <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} /> {post.likes}
-                    </span>
-                    <span>
-                        <FontAwesomeIcon icon={faComment} /> {post.comments.filter(comment => !comment.isDelete).length}
-                    </span>
-                </div>
-                </Card.Body>
-                <Card.Footer className="text-muted">
-                생성 날짜: {post.createAt.date} {post.createAt.time}
-                </Card.Footer>
-            </Card>
+                <Card className="mypagetab-card shadow-sm scrap-card" onClick={() => { navigate(`/post/${post._id}`) }}>
+                    {isCurrentUser && <div className='state-btns'>
+                        <div 
+                            className={`private-toggle-btn blue-btn small-btn 
+                            ${uniqueUser.scrap.find((i)=> i.post === post._id && i.isPrivate) ? 'private' : 'public'}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleScrapPrivate(post._id);
+                            }}
+                        >
+                            {`${uniqueUser.scrap.find((i)=> i.post === post._id && i.isPrivate) ? '비공개' : '공개'}`}
+                        </div>
+                        <div 
+                            className='delete-btn coral-btn small-btn' 
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteScrap(post._id);
+                            }}
+                        >
+                            삭제
+                        </div>
+                    </div>}
+                    <Card.Img variant="top" src={post.image || meetingImg} alt={post.title} className="card-thumbnail" />
+                    <Card.Body>
+                    <Card.Title>{post.title}</Card.Title>
+                    <div className="tags">
+                        {post.tags.map((tag, index) => (
+                        <Badge key={index} bg="secondary" className="me-1">#{tag}</Badge>
+                        ))}
+                    </div>
+                    <div className="user-likes mt-2">
+                        <span className="me-3">
+                            <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} /> {post.likes}
+                        </span>
+                        <span>
+                            <FontAwesomeIcon icon={faComment} /> {post.comments.filter(comment => !comment.isDelete).length}
+                        </span>
+                    </div>
+                    </Card.Body>
+                    <Card.Footer className="text-muted">
+                    생성 날짜: {post.createAt.date} {post.createAt.time}
+                    </Card.Footer>
+                </Card>
           </Col>
       ))}
     </Row>
