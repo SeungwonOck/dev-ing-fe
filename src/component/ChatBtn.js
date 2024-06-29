@@ -48,7 +48,7 @@ const ChatBtn = () => {
     };
 
     const getSelectedChatRoom = (roomId) => {
-        console.log(roomId)
+        console.log('roomid =', roomId)
         dispatch(chatActions.getChatRoom(roomId));
         setRoomId(roomId)
     }
@@ -84,9 +84,9 @@ const ChatBtn = () => {
                     <div className='header'>채팅목록</div>
                     <div className='chat-list'>
 
-                        {/* 채팅방 입장 */}
-                        {/* <div className='chat-in' ref={chatIn}>
-                            <div className='title'>타이틀</div>
+                        {/* 채팅방 입장
+                        <div className='chat-in' ref={chatIn}>
+                            <div className='title'>{selectedChatRoom && selectedChatRoom.roomId.title}</div>
                             <div className="chat-messages">
                                 {selectedChatRoom?.chat.map((message, index) => (
                                     <div key={index} className="recipient">
@@ -115,7 +115,7 @@ const ChatBtn = () => {
 
                         {/* 채팅방 목록 */}
                         {chatRoomList.map((chat) => 
-                            <div key={chat._id} className='chat' onClick={() => getSelectedChatRoom(chat._id)}>
+                            <div key={chat._id} className='chat' onClick={() => getSelectedChatRoom(chat.roomId._id)}>
                                 <div className='content'>
                                     <div className='left'>
                                         <div className='img'>
