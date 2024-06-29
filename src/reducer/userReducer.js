@@ -12,6 +12,7 @@ const initialState = {
   followers: [],
   followSuccess: false,
   unfollowSuccess: false,
+  googleLogin: false
 };
 
 function userReducer(state = initialState, action) {
@@ -30,8 +31,11 @@ function userReducer(state = initialState, action) {
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
     case types.UPDATE_USER_SUCCESS:
-    case types.GOOGLE_LOGIN_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
+
+    case types.GOOGLE_LOGIN_SUCCESS:
+      return { ...state, loading: false, user: payload.user, googleLogin: true, error: "" }
+
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false, error: "" }
     case types.FOLLOW_USER_SUCCESS:

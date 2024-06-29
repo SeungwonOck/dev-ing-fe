@@ -59,7 +59,7 @@
     border-top-right-radius: 30px;
 }
 .chat-room > .chat-list > .chat-in {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     position: absolute;
