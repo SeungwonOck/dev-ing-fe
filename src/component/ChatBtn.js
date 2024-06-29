@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import { faBackspace } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const socket = io("http://localhost:5001"); // 서버 주소를 적절히 수정
 
@@ -20,21 +20,22 @@ const ChatBtn = () => {
     const [ roomId, setRoomId ] = useState(null);
     const [ value, setValue ] = useState("");
     const [ messages, setMessages ] = useState([]);
+    const [ isGoBackBtnShow, setIsGoBackBtnShow ] = useState(false);
 
     useEffect(() => {
         dispatch(chatActions.getChatRoomList());
 
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
+        // document.addEventListener('click', handleClickOutside);
+        // return () => {
+        //     document.removeEventListener('click', handleClickOutside);
+        // };
     }, []);
 
-    const handleClickOutside = (event) => {
-        if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
-            chatRoom.current.style.right = '-500px';
-        }
-    }
+    // const handleClickOutside = (event) => {
+    //     if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
+    //         chatRoom.current.style.right = '-500px';
+    //     }
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -78,32 +79,46 @@ const ChatBtn = () => {
         chatRoom.current.style.right = '0px';
     }
 
-    useEffect(()=>{
-        if(selectedChatRoom) {
-            chatIn.current.style.display = 'flex';
-        }
-    },[selectedChatRoom])
+    const backToChatRoomList = () => {
+        setIsGoBackBtnShow(false)
+        chatIn.current.style.display = 'none';
+    }
+
+    const showChatIn = () => {
+        setIsGoBackBtnShow(true)
+        chatIn.current.style.display = 'flex';
+    }
+
 
     return (
         <>
             {chatRoomList &&
                 <div className='chat-room' ref={chatRoom}>
-                    <div className='back-btn' onClick={() => getSelectedChatRoom('')}><FontAwesomeIcon icon={faBackspace}/></div>
-                    <div className='header'>채팅목록</div>
+                    {isGoBackBtnShow && <div className='back-btn' onClick={() => backToChatRoomList()}><FontAwesomeIcon icon={faChevronLeft}/> 채팅목록</div>}
+                    <div className={`${isGoBackBtnShow ? 'chat-room-title' : 'header'}`}>{isGoBackBtnShow ? selectedChatRoom.roomId.title : '채팅목록'}</div>
                     <div className='chat-list'>
 
                         {/* 채팅방 입장 */}
                         <div className='chat-in' ref={chatIn}>
-                            <div className='title'>{selectedChatRoom && selectedChatRoom.roomId.title}</div>
                             <div className="chat-messages">
                                 {selectedChatRoom?.chat.map((message, index) => (
-                                    <div key={index} className="recipient">
-                                        {message.userName}: {message.message}
+                                    <div key={`chat-${index}`} className="recipient">
+                                        {message.userName && message.message && (
+                                            <>
+                                                <span className="user">{message.userName}</span>
+                                                <span className="message">{message.message}</span>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                                 {messages?.map((message, index) => (
-                                    <div key={index} className="sender">
-                                        {message.userName}: {message.message}
+                                    <div key={`message-${index}`} className="sender">
+                                        {message.userName && (
+                                            <>
+                                                <span className="user">{message.userName.userName}</span>
+                                                <span className="message">{message.userName.message}</span>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -122,8 +137,15 @@ const ChatBtn = () => {
 
 
                         {/* 채팅방 목록 */}
-                        {chatRoomList.map((chat) => 
-                            <div key={chat._id} className='chat' onClick={() => getSelectedChatRoom(chat.roomId._id)}>
+                        {chatRoomList.map((chatRoom) => 
+                            <div 
+                                key={chatRoom._id} 
+                                className='chat' 
+                                onClick={() => { 
+                                    getSelectedChatRoom(chatRoom.roomId._id);
+                                    showChatIn();
+                                }}
+                            >
                                 <div className='content'>
                                     <div className='left'>
                                         <div className='img'>
@@ -133,10 +155,10 @@ const ChatBtn = () => {
                                     </div>
                                     <div className='right'>
                                         <div className='room-title'>
-                                            <span className='title'>{chat.roomId.title}</span>
-                                            <span className='participants-num'>{chat.participants.length}</span>
+                                            <span className='title'>{chatRoom.roomId.title}</span>
+                                            <span className='participants-num'>{chatRoom.participants.length}</span>
                                         </div>
-                                        {/* <div className='room-latest-chat'>{chat.chat[chat.chat.length-1].message}</div> */}
+                                        <div className='room-latest-chat'>{chatRoom?.chat[chatRoom.chat.length-1]?.message || ''}</div>
                                     </div>
                                 </div>
                                 <div className='new'>1</div>
