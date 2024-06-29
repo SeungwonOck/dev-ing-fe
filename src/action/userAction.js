@@ -90,7 +90,7 @@ const getUserList = () => async (dispatch) => {
   try {
     dispatch({ type: types.GET_USER_LIST_REQUEST })
     const res = await api.get("/user/all")
-    if(res.status !== 200) {
+    if (res.status !== 200) {
       throw new Error(res.error)
     } else {
       dispatch({ type: types.GET_USER_LIST_SUCCESS, payload: res.data.data })
@@ -111,6 +111,24 @@ const updateUser = (userFormData) => async (dispatch) => {
     else {
       dispatch({ type: types.UPDATE_USER_SUCCESS, payload: res.data.data })
       dispatch(commonUiActions.showToastMessage("정보 수정이 완료되었습니다.", "success"))
+    }
+  } catch (error) {
+    dispatch({ type: types.UPDATE_USER_FAIL, payload: error.message })
+  }
+};
+
+const updateGoogleUser = (userFormData, navigate) => async (dispatch) => {
+  console.log("updateGoogleUser", userFormData);
+  try {
+    dispatch({ type: types.UPDATE_USER_REQUEST })
+    const res = await api.put('/user/google', userFormData);
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    }
+    else {
+      dispatch({ type: types.UPDATE_USER_SUCCESS, payload: res.data.data })
+      dispatch(commonUiActions.showToastMessage("정보 수정이 완료되었습니다.", "success"))
+      navigate("/");
     }
   } catch (error) {
     dispatch({ type: types.UPDATE_USER_FAIL, payload: error.message })
@@ -161,20 +179,20 @@ const unfollowUser = (nickName) => async (dispatch) => {
 }
 
 const blockUser = (userId) => async (dispatch) => {
-    try {
-        dispatch({ type: types.BLOCK_USER_REQUEST })
-        const res = await api.post('/user/block', { userId });
-        if (res.status !== 200) {
-          throw new Error(res.error)
-        } else {
-          dispatch({ type: types.BLOCK_USER_SUCCESS })
-          dispatch(getUserList())
-          dispatch(commonUiActions.showToastMessage(res.message, 'success'))
-        }
-    } catch (error) {
-      dispatch({ type: types.BLOCK_USER_FAIL })
-      dispatch(commonUiActions.showToastMessage(error, 'error'))
+  try {
+    dispatch({ type: types.BLOCK_USER_REQUEST })
+    const res = await api.post('/user/block', { userId });
+    if (res.status !== 200) {
+      throw new Error(res.error)
+    } else {
+      dispatch({ type: types.BLOCK_USER_SUCCESS })
+      dispatch(getUserList())
+      dispatch(commonUiActions.showToastMessage(res.message, 'success'))
     }
+  } catch (error) {
+    dispatch({ type: types.BLOCK_USER_FAIL })
+    dispatch(commonUiActions.showToastMessage(error, 'error'))
+  }
 }
 
 
@@ -187,6 +205,7 @@ export const userActions = {
   loginWithFacebook,
   logout,
   updateUser,
+  updateGoogleUser,
   register,
   clearError,
   getUserList,
