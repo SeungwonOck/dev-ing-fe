@@ -35,9 +35,11 @@ const MyPage = () => {
     followSuccess,
     unfollowSuccess,
     uniqueUserPost,
-    uniqueUserScrap,
     uniqueUserMeetUp,
     uniqueUserQna,
+    uniqueUserScrap,
+    uniqueUserLikes,
+    uniqueUserPostComments,
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
@@ -157,13 +159,15 @@ const MyPage = () => {
             </div>
           </div>
           <div className="follow-info">
-            <div className="follow-item">
+            <div className="follow-item" onClick={() => handleShowModal("myActivity")}>
               <p className="follow-label">나의 활동</p>
               <p className="follow-count">
                 {uniqueUserPost.length
                   + uniqueUserMeetUp.length
                   + uniqueUserQna.length
-                  + uniqueUser.scrap.length}
+                  + uniqueUserScrap.length
+                  + uniqueUserLikes.length
+                  + uniqueUserPostComments.length}
               </p>
             </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
@@ -204,15 +208,17 @@ const MyPage = () => {
         tab={tab}
         uniqueUser={uniqueUser}
         uniqueUserPost={uniqueUserPost}
-        uniqueUserScrap={uniqueUserScrap}
         uniqueUserMeetUp={uniqueUserMeetUp}
         uniqueUserQna={uniqueUserQna}
+        uniqueUserScrap={uniqueUserScrap}
+        uniqueUserLikes={uniqueUserLikes}
+        uniqueUserPostComments={uniqueUserPostComments}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {modalType === 'following' ? 'Following' : 'Followers'}
+            {modalType === 'following' ? 'Following' : modalType === 'followers' ? 'Followers' : "나의 활동"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -233,7 +239,7 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          ) : (
+          ) : modalType === "followers" ? (
             followers.map((user) => (
               <div
                 key={user._id}
@@ -250,14 +256,29 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          )}
+            ) : <div className="my-activity">
+                <p>포스트: {uniqueUserPost.length}</p>
+                <p>MeetUp: {uniqueUserMeetUp.length}</p>
+                <p>Qna: {uniqueUserQna.length}</p>
+                <p>스크랩: {uniqueUserScrap.length}</p>
+                <p>나의 좋아요: {uniqueUserLikes.length}</p>
+                <p>나의 댓글: {uniqueUserPostComments.length}</p>
+          </div>}
         </Modal.Body>
       </Modal>
     </div>
   )
 }
 
-const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserScrap, uniqueUserMeetUp, uniqueUserQna }) => {
+const TabContent = ({
+  tab,
+  uniqueUser,
+  uniqueUserPost,
+  uniqueUserMeetUp,
+  uniqueUserQna,
+  uniqueUserScrap,
+  uniqueUserLikes,
+  uniqueUserPostComments,}) => {
   if (tab === 0) {
     return <Row>
       {uniqueUserPost && uniqueUserPost.map((post) => (
@@ -287,10 +308,10 @@ const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserScrap, uniqueUs
     return <ScrapTab uniqueUser={uniqueUser} uniqueUserScrap={uniqueUserScrap} />
   }
   if (tab === 4) {
-    return <MyLikesTab uniqueUser={uniqueUser} />
+    return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
   if (tab === 5) {
-    return <MyCommentsTab uniqueUser={uniqueUser} />
+    return <MyCommentsTab uniqueUser={uniqueUser} uniqueUserPostComments={uniqueUserPostComments} />
   }
 
 }
