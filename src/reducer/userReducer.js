@@ -8,10 +8,14 @@ const initialState = {
   uniqueUserPost: null,
   uniqueUserMeetUp: null,
   uniqueUserQna: null,
+  uniqueUserScrap: null,
+  uniqueUserLikes: null,
+  uniqueUserPostComments: null,
   following: [],
   followers: [],
   followSuccess: false,
   unfollowSuccess: false,
+  findUser: null
 };
 
 function userReducer(state = initialState, action) {
@@ -25,20 +29,27 @@ function userReducer(state = initialState, action) {
     case types.GET_USER_BY_NICKNAME_REQUEST:
     case types.FOLLOW_USER_REQUEST:
     case types.UNFOLLOW_USER_REQUEST:
+    case types.GOOGLE_LOGIN_REQUEST:
+    case types.FORGET_PASSWORD_REQUEST:
       return { ...state, loading: true }
     case types.LOGIN_SUCCESS:
     case types.TOKEN_LOGIN_SUCCESS:
     case types.UPDATE_USER_SUCCESS:
+    case types.GOOGLE_LOGIN_SUCCESS:
       return { ...state, loading: false, user: payload.user, error: "" }
+    
+    case types.FORGET_PASSWORD_SUCCESS:
+      return { ...state, loading: false, findUser: payload.findUser, error: '' }
+
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false, error: "" }
     case types.FOLLOW_USER_SUCCESS:
-      return { ...state, loading: false, followSuccess: true}
+      return { ...state, loading: false, followSuccess: true }
     case types.UNFOLLOW_USER_SUCCESS:
-      return { ...state, loading: false, unfollowSuccess: true}
+      return { ...state, loading: false, unfollowSuccess: true }
     case types.GET_USER_LIST_SUCCESS:
       return { ...state, loading: false, error: "", userList: payload.allUser }
-    case types.GET_USER_BY_NICKNAME_SUCCESS: 
+    case types.GET_USER_BY_NICKNAME_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -47,6 +58,9 @@ function userReducer(state = initialState, action) {
         uniqueUserPost: payload.uniqueUserPost,
         uniqueUserMeetUp: payload.uniqueUserMeetUp,
         uniqueUserQna: payload.uniqueUserQna,
+        uniqueUserScrap: payload.uniqueUserScrap,
+        uniqueUserLikes: payload.uniqueUserLikes,
+        uniqueUserPostComments: payload.uniqueUserPostComments,
         following: payload.following,
         followers: payload.followers,
         followSuccess: false,
@@ -59,6 +73,8 @@ function userReducer(state = initialState, action) {
     case types.GET_USER_BY_NICKNAME_FAIL:
     case types.FOLLOW_USER_FAIL:
     case types.UNFOLLOW_USER_FAIL:
+    case types.GOOGLE_LOGIN_FAIL:
+    case types.FORGET_PASSWORD_FAIL:
       return { ...state, loading: false, error: payload };
     case types.TOKEN_LOGIN_FAIL:
       return { ...state, loading: false };

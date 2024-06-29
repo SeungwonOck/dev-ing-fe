@@ -88,10 +88,10 @@ const MeetUp = () => {
 
             <Dropdown.Menu>
               <Dropdown.Header>카테고리별로 모아보기</Dropdown.Header>
-              <Dropdown.Item onClick={() => getMeetUpListByCategory('독서')}>독서</Dropdown.Item>
-              <Dropdown.Item onClick={() => getMeetUpListByCategory('강의')}>강의</Dropdown.Item>
+              <Dropdown.Item onClick={() => getMeetUpListByCategory('스터디')}>스터디</Dropdown.Item>
               <Dropdown.Item onClick={() => getMeetUpListByCategory('프로젝트')}>프로젝트</Dropdown.Item>
-              <Dropdown.Item onClick={() => getMeetUpListByCategory('기타 스터디')}>기타 스터디</Dropdown.Item>
+              <Dropdown.Item onClick={() => getMeetUpListByCategory('강의')}>강의</Dropdown.Item>
+              <Dropdown.Item onClick={() => getMeetUpListByCategory('독서')}>독서</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 

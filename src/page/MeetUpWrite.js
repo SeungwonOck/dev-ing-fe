@@ -280,10 +280,10 @@ const MeetUpWrite = () => {
                       required
                     >
                       <option value='' disabled hidden>카테고리 선택</option>
-                      <option value='독서'>독서</option>
-                      <option value='강의'>강의</option>
+                      <option value='스터디'>스터디</option>
                       <option value='프로젝트'>프로젝트</option>
-                      <option value='기타 스터디'>기타 스터디</option>
+                      <option value='강의'>강의</option>
+                      <option value='독서'>독서</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -465,10 +465,10 @@ const MeetUpWrite = () => {
                       multiple={false}
                     >
                       <option value='' disabled hidden>카테고리 선택</option>
-                      <option value='독서'>독서</option>
-                      <option value='강의'>강의</option>
+                      <option value='스터디'>스터디</option>
                       <option value="프로젝트">프로젝트</option>
-                      <option value='기타 스터디'>기타 스터디</option>
+                      <option value='강의'>강의</option>
+                      <option value='독서'>독서</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="mb-3">

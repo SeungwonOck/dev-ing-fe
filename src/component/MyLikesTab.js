@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { postActions } from '../action/postAction';
 import meetingImg from "../asset/img/meeting-img-03.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Col, Row, Card, Badge } from 'react-bootstrap';
@@ -8,25 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 
-const MyLikesTab = ({uniqueUser}) => {
-    const dispatch = useDispatch();
+const MyLikesTab = ({uniqueUserLikes}) => {
     const navigate = useNavigate();
-    const { postList } = useSelector((state) => state.post);
     const [likedPosts, setLikedPosts] = useState([]);
-    
 
     useEffect(() => {
-        dispatch(postActions.getPostList())
-    }, [])
-
-    useEffect(() => {
-    if (postList) {
-      const filteredPosts = postList.filter((post) => 
-        post.userLikes && post.userLikes.includes(uniqueUser._id)
-      );
-      setLikedPosts(filteredPosts);
+    if (uniqueUserLikes) {
+      setLikedPosts(uniqueUserLikes);
     }
-  }, [postList, uniqueUser]);
+  }, [uniqueUserLikes]);
 
   return (
       <Row>

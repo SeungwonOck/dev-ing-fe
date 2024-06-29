@@ -11,6 +11,14 @@ import QnaTab from '../component/QnaTab';
 import ScrapTab from '../component/ScrapTab';
 import MyLikesTab from '../component/MyLikesTab';
 import MyCommentsTab from '../component/MyCommentsTab';
+import  entry  from "../asset/img/entry.png"
+import  bronze  from "../asset/img/bronze.png"
+import  silver  from "../asset/img/silver.png"
+import  gold  from "../asset/img/gold.png"
+import  platinum  from "../asset/img/platinum.png"
+import  diamond  from "../asset/img/diamond.png"
+import  master  from "../asset/img/master.png"
+import  challenger  from "../asset/img/challenger.png"
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -29,6 +37,9 @@ const MyPage = () => {
     uniqueUserPost,
     uniqueUserMeetUp,
     uniqueUserQna,
+    uniqueUserScrap,
+    uniqueUserLikes,
+    uniqueUserPostComments,
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
@@ -81,28 +92,24 @@ const MyPage = () => {
   const getProfileImageRank = (rank) => {
     switch (rank.toLowerCase()) {
       case "entry":
-        return "entry";
+        return entry;
       case "bronze":
-        return "bronze";
+        return bronze;
       case "silver":
-        return "silver";
+        return silver
       case "gold":
-        return "gold";
+        return gold;
       case "platinum":
-        return "platinum";
+        return platinum;
       case "diamond":
-        return "diamond";
+        return diamond;
       case "master":
-        return "master";
+        return master
       case "challenger":
-        return "challenger";
+        return challenger;
       default:
-        return "entry";
+        return entry;
     }
-  }
-
-  if (loading) {
-    return <div className='loading'><ClipLoader color="#28A745" loading={loading} size={100} /></div>
   }
 
   if (!uniqueUser) {
@@ -114,11 +121,18 @@ const MyPage = () => {
   return (
     <div className="my-page-container">
       <div className="profile-section">
-        <img
-          src={uniqueUser.profileImage}
-          alt="Profile"
-          className={`profile-image ${getProfileImageRank(uniqueUser.rank)}`}
-        />
+        <div className="profile-images">
+          <img
+            src={uniqueUser.profileImage}
+            alt="Profile"
+            className="profile-image"
+          />
+          <img
+            src={`${getProfileImageRank(uniqueUser.rank)}`}
+            className="profile-rank"
+            alt="Rank"
+          />
+        </div>
         <div className="profile-info">
           <div className="user-info">
             <h2 className="user-name">
@@ -145,13 +159,15 @@ const MyPage = () => {
             </div>
           </div>
           <div className="follow-info">
-            <div className="follow-item">
+            <div className="follow-item" onClick={() => handleShowModal("myActivity")}>
               <p className="follow-label">나의 활동</p>
               <p className="follow-count">
                 {uniqueUserPost.length
                   + uniqueUserMeetUp.length
                   + uniqueUserQna.length
-                  + uniqueUser.scrap.length}
+                  + uniqueUserScrap.length
+                  + uniqueUserLikes.length
+                  + uniqueUserPostComments.length}
               </p>
             </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
@@ -194,12 +210,15 @@ const MyPage = () => {
         uniqueUserPost={uniqueUserPost}
         uniqueUserMeetUp={uniqueUserMeetUp}
         uniqueUserQna={uniqueUserQna}
+        uniqueUserScrap={uniqueUserScrap}
+        uniqueUserLikes={uniqueUserLikes}
+        uniqueUserPostComments={uniqueUserPostComments}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {modalType === 'following' ? 'Following' : 'Followers'}
+            {modalType === 'following' ? 'Following' : modalType === 'followers' ? 'Followers' : "나의 활동"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -220,7 +239,7 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          ) : (
+          ) : modalType === "followers" ? (
             followers.map((user) => (
               <div
                 key={user._id}
@@ -237,14 +256,29 @@ const MyPage = () => {
                 </div>
               </div>
             ))
-          )}
+            ) : <div className="my-activity">
+                <p>포스트: {uniqueUserPost.length}</p>
+                <p>MeetUp: {uniqueUserMeetUp.length}</p>
+                <p>Qna: {uniqueUserQna.length}</p>
+                <p>스크랩: {uniqueUserScrap.length}</p>
+                <p>나의 좋아요: {uniqueUserLikes.length}</p>
+                <p>나의 댓글: {uniqueUserPostComments.length}</p>
+          </div>}
         </Modal.Body>
       </Modal>
     </div>
   )
 }
 
-const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueUserQna }) => {
+const TabContent = ({
+  tab,
+  uniqueUser,
+  uniqueUserPost,
+  uniqueUserMeetUp,
+  uniqueUserQna,
+  uniqueUserScrap,
+  uniqueUserLikes,
+  uniqueUserPostComments,}) => {
   if (tab === 0) {
     return <Row>
       {uniqueUserPost && uniqueUserPost.map((post) => (
@@ -271,13 +305,13 @@ const TabContent = ({ tab, uniqueUser, uniqueUserPost, uniqueUserMeetUp, uniqueU
     </>
   }
   if (tab === 3) {
-    return <ScrapTab uniqueUser={uniqueUser} />
+    return <ScrapTab uniqueUser={uniqueUser} uniqueUserScrap={uniqueUserScrap} />
   }
   if (tab === 4) {
-    return <MyLikesTab uniqueUser={uniqueUser} />
+    return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
   if (tab === 5) {
-    return <MyCommentsTab uniqueUser={uniqueUser} />
+    return <MyCommentsTab uniqueUser={uniqueUser} uniqueUserPostComments={uniqueUserPostComments} />
   }
 
 }
