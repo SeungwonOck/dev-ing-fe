@@ -38,7 +38,7 @@ const initialCheckboxStates = stackList.reduce((acc, stack) => {
 const AccountPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user, googleLogin } = useSelector((state) => state.user);
   const [ userFormData, setUserFormData ] = useState({ 
     ...initialFormData, 
     userName: user.userName, 
@@ -47,6 +47,9 @@ const AccountPage = () => {
     profileImage: user.profileImage 
   });
   const [ checkboxStates, setCheckboxStates ] = useState(initialCheckboxStates);
+
+  // 이부분은 작업 이후 삭제하시고 버튼 부분에서는 user.isNicknameAndGenderChange 로 바꿔주세욥
+  const isNicknameAndGenderChange = false; 
 
   useEffect(()=>{
     if (user) {
@@ -83,6 +86,8 @@ const AccountPage = () => {
         [name]: checked
     }));
   };
+
+  console.log(googleLogin)
 
   useEffect(()=>{
     let selectedStacks = Object.keys(checkboxStates).filter(key => checkboxStates[key] === true)
@@ -124,9 +129,9 @@ const AccountPage = () => {
                 </div>
               </div>
               <div className='others'>
-                <div><strong>닉네임: </strong>{user?.nickName}</div>
+                <div><strong>닉네임: </strong>{user?.nickName} {googleLogin && !isNicknameAndGenderChange && <button>닉네임 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
                 <div><strong>이메일: </strong>{user?.email}</div>
-                <div><strong>성별: </strong>{user?.gender}</div>
+                <div><strong>성별: </strong>{user?.gender} {googleLogin && !isNicknameAndGenderChange && <button>성별 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
                 <div className='rank'><strong>Rank: </strong>{user?.rank}</div>
                 <div><strong>가입일자: </strong>{user?.createAt.date}</div>
               </div>

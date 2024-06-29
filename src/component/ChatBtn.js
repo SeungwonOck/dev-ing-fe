@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import { faBackspace } from "@fortawesome/free-solid-svg-icons";
 
 const socket = io("http://localhost:5001"); // 서버 주소를 적절히 수정
 
@@ -48,7 +49,7 @@ const ChatBtn = () => {
     };
 
     const getSelectedChatRoom = (roomId) => {
-        console.log(roomId)
+        console.log('roomid =', roomId)
         dispatch(chatActions.getChatRoom(roomId));
         setRoomId(roomId)
     }
@@ -77,16 +78,23 @@ const ChatBtn = () => {
         chatRoom.current.style.right = '0px';
     }
 
+    useEffect(()=>{
+        if(selectedChatRoom) {
+            chatIn.current.style.display = 'flex';
+        }
+    },[selectedChatRoom])
+
     return (
         <>
             {chatRoomList &&
                 <div className='chat-room' ref={chatRoom}>
+                    <div className='back-btn' onClick={() => getSelectedChatRoom('')}><FontAwesomeIcon icon={faBackspace}/></div>
                     <div className='header'>채팅목록</div>
                     <div className='chat-list'>
 
                         {/* 채팅방 입장 */}
-                        {/* <div className='chat-in' ref={chatIn}>
-                            <div className='title'>타이틀</div>
+                        <div className='chat-in' ref={chatIn}>
+                            <div className='title'>{selectedChatRoom && selectedChatRoom.roomId.title}</div>
                             <div className="chat-messages">
                                 {selectedChatRoom?.chat.map((message, index) => (
                                     <div key={index} className="recipient">
@@ -110,12 +118,12 @@ const ChatBtn = () => {
                                     <button type="submit"><FontAwesomeIcon icon={faPaperPlane}/></button>
                                 </form>
                             </div>
-                        </div> */}
+                        </div>
 
 
                         {/* 채팅방 목록 */}
                         {chatRoomList.map((chat) => 
-                            <div key={chat._id} className='chat' onClick={() => getSelectedChatRoom(chat._id)}>
+                            <div key={chat._id} className='chat' onClick={() => getSelectedChatRoom(chat.roomId._id)}>
                                 <div className='content'>
                                     <div className='left'>
                                         <div className='img'>

@@ -424,3 +424,26 @@
         margin: 10px 0;
     }
 }
+
+.scrap-card {
+    position: relative;
+}
+.scrap-card > .state-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    right: 6px;
+}
+
+.scrap-card > .state-btns > .private {
+    background-color: #e2e2e2;
+    border: 1px solid #8a8a8a !important;
+    color: #555555 !important;
+}
+.scrap-card > .state-btns > .private:hover {
+    background-color: #c5c5c5;
+}
