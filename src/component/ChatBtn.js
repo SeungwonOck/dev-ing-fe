@@ -177,10 +177,10 @@ const ChatBtn = () => {
                         {/* 채팅방 목록 */}
                         {chatRoomList.map((chatRoom) => 
                             <div 
-                                key={chatRoom._id} 
+                                key={chatRoom?._id} 
                                 className='chat' 
                                 onClick={() => { 
-                                    getSelectedChatRoom(chatRoom.roomId._id);
+                                    getSelectedChatRoom(chatRoom?.roomId?._id);
                                     showChatIn();
                                 }}
                             >
@@ -190,17 +190,17 @@ const ChatBtn = () => {
                                             <img src={img} alt=''/>
                                         </div>
                                         <div 
-                                            className={`category ${chatRoom.roomId.category === '독서' ? 'green' :
-                                                                   chatRoom.roomId.category === '프로젝트' ? 'violet' :
-                                                                   chatRoom.roomId.category === '강의' ? 'blue' : 'red'
+                                            className={`category ${chatRoom?.roomId?.category === '독서' ? 'green' :
+                                                                   chatRoom?.roomId?.category === '프로젝트' ? 'violet' :
+                                                                   chatRoom?.roomId?.category === '강의' ? 'blue' : 'red'
                                             }`}>
-                                            {chatRoom.roomId.category}
+                                            {chatRoom?.roomId?.category}
                                         </div>
                                     </div>
                                     <div className='right'>
                                         <div className='room-title'>
-                                            <span className='title'>{chatRoom.roomId.title}</span>
-                                            <span className='participants-num'>{chatRoom.participants.length}</span>
+                                            <span className='title'>{chatRoom?.roomId?.title}</span>
+                                            <span className='participants-num'>{chatRoom?.participants?.length}</span>
                                         </div>
                                         <div className='room-latest-chat'>{chatRoom?.chat[chatRoom.chat.length-1]?.message || ''}</div>
                                     </div>
