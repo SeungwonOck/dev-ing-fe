@@ -103,9 +103,6 @@ const ChatBtn = () => {
         chatRoom.current.style.right = '0px';
     }
 
-<<<<<<< HEAD
-    console.log(selectedChatRoom)
-=======
     const backToChatRoomList = () => {
         getSelectedChatRoom('')
         setValue('')
@@ -119,9 +116,6 @@ const ChatBtn = () => {
         setIsGoBackBtnShow(true);
         scrollToBottom();
     }
-
-    console.log(chatRoomList)
->>>>>>> develop
 
     return (
         <>
