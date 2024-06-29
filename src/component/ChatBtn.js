@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 
 const socket = io("http://localhost:5001"); // 서버 주소를 적절히 수정
 
@@ -89,35 +89,45 @@ const ChatBtn = () => {
         chatIn.current.style.display = 'flex';
     }
 
+    console.log(selectedChatRoom)
+
 
     return (
         <>
             {chatRoomList &&
                 <div className='chat-room' ref={chatRoom}>
-                    {isGoBackBtnShow && <div className='back-btn' onClick={() => backToChatRoomList()}><FontAwesomeIcon icon={faChevronLeft}/> 채팅목록</div>}
-                    <div className={`${isGoBackBtnShow ? 'chat-room-title' : 'header'}`}>{isGoBackBtnShow ? selectedChatRoom.roomId.title : '채팅목록'}</div>
+                    <div className='back-btn' onClick={() => backToChatRoomList()}>{isGoBackBtnShow ? <><FontAwesomeIcon icon={faChevronLeft}/> 채팅목록</> : <FontAwesomeIcon icon={faClose} onClick={() => chatRoom.current.style.right = '-500px'}/>}</div>
+                    <div className={`${isGoBackBtnShow ? 'chat-room-title' : 'header'}`}>{isGoBackBtnShow ? selectedChatRoom?.roomId.title : '채팅목록'}</div>
                     <div className='chat-list'>
 
                         {/* 채팅방 입장 */}
                         <div className='chat-in' ref={chatIn}>
                             <div className="chat-messages">
                                 {selectedChatRoom?.chat.map((message, index) => (
-                                    <div key={`chat-${index}`} className="recipient">
-                                        {message.userName && message.message && (
+                                    <div key={`chat-${index}`} className={message.userName === user.userName ? "sender" : "recipient"}>
+                                        {message.userName && message.message && message.userName === user.userName ? 
                                             <>
-                                                <span className="user">{message.userName}</span>
-                                                <span className="message">{message.message}</span>
+                                                <div className="right">
+                                                    <span className="message">{message.message}</span>
+                                                </div>
                                             </>
-                                        )}
+                                            :
+                                            <>
+                                                <div className="left small-profile-img"><img src={message.userProfileImage} alt=''/></div>
+                                                <div className="right">
+                                                    <span className="user">{message.userName}</span>
+                                                    <span className="message">{message.message}</span>
+                                                </div>
+                                            </>
+                                        }
                                     </div>
                                 ))}
                                 {messages?.map((message, index) => (
                                     <div key={`message-${index}`} className="sender">
                                         {message.userName && (
-                                            <>
-                                                <span className="user">{message.userName.userName}</span>
+                                            <div className="right">
                                                 <span className="message">{message.userName.message}</span>
-                                            </>
+                                            </div>
                                         )}
                                     </div>
                                 ))}
@@ -161,7 +171,7 @@ const ChatBtn = () => {
                                         <div className='room-latest-chat'>{chatRoom?.chat[chatRoom.chat.length-1]?.message || ''}</div>
                                     </div>
                                 </div>
-                                <div className='new'>1</div>
+                                {/* <div className='new'>1</div> */}
                             </div>
                         )}
                     </div>

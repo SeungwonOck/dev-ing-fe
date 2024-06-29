@@ -41,10 +41,10 @@
 }
 .chat-room > .header {
     width: 100%;
-    height: 136px;
+    height: 114px;
     font-size: 24px;
     font-weight: 600;
-    padding: 26px 20px 0px 20px;
+    padding: 16px 20px 0px 20px;
     color: #161616;
 }
 .chat-room > .chat-room-title {
@@ -58,7 +58,7 @@
 .chat-room > .chat-list {
     position: relative;
     width: 100%;
-    height: calc(100% - 136px);
+    height: calc(100% - 114px);
     background-color: rgba(255, 255, 255, 0.8);
 }
 .chat-room > .chat-list::before {
@@ -93,13 +93,18 @@
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
 }
+.chat-room > .chat-list > .chat-in > .chat-input {
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #eee;
+}
 .chat-room > .chat-list > .chat-in > .chat-input > form {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     gap: 6px;
     padding: 12px 20px;
     border-radius: 30px;
-    margin: 10px 20px 10px 10px;
 }
 .chat-room > .chat-list > .chat-in > .chat-input > form > input {
     width: 100%;
@@ -118,7 +123,7 @@
 }
 .chat-room > .chat-list > .chat-in > .chat-messages > div {
     display: flex;
-    flex-direction: column;
+    gap: 8px;
 }
 .chat-room > .chat-list > .chat-in > .chat-messages > div > .user {
     font-size: 14px;
@@ -127,18 +132,26 @@
     justify-self: baseline;
     align-items: baseline;
 }
-.chat-room > .chat-list > .chat-in > .chat-messages > .recipient > .message {
+.chat-room > .chat-list > .chat-in > .chat-messages > .recipient > .right {
+    display: flex;
+    flex-direction: column;
+}
+.chat-room > .chat-list > .chat-in > .chat-messages > .recipient > .right > .message {
     width: fit-content;
     padding: 10px 14px;
     border-radius: 14px;
     border-top-left-radius: 0px;
-    background-color: rgb(255, 214, 214);
+    background-color: rgb(214, 237, 255);
 }
 .chat-room > .chat-list > .chat-in > .chat-messages > .sender {
     justify-self: end;
     align-items: end;
 }
-.chat-room > .chat-list > .chat-in > .chat-messages > .sender > .message {
+.chat-room > .chat-list > .chat-in > .chat-messages > .sender > .right {
+    display: flex;
+    flex-direction: column;
+}
+.chat-room > .chat-list > .chat-in > .chat-messages > .sender > .right > .message {
     width: fit-content;
     padding: 10px 14px;
     border-radius: 14px;
@@ -224,10 +237,23 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-.chat-room > .chat-list > .chat > .new {
+/* .chat-room > .chat-list > .chat > .new {
     background-color: #F24E1E;
     color: #fff;
     padding: 2px 6px;
     border-radius: 10px;
     font-size: 12px;
+} */
+
+
+@media screen and (max-width: 540px) {
+    .chat-icon {
+        width: 55px;
+        height: 55px;
+        right: 20px;
+        bottom: 20px;
+    }
+    .chat-room {
+        width: 100%;
+    }
 }
