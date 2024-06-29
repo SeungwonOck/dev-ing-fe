@@ -25,17 +25,17 @@ const ChatBtn = () => {
     useEffect(() => {
         dispatch(chatActions.getChatRoomList());
 
-        // document.addEventListener('click', handleClickOutside);
-        // return () => {
-        //     document.removeEventListener('click', handleClickOutside);
-        // };
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
 
-    // const handleClickOutside = (event) => {
-    //     if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
-    //         chatRoom.current.style.right = '-500px';
-    //     }
-    // }
+    const handleClickOutside = (event) => {
+        if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
+            chatRoom.current.style.right = '-500px';
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
