@@ -206,11 +206,11 @@ const forgetPassword = (nickName, userName, email) => async (dispatch) => {
           console.log(res)
           dispatch({ type: types.FORGET_PASSWORD_SUCCESS, payload: res.data.data })
           dispatch(getUserList())
-          dispatch(commonUiActions.showToastMessage(res.message, 'success'))
+          dispatch(commonUiActions.showToastMessage('새로 변경할 비밀번호를 입력해주세요', 'success'))
         }
     } catch (error) {
         dispatch({ type: types.FORGET_PASSWORD_FAIL })
-        dispatch(commonUiActions.showToastMessage(error, 'error'))
+        dispatch(commonUiActions.showToastMessage(error.message, 'error'))
     }
 }
 
