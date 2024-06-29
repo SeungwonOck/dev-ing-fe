@@ -66,8 +66,9 @@ const ChatBtn = () => {
         if (value.trim()) {
             socket.emit("chat message", {
                 userName: user.userName,
+                userProfileImage: user.profileImage,
                 roomId,
-                message: value,
+                message: value
             });
             setValue("");
         }
@@ -117,7 +118,7 @@ const ChatBtn = () => {
         scrollToBottom();
     }
 
-    console.log(chatRoomList)
+    console.log(selectedChatRoom)
 
     return (
         <>
@@ -150,12 +151,22 @@ const ChatBtn = () => {
                                     </div>
                                 ))}
                                 {messages?.map((message, index) => (
-                                    <div key={`message-${index}`} className="sender">
-                                        {message.userName && (
-                                            <div className="right">
-                                                <span className="message">{message.userName.message}</span>
-                                            </div>
-                                        )}
+                                    <div key={`message-${index}`} className={message.userName.userName === user.userName ? "sender" : "recipient"}>
+                                        {message.userName.userName && message.userName.message && message.userName.userName === user.userName ? 
+                                            <>
+                                                <div className="right">
+                                                    <span className="message">{message.userName.message}</span>
+                                                </div>
+                                            </>
+                                            :
+                                            <>
+                                                <div className="left small-profile-img"><img src={message.userName.userProfileImage} alt=''/></div>
+                                                <div className="right">
+                                                    <span className="user">{message.userName.userName}</span>
+                                                    <span className="message">{message.userName.message}</span>
+                                                </div>
+                                            </>
+                                        }
                                     </div>
                                 ))}
                                 <div ref={messagesEndRef}></div>
