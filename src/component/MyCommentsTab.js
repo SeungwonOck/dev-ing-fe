@@ -6,7 +6,7 @@ import { postActions } from '../action/postAction';
 import { qnaActions } from "../action/qnaAction";
 import { Dropdown } from 'react-bootstrap';
 
-const MyCommentsTab = ({ uniqueUser }) => {
+const MyCommentsTab = ({ uniqueUser, uniqueUserPostComments }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { postList } = useSelector((state) => state.post)
@@ -16,22 +16,20 @@ const MyCommentsTab = ({ uniqueUser }) => {
     const [selectedTab, setSelectedTab] = useState("all")
     const [dropdownText, setDropdownText] = useState("전체 댓글")
 
+    console.log("myPostComments", myPostComments)
+
+    const formatDateTime = (dateString) => {
+        return dateString.replace("T", " ").replace(/\.\d+Z$/, "");
+    };
+
     useEffect(() => {
         dispatch(postActions.getPostList());
         dispatch(qnaActions.getQnaList());
     }, [])
 
     useEffect(() => {
-        if (postList) {
-            const commentWithPosts = postList
-                .filter((post) => 
-                post.comments && post.comments.some((comment) => !comment.isDelete && comment.author === uniqueUser._id)
-                )
-                .map((post) => ({
-                    ...post,
-                    userComments: post.comments.filter((comment) => !comment.isDelete && comment.author === uniqueUser._id),
-                }))
-            setMyPostComments(commentWithPosts)
+        if (uniqueUserPostComments) {
+            setMyPostComments(uniqueUserPostComments)
         }
     }, [postList, uniqueUser])
 
@@ -79,7 +77,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
               <div className="post-details">
                 <span>Tags: {post.tags.join(", ")}</span>
                 <span>Likes: {post.userLikes.length}</span>
-                <span>Posted on: {post.createAt.date} at {post.createAt.time}</span>
+                <span>Posted on: {formatDateTime(post.createAt)}</span>
               </div>
             </div>
           </div>
@@ -92,7 +90,7 @@ const MyCommentsTab = ({ uniqueUser }) => {
                 </div>
                 <div className="comment-content">
                   <p>{comment.content}</p>
-                  <span className="comment-date">{comment.createAt.date} at {comment.createAt.time}</span>
+                  <span className="comment-date">{formatDateTime(comment.createAt)}</span>
                 </div>
               </div>
             ))}
