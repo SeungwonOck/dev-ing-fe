@@ -369,7 +369,7 @@
         gap: 10px;
     }
     .home>.meet-up-container {
-        height: 400px;
+        height: 530px;
         padding: 14px 0px;
         gap: 10px;
     }
@@ -403,7 +403,7 @@
 
     .home-meet-up-card {
         width: 100%;
-        height: calc((100% / 3) - 10px);
+        height: calc(25% - 10px);
         border-radius: 14px;
         display: flex;
     }
