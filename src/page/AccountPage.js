@@ -181,7 +181,7 @@ const AccountPage = () => {
                 </Form.Control.Feedback>
               </div>)}
             <div><strong>이메일: </strong>{user?.email}</div>
-            <div><strong>성별: </strong>{user?.gender} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" className="white-btn" onClick={updateGender}>성별 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
+            <div><strong>성별: </strong>{user?.gender === "male" ? "남자" : user?.gender === "female" ? "여자" : "없음"} {user?.googleUser && !user?.isNicknameAndGenderChange && <button type="button" className="white-btn" onClick={updateGender}>성별 변경(최초 1회 변경 후 수정 불가합니다)</button>}</div>
             {IsUpdateGender &&
               (<Form.Select
                 defaultValue=""
