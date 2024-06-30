@@ -46,7 +46,7 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
 
   return (
       <Row>
-      {scrapedPost.map((post) => (
+      {scrapedPost.length !== 0 ? scrapedPost.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
                 <Card className="mypagetab-card shadow-sm scrap-card" onClick={() => handleCardClick(post)}>
 
@@ -95,7 +95,7 @@ const ScrapTab = ({ uniqueUser, uniqueUserScrap }) => {
                     </Card.Footer>
                 </Card>
           </Col>
-      ))}
+      )) : "아직 스크랩된 포스트가 없습니다."}
     </Row>
   )
 }

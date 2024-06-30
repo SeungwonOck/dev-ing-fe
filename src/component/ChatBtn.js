@@ -17,14 +17,14 @@ const ChatBtn = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { chatRoomList, selectedChatRoom } = useSelector((state) => state.chat);
-    const chatRoom = useRef(null);
-    const chatIn = useRef(null);
-    const messagesEndRef = useRef(null);
     const [ roomId, setRoomId ] = useState(null);
     const [ value, setValue ] = useState("");
     const [ messages, setMessages ] = useState([]);
     const [ isGoBackBtnShow, setIsGoBackBtnShow ] = useState(false);
-
+    const chatRoom = useRef(null);
+    const chatIn = useRef(null);
+    const messagesEndRef = useRef(null);
+    
     useEffect(() => {
 
         dispatch(chatActions.getChatRoomList());
@@ -36,6 +36,10 @@ const ChatBtn = () => {
 
 
     }, []);
+
+    useEffect(()=>{
+        console.log(chatRoomList)
+    },[chatRoomList])
 
     const handleClickOutside = (event) => {
         if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {

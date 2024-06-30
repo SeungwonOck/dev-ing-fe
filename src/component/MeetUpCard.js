@@ -15,7 +15,7 @@ const MeetUpCard = ({ meetUp }) => {
     }
 
     return (
-        <div className='home-meet-up-card meet-up-card' onClick={() => goToMeetUpDetail(meetUp._id)}>
+        <div className='meet-up-card' onClick={() => goToMeetUpDetail(meetUp._id)}>
             <div className='img'>
                 <img src={meetUp.image} alt='' loading="lazy" />
                 <div className={'overlay' + (meetUp?.isClosed ? '-finish' : '')}>{meetUp?.isClosed ? "마감" : "모집중"}</div>
