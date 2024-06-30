@@ -50,8 +50,6 @@ const loginWithGoogle = (token) => async (dispatch) => {
   try {
     dispatch({ type: types.GOOGLE_LOGIN_REQUEST });
     const res = await api.post("/auth/google", { token });
-    console.log("loginWithGoogle", res);
-
     if (res.status === 200) {
       sessionStorage.setItem("token", res.data.token);
       dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: res.data });
@@ -200,7 +198,6 @@ const forgetPassword = (nickName, userName, email) => async (dispatch) => {
     try {
         dispatch({ type: types.FORGET_PASSWORD_REQUEST })
         const res =  await api.post('/user/forgetpassword', { nickName, userName, email });
-        console.log('ddd', res)
         if (res.status !== 200) {
           throw new Error(res.error)
         } else {

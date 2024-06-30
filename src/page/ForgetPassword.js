@@ -20,8 +20,6 @@ const ForgetPassword = () => {
     const [ activeTab, setActiveTab ] = useState('name');
     const [ isShowPassword, setIsShowPassword ] = useState(false);
     const [ isShowConfirmPassword, setIsShowConfirmPassword ] = useState(false);
-
-    console.log(findUser)
     
     const findPassword = () => {
         if(activeTab === 'name') {
