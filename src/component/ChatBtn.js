@@ -8,8 +8,10 @@ import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
+const REACT_APP_BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY
 
-const socket = io("http://localhost:5001"); // 서버 주소를 적절히 수정
+// const socket = io("http://localhost:5001"); //로컬 소켓 서버
+const socket = io(`${REACT_APP_BACKEND_PROXY}:5001`) // 배포 소켓 서버
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -23,15 +25,16 @@ const ChatBtn = () => {
     const [ messages, setMessages ] = useState([]);
     const [ isGoBackBtnShow, setIsGoBackBtnShow ] = useState(false);
 
-    console.log(chatRoomList)
-
     useEffect(() => {
+
         dispatch(chatActions.getChatRoomList());
 
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
+
+
     }, []);
 
     const handleClickOutside = (event) => {
