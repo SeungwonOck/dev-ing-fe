@@ -11,7 +11,7 @@ import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 const REACT_APP_BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY
 
 // const socket = io("http://localhost:5001"); //로컬 소켓 서버
-const socket = io(REACT_APP_BACKEND_PROXY) // 배포 소켓 서버
+const socket = io(REACT_APP_BACKEND_PROXY) // 배포 소켓 서버 
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ChatBtn = () => {
     const chatIn = useRef(null);
     const messagesEndRef = useRef(null);
     
-    useEffect(() => {
+    useEffect(() => { 
 
         dispatch(chatActions.getChatRoomList());
 
