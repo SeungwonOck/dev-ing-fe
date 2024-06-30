@@ -133,7 +133,7 @@ const MyPage = () => {
   }
 
   if (!uniqueUser) {
-    return <div>User not found</div>;
+    return <div></div>;
   }
 
   const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
@@ -278,12 +278,12 @@ const MyPage = () => {
               </div>
             ))
             ) : <div className="my-activity">
-                <p>포스트: {uniqueUserPost.length}</p>
-                <p>MeetUp: {uniqueUserMeetUp.length}</p>
-                <p>Qna: {uniqueUserQna.length}</p>
-                <p>스크랩: {uniqueUserScrap.length}</p>
-                <p>나의 좋아요: {uniqueUserLikes.length}</p>
-                <p>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
+                <p className='mb-1'>포스트: {uniqueUserPost.length}</p>
+                <p className='mb-1'>MeetUp: {uniqueUserMeetUp.length}</p>
+                <p className='mb-1'>Qna: {uniqueUserQna.length}</p>
+                <p className='mb-1'>스크랩: {uniqueUserScrap.length}</p>
+                <p className='mb-1'>나의 좋아요: {uniqueUserLikes.length}</p>
+                <p className='mb-1'>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
           </div>}
         </Modal.Body>
       </Modal>

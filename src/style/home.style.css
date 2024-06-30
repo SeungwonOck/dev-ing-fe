@@ -212,7 +212,7 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.home >.qna-container > .home-qna-card::before {
+/* .home >.qna-container > .home-qna-card::before {
     content: 'Q&A';
     position: absolute;
     top: -24px;
@@ -223,7 +223,7 @@
     color: rgba(124, 209, 144, 0.5);
     -webkit-color: rgba(124, 209, 144, 0.5);
     transform: rotate(-10deg);
-}
+} */
 
 .home >.qna-container > .home-qna-card > .content > .title {
     font-size: 24px;
@@ -289,6 +289,54 @@
 }
 
 
+@media screen and (max-width: 980px) {
+    .home {
+        gap: 30px;
+    }
+    .home>.meet-up-container, 
+    .home>.post-container {
+        gap: 10px;
+    }
+    .home>.qna-container {
+        gap: 10px;
+    }
+    .home>.post-container {
+        height: 360px;
+    }
+    .home-post-card,
+    .home-meet-up-card {
+        width: calc((100% / 3) - 15px);
+    }
+    .home >.qna-container > .home-qna-card {
+        width: calc((100% / 2) - 10px);
+        height: calc((100% / 2));
+        padding: 20px 20px 14px 20px;
+    }
+    .home-post-card>.contents,
+    .home-meet-up-card>.contents {
+        padding: 16px 20px;
+    }
+    .home >.qna-container > .home-qna-card > .content > .title,
+    .home-post-card>.contents>.title>p {
+        font-size: 20px;
+        line-height: 28px;
+    }
+    .home >.qna-container > .home-qna-card > .content > .content {
+        display: none;
+    }
+    .home-meet-up-card>.contents .schedule {
+        font-size: 14px;
+    }
+    .home-post-card>.contents .small-text {
+        white-space: nowrap;
+    }
+    .home >.qna-container > .home-qna-card > .bottom > .info {
+        gap: 6px;
+    }
+    .home >.qna-container > .home-qna-card > .bottom > .info > .answers {
+        font-size: 14px;
+    }
+}
 @media screen and (max-width: 768px) {
     .home>.main-title {
         font-size: 36px;
@@ -301,7 +349,7 @@
     }
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 680px) {
     .home {
         gap: 30px;
     }
@@ -314,5 +362,85 @@
 
     .home>.sub-title {
         font-size: 14px;
+    }
+    .home>.post-container {
+        height: 400px;
+        padding: 14px;
+        gap: 10px;
+    }
+    .home>.meet-up-container {
+        height: 400px;
+        padding: 14px 0px;
+        gap: 10px;
+    }
+    .home>.qna-container {
+        height: 360px;
+        padding: 14px 0px;
+        gap: 10px;
+        transform: translateY(-20px);
+    }
+    .home-post-card {
+        display: flex;
+        width: 100%;
+        height: calc((100% / 3) - 10px)
+    }
+    .home-post-card>.contents {
+        width: 70%;
+        height: 100%;
+        padding: 16px;
+    }
+    .home-post-card>.contents .small-text {
+        font-size: 13px;
+    }
+    .home-post-card>.contents>.title>p {
+        font-size: 18px;
+        -webkit-line-clamp: 1;
+    }
+    .home-post-card>.img {
+        width: 30%;
+        height: 100%;
+    }
+
+    .home-meet-up-card {
+        width: 100%;
+        height: calc((100% / 3) - 10px);
+        border-radius: 14px;
+        display: flex;
+    }
+    .home-meet-up-card>.img {
+        width: 30%;
+        height: 100%;
+    }
+    .home-meet-up-card>.contents {
+        width: 70%;
+        height: 100%;
+        padding: 16px;
+    }
+    .home >.qna-container > .home-qna-card > .content > .title,
+    .home-meet-up-card>.contents>.title {
+        font-size: 18px;   
+        line-height: 22px;
+    }
+    .home-meet-up-card>.contents .small-text {
+        font-size: 13px;
+    }
+    .home-meet-up-card>.img>.category-overlay {
+        left: 8px;
+        top: 80px;
+        padding: 3px 8px;
+        height: fit-content;
+    }
+    .home-meet-up-card>.img>.overlay {
+        left: 8px;
+        padding: 4px 10px;
+        text-align: center;
+        width: fit-content;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+    .home >.qna-container > .home-qna-card > .bottom {
+        flex-direction: column;
+        align-items: baseline;
+        gap: 4px;
     }
 }
