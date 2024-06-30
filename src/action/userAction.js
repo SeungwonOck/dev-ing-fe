@@ -50,8 +50,6 @@ const loginWithGoogle = (token) => async (dispatch) => {
   try {
     dispatch({ type: types.GOOGLE_LOGIN_REQUEST });
     const res = await api.post("/auth/google", { token });
-    console.log("loginWithGoogle", res);
-
     if (res.status === 200) {
       sessionStorage.setItem("token", res.data.token);
       dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: res.data });
@@ -196,23 +194,40 @@ const blockUser = (userId) => async (dispatch) => {
 }
 
 
-const forgetPassword = (nickName, email) => async (dispatch) => {
+const forgetPassword = (nickName, userName, email) => async (dispatch) => {
     try {
         dispatch({ type: types.FORGET_PASSWORD_REQUEST })
-        const res =  await api.post('/user/forgetpassword', { nickName, email })
+        const res =  await api.post('/user/forgetpassword', { nickName, userName, email });
         if (res.status !== 200) {
           throw new Error(res.error)
         } else {
           dispatch({ type: types.FORGET_PASSWORD_SUCCESS, payload: res.data.data })
           dispatch(getUserList())
-          dispatch(commonUiActions.showToastMessage(res.message, 'success'))
+          dispatch(commonUiActions.showToastMessage('새로 변경할 비밀번호를 입력해주세요', 'success'))
         }
     } catch (error) {
         dispatch({ type: types.FORGET_PASSWORD_FAIL })
-        dispatch(commonUiActions.showToastMessage(error, 'error'))
+        dispatch(commonUiActions.showToastMessage(error.message, 'error'))
     }
 }
 
+const setNewPassword = (userId, password, navigate) => async (dispatch) => {
+    try {
+        dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_REQUEST })
+        const res =  await api.post('/user/resetpassword', { userId, password })
+        if (res.status !== 200) {
+          throw new Error(res.error)
+        } else {
+          dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_SUCCESS });
+          dispatch(commonUiActions.showToastMessage('비밀번호가 변경되었습니다', 'success'));
+          navigate('/login');
+          dispatch({ type: types.SET_FIND_USER, payload: null })
+        }
+    } catch (error) {
+        dispatch({ type: types.SET_PASSWORD_WHEN_FORGET_FAIL });
+        dispatch(commonUiActions.showToastMessage(error.message, 'error'));
+    }
+}
 
 
 export const userActions = {
@@ -231,5 +246,6 @@ export const userActions = {
   followUser,
   unfollowUser,
   blockUser,
-  forgetPassword
+  forgetPassword,
+  setNewPassword
 };

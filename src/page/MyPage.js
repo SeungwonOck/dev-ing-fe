@@ -40,6 +40,7 @@ const MyPage = () => {
     uniqueUserScrap,
     uniqueUserLikes,
     uniqueUserPostComments,
+    uniqueUserQnaComments,
     following,
     followers } = useSelector((state) => state.user);
   const isCurrentUser = user && user.nickName === nickName;
@@ -89,6 +90,25 @@ const MyPage = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const getTotalCommentsLength = (comments) => {
+    if (!comments || comments.length === 0) {
+        return 0;
+    }
+    return comments.reduce((totalLength, comment) => {
+        return totalLength + (comment.userComments ? comment.userComments.length : 0);
+    }, 0);
+  };
+
+  const getTotalAnswersLength = (answers) => {
+    if (!answers || answers.length === 0) {
+        return 0;
+    }
+    return answers.reduce((totalLength, answer) => {
+        // comment.answers 배열이 존재하고 길이가 있는 경우에만 합산
+        return totalLength + (answer.userComments ? answer.userComments.length : 0);
+    }, 0);
+  };
+
   const getProfileImageRank = (rank) => {
     switch (rank.toLowerCase()) {
       case "entry":
@@ -113,7 +133,7 @@ const MyPage = () => {
   }
 
   if (!uniqueUser) {
-    return <div>User not found</div>;
+    return <div></div>;
   }
 
   const isFollowing = user && user.following && user.following.includes(uniqueUser._id)
@@ -167,7 +187,7 @@ const MyPage = () => {
                   + uniqueUserQna.length
                   + uniqueUserScrap.length
                   + uniqueUserLikes.length
-                  + uniqueUserPostComments.length}
+                  + getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}
               </p>
             </div>
             <div className="follow-item" onClick={() => handleShowModal("followers")}>
@@ -213,6 +233,7 @@ const MyPage = () => {
         uniqueUserScrap={uniqueUserScrap}
         uniqueUserLikes={uniqueUserLikes}
         uniqueUserPostComments={uniqueUserPostComments}
+        uniqueUserQnaComments={uniqueUserQnaComments}
       />
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -257,12 +278,12 @@ const MyPage = () => {
               </div>
             ))
             ) : <div className="my-activity">
-                <p>포스트: {uniqueUserPost.length}</p>
-                <p>MeetUp: {uniqueUserMeetUp.length}</p>
-                <p>Qna: {uniqueUserQna.length}</p>
-                <p>스크랩: {uniqueUserScrap.length}</p>
-                <p>나의 좋아요: {uniqueUserLikes.length}</p>
-                <p>나의 댓글: {uniqueUserPostComments.length}</p>
+                <p className='mb-1'>포스트: {uniqueUserPost.length}</p>
+                <p className='mb-1'>MeetUp: {uniqueUserMeetUp.length}</p>
+                <p className='mb-1'>Qna: {uniqueUserQna.length}</p>
+                <p className='mb-1'>스크랩: {uniqueUserScrap.length}</p>
+                <p className='mb-1'>나의 좋아요: {uniqueUserLikes.length}</p>
+                <p className='mb-1'>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
           </div>}
         </Modal.Body>
       </Modal>
@@ -278,30 +299,31 @@ const TabContent = ({
   uniqueUserQna,
   uniqueUserScrap,
   uniqueUserLikes,
-  uniqueUserPostComments,}) => {
+  uniqueUserPostComments,
+  uniqueUserQnaComments, }) => {
   if (tab === 0) {
     return <Row>
-      {uniqueUserPost && uniqueUserPost.map((post) => (
+      {uniqueUserPost.length !== 0 ? uniqueUserPost.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
           <PostTab post={post} key={post._id} />
         </Col>
-      ))}
+      )) : "아직 포스트를 게시하지 않았습니다"}
     </Row>
   }
 
   if (tab === 1) {
     return <div className="meetUp-container">
-      {uniqueUserMeetUp && uniqueUserMeetUp.map((meetUp) => (
+      {uniqueUserMeetUp.length !== 0 ? uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
-      ))}
+      )) : "아직 MeetUp을 만들지 않았습니다"}
     </div>
   }
 
   if (tab === 2) {
     return <>
-      {uniqueUserQna && uniqueUserQna.map((qna) => (
+      {uniqueUserQna.length !== 0 ? uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
-      ))}
+      )) : "아직 Qna를 게시하지 않았습니다"}
     </>
   }
   if (tab === 3) {
@@ -311,7 +333,11 @@ const TabContent = ({
     return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
   if (tab === 5) {
-    return <MyCommentsTab uniqueUser={uniqueUser} uniqueUserPostComments={uniqueUserPostComments} />
+    return <MyCommentsTab
+      uniqueUser={uniqueUser}
+      uniqueUserPostComments={uniqueUserPostComments}
+      uniqueUserQnaComments={uniqueUserQnaComments}
+    />
   }
 
 }
