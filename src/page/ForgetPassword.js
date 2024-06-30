@@ -20,6 +20,8 @@ const ForgetPassword = () => {
     const [ activeTab, setActiveTab ] = useState('name');
     const [ isShowPassword, setIsShowPassword ] = useState(false);
     const [ isShowConfirmPassword, setIsShowConfirmPassword ] = useState(false);
+
+    console.log(findUser)
     
     const findPassword = () => {
         if(activeTab === 'name') {
@@ -52,7 +54,7 @@ const ForgetPassword = () => {
             dispatch(commonUiActions.showToastMessage('비밀번호가 일치하지 않습니다', 'error'))
             return;
         }
-        dispatch(userActions.setNewPassword(findUser[0]._id, password, navigate))
+        dispatch(userActions.setNewPassword(findUser._id, password, navigate))
     }
 
     useEffect(()=>{

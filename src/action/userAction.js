@@ -199,11 +199,11 @@ const blockUser = (userId) => async (dispatch) => {
 const forgetPassword = (nickName, userName, email) => async (dispatch) => {
     try {
         dispatch({ type: types.FORGET_PASSWORD_REQUEST })
-        const res =  await api.post('/user/forgetpassword', { nickName, userName, email })
+        const res =  await api.post('/user/forgetpassword', { nickName, userName, email });
+        console.log('ddd', res)
         if (res.status !== 200) {
           throw new Error(res.error)
         } else {
-          console.log(res)
           dispatch({ type: types.FORGET_PASSWORD_SUCCESS, payload: res.data.data })
           dispatch(getUserList())
           dispatch(commonUiActions.showToastMessage('새로 변경할 비밀번호를 입력해주세요', 'success'))
