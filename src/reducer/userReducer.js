@@ -41,7 +41,7 @@ function userReducer(state = initialState, action) {
       return { ...state, loading: false, user: payload.user, error: "" }
     
     case types.FORGET_PASSWORD_SUCCESS:
-      return { ...state, loading: false, findUser: payload.findUser, error: '' }
+      return { ...state, loading: false, findUser: payload, error: '' }
 
     case types.REGISTER_SUCCESS:
     case types.SET_PASSWORD_WHEN_FORGET_SUCCESS:
