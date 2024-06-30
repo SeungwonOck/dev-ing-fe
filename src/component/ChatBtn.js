@@ -1,4 +1,3 @@
-// import { io } from "socket.io-client";
 import React, { useEffect, useRef, useState } from 'react'
 import chatIcon from '../asset/img/chat-icon.png';
 import '../style/chat.style.css';
@@ -8,11 +7,7 @@ import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
-// const REACT_APP_BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY
 import socket from '../server.js';
-
-// const socket = io("http://localhost:5001"); //로컬 소켓 서버
-// const socket = io(REACT_APP_BACKEND_PROXY) // 배포 소켓 서버 
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -37,10 +32,6 @@ const ChatBtn = () => {
 
 
     }, []);
-
-    useEffect(()=>{
-        console.log(chatRoomList)
-    },[chatRoomList])
 
     const handleClickOutside = (event) => {
         if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
@@ -85,7 +76,6 @@ const ChatBtn = () => {
     };
 
     const getSelectedChatRoom = (roomId) => {
-        console.log('roomid =', roomId)
         dispatch(chatActions.getChatRoom(roomId));
         setRoomId(roomId)
     }
