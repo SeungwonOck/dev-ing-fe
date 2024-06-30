@@ -24,7 +24,7 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { nickName } = useParams();
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState("post");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
 
@@ -61,7 +61,7 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(userActions.getUserByNickName(nickName))
-    setTab(0);
+    setTab("post");
   }, [nickName, dispatch])
 
   useEffect(() => {
@@ -203,24 +203,24 @@ const MyPage = () => {
         <p className="description">{uniqueUser.description}</p>
       </div>
 
-      <Nav variant="tabs" defaultActiveKey="post" className="custom-nav">
+      <Nav variant="tabs" activeKey={tab} onSelect={(selectedKey) => setTab(selectedKey)} defaultActiveKey="post" className="custom-nav">
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(0)} eventKey="post">Post</Nav.Link>
+          <Nav.Link eventKey="post">Post</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(1)} eventKey="meetUp">MeetUp</Nav.Link>
+          <Nav.Link eventKey="meetUp">MeetUp</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(2)} eventKey="qna">Q&A</Nav.Link>
+          <Nav.Link eventKey="qna">Q&A</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(3)} eventKey="scrap">Scrap</Nav.Link>
+          <Nav.Link eventKey="scrap">Scrap</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(4)} eventKey="myLikes">My Likes</Nav.Link>
+          <Nav.Link eventKey="myLikes">My Likes</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => setTab(5)} eventKey="myComments">My Comments</Nav.Link>
+          <Nav.Link eventKey="myComments">My Comments</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -301,7 +301,7 @@ const TabContent = ({
   uniqueUserLikes,
   uniqueUserPostComments,
   uniqueUserQnaComments, }) => {
-  if (tab === 0) {
+  if (tab === "post") {
     return <Row>
       {uniqueUserPost.length !== 0 ? uniqueUserPost.map((post) => (
         <Col key={post._id} xs={12} sm={6} md={4} lg={4}>
@@ -311,7 +311,7 @@ const TabContent = ({
     </Row>
   }
 
-  if (tab === 1) {
+  if (tab === "meetUp") {
     return <div className="meetUp-container">
       {uniqueUserMeetUp.length !== 0 ? uniqueUserMeetUp.map((meetUp) => (
         <MeetUpTab meetUp={meetUp} key={meetUp._id} />
@@ -319,20 +319,20 @@ const TabContent = ({
     </div>
   }
 
-  if (tab === 2) {
+  if (tab === "qna") {
     return <>
       {uniqueUserQna.length !== 0 ? uniqueUserQna.map((qna) => (
         <QnaTab qna={qna} key={qna._id} />
       )) : "아직 Qna를 게시하지 않았습니다"}
     </>
   }
-  if (tab === 3) {
+  if (tab === "scrap") {
     return <ScrapTab uniqueUser={uniqueUser} uniqueUserScrap={uniqueUserScrap} />
   }
-  if (tab === 4) {
+  if (tab === "myLikes") {
     return <MyLikesTab uniqueUserLikes={uniqueUserLikes} />
   }
-  if (tab === 5) {
+  if (tab === "myComments") {
     return <MyCommentsTab
       uniqueUser={uniqueUser}
       uniqueUserPostComments={uniqueUserPostComments}
