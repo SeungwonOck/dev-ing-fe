@@ -97,6 +97,7 @@ const ChatBtn = () => {
         // 클린업 함수
         return () => {
             socket.off("chat message");
+            setMessages([])
         };
     }, [roomId]);
 
