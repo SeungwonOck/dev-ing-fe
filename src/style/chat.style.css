@@ -241,6 +241,10 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+.chat-room > .chat-list > .no-chat-list {
+    text-align: center;
+    color: #acacac;
+}
 /* .chat-room > .chat-list > .chat > .new {
     background-color: #F24E1E;
     color: #fff;

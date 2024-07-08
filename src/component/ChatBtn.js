@@ -3,11 +3,12 @@ import chatIcon from '../asset/img/chat-icon.png';
 import '../style/chat.style.css';
 import chatActions from "../action/chatAction";
 import { useDispatch, useSelector } from 'react-redux';
-import img from '../asset/img/meeting-img-01.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 import socket from '../server.js';
+import { SET_USER_ONLINE_STATE } from '../constants/user.constants'
+import { userActions } from '../action/userAction.js';
 
 const ChatBtn = () => {
     const dispatch = useDispatch();
@@ -21,17 +22,26 @@ const ChatBtn = () => {
     const chatIn = useRef(null);
     const messagesEndRef = useRef(null);
     
+    useEffect(() => {
+        socket.emit('user', (user._id), (res) => {
+            if(res?.ok) {
+                dispatch({type: SET_USER_ONLINE_STATE, payload: res.data})
+            } else {
+                console.log(res.error)
+            }
+        })
+    },[user.online.online])
+
     useEffect(() => { 
-
         dispatch(chatActions.getChatRoomList());
+    }, []);
 
+    useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-
-
-    }, []);
+    },[])
 
     const handleClickOutside = (event) => {
         if (chatRoom.current && !chatRoom.current.contains(event.target) && !event.target.closest('.chat-icon')) {
@@ -91,7 +101,7 @@ const ChatBtn = () => {
                 ...prevMessages,
                 { userName, message },
             ]);
-            dispatch(chatActions.saveChatMessage(roomId, userName, message));
+            // dispatch(chatActions.saveChatMessage(roomId, userName, message));
         });
 
         // 클린업 함수
@@ -106,9 +116,11 @@ const ChatBtn = () => {
     }
 
     const backToChatRoomList = () => {
-        getSelectedChatRoom('')
+        if(chatRoomList.length > 0) {
+            chatIn.current.style.display = 'none';
+        }
+        getSelectedChatRoom(null)
         setValue('')
-        chatIn.current.style.display = 'none';
         setRoomId(null)
         setIsGoBackBtnShow(false)
     }
@@ -121,12 +133,14 @@ const ChatBtn = () => {
 
     return (
         <>
-            {chatRoomList &&
+            
                 <div className='chat-room' ref={chatRoom}>
                     <div className='back-btn' onClick={() => backToChatRoomList()}>{isGoBackBtnShow ? <><FontAwesomeIcon icon={faChevronLeft}/> 채팅목록</> : <FontAwesomeIcon icon={faClose} onClick={() => chatRoom.current.style.right = '-500px'}/>}</div>
                     <div className={`${isGoBackBtnShow ? 'chat-room-title' : 'header'}`}>{isGoBackBtnShow ? selectedChatRoom?.roomId.title : '채팅목록'}</div>
+                    
                     <div className='chat-list'>
-
+                    {chatRoomList.length > 0 ?
+                    <React.Fragment>
                         {/* 채팅방 입장 */}
                         <div className='chat-in' ref={chatIn}>
                             <div className="chat-messages">
@@ -187,30 +201,30 @@ const ChatBtn = () => {
                         {/* 채팅방 목록 */}
                         {chatRoomList.map((chatRoom) => 
                             <div 
-                                key={chatRoom?._id} 
+                                key={chatRoom._id} 
                                 className='chat' 
                                 onClick={() => { 
-                                    getSelectedChatRoom(chatRoom?.roomId?._id);
+                                    getSelectedChatRoom(chatRoom.roomId._id);
                                     showChatIn();
                                 }}
                             >
                                 <div className='content'>
                                     <div className='left'>
                                         <div className='img'>
-                                            <img src={img} alt=''/>
+                                            <img src={chatRoom.roomId.image} alt=''/>
                                         </div>
                                         <div 
-                                            className={`category ${chatRoom?.roomId?.category === '독서' ? 'green' :
-                                                                   chatRoom?.roomId?.category === '프로젝트' ? 'violet' :
-                                                                   chatRoom?.roomId?.category === '강의' ? 'blue' : 'red'
+                                            className={`category ${chatRoom.roomId.category === '독서' ? 'green' :
+                                                                   chatRoom.roomId.category === '프로젝트' ? 'violet' :
+                                                                   chatRoom.roomId.category === '강의' ? 'blue' : 'red'
                                             }`}>
                                             {chatRoom?.roomId?.category}
                                         </div>
                                     </div>
                                     <div className='right'>
                                         <div className='room-title'>
-                                            <span className='title'>{chatRoom?.roomId?.title}</span>
-                                            <span className='participants-num'>{chatRoom?.participants?.length}</span>
+                                            <span className='title'>{chatRoom.roomId.title}</span>
+                                            <span className='participants-num'>{chatRoom.participants.length}</span>
                                         </div>
                                         <div className='room-latest-chat'>{chatRoom?.chat[chatRoom.chat.length-1]?.message || ''}</div>
                                     </div>
@@ -218,9 +232,19 @@ const ChatBtn = () => {
                                 {/* <div className='new'>1</div> */}
                             </div>
                         )}
+                    </React.Fragment>
+                    :
+                    //채팅목록이 없을시
+                    <div className='no-chat-list'>
+                        <div>채팅목록이 없습니다.</div>
+                        <br/>
+                        <div>새 모임을 등록하거나 기존 모임에 참여하면</div>
+                        <div>모임원들과 채팅이 가능합니다.</div>
+                    </div>
+                    }
                     </div>
                 </div>
-                }
+                
             <div className="chat-icon" onClick={() => handleChatRoom()}>
                 <img src={chatIcon} alt='채팅아이콘'/>
             </div>

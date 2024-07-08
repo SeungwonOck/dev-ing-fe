@@ -90,6 +90,10 @@ function userReducer(state = initialState, action) {
 
     case types.SET_FIND_USER:
       return { ...state, findUser: null}
+
+    case types.SET_USER_ONLINE_STATE:
+      return { ...state, loading: false, user: payload, error: ''}
+
     default:
       return state;
   }
