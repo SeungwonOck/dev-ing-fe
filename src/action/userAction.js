@@ -189,7 +189,7 @@ const blockUser = (userId) => async (dispatch) => {
     }
   } catch (error) {
     dispatch({ type: types.BLOCK_USER_FAIL })
-    dispatch(commonUiActions.showToastMessage(error, 'error'))
+    dispatch(commonUiActions.showToastMessage(error.message, 'error'))
   }
 }
 
