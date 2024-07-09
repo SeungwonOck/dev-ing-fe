@@ -58,7 +58,8 @@ const UserTable = ({ header, userList, isMobile }) => {
                                     {!isMobile && <td>{user.report}</td>}
                                     {/* 신고승인 토글버튼 */}
                                     <td className='toggle-td'>
-                                        <input
+                                        {user.level !== 'admin' && 
+                                        <><input
                                             className="react-switch-checkbox"
                                             id={`admin-confirm-${user._id}`}
                                             type="checkbox"
@@ -70,7 +71,7 @@ const UserTable = ({ header, userList, isMobile }) => {
                                             htmlFor={`admin-confirm-${user._id}`}
                                         >
                                             <span className={`react-switch-button`} />
-                                        </label>
+                                        </label></>}
                                     </td>
                                 </tr>
                                 {isShowDetailInfo && detailInfo._id === user._id && (

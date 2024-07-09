@@ -1,4 +1,3 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/common.style.css";
 import './style/switch.style.css';
