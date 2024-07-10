@@ -257,10 +257,16 @@
     align-items: center;
     gap: 6px;
 }
+.home >.qna-container > .home-qna-card > .bottom > .user > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 96px;
+}
 .home >.qna-container > .home-qna-card > .bottom > .info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 .home >.qna-container > .home-qna-card > .bottom > .info > .category {
     padding: 2px 8px;
@@ -269,6 +275,7 @@
     font-weight: 500;
     width: fit-content;
     height: fit-content;
+    white-space: nowrap;
 }
 .home >.qna-container > .home-qna-card > .bottom > .info > .tech { background-color: rgb(200, 229, 238); }
 .home >.qna-container > .home-qna-card > .bottom > .info > .career { background-color: rgb(255, 220, 214); }
@@ -283,6 +290,7 @@
     align-items: center;
     transition: all 0.2s ease;
     gap: 4px;
+    white-space: nowrap;
 }
 .home >.qna-container > .home-qna-card > .bottom > .info > .answers > span {
     font-weight: 600;
@@ -329,6 +337,9 @@
     }
     .home-post-card>.contents .small-text {
         white-space: nowrap;
+    }
+    .home >.qna-container > .home-qna-card > .bottom > .user > span {
+        width: 120px;
     }
     .home >.qna-container > .home-qna-card > .bottom > .info {
         gap: 6px;
