@@ -7,7 +7,7 @@
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/SeungwonOck/dev-ing-fe/assets/163747140/df33a9b2-91ce-4f31-9884-e78698bc7d64" alt="북두칠성로고" width="100" />
+      <img src="https://github.com/SeungwonOck/dev-ing-fe/assets/163747140/df33a9b2-91ce-4f31-9884-e78698bc7d64" alt="로고" width="100" />
     </td>
     <td align="center">
       <img src="https://github.com/SeungwonOck/dev-ing-fe/assets/163747140/a40d0f82-0d01-458d-a36b-857da497d912" width="100" />

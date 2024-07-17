@@ -30,7 +30,8 @@ const Register = () => {
   }, [dispatch]);
 
   const validateNickname = (nick) => {
-    return /^[a-z0-9_]+$/.test(nick);
+    if (/^[a-z0-9_]+$/.test(nick) && nick.length >= 4 && nick.length <= 12)
+      return true;
   }
 
   const register = (event) => {
@@ -57,7 +58,7 @@ const Register = () => {
 
     // 닉네임 validate nickName
     if (!validateNickname(nickName)) {
-      setNickNameError("닉네임은 알파벳 소문자, 밑줄(_), 숫자만 가능합니다.");
+      setNickNameError("닉네임은 알파벳 소문자, 밑줄(_), 숫자만 가능합니다. (최소 4자~최대 12자)");
       return;
     }
     else {
@@ -128,7 +129,7 @@ const Register = () => {
                   className="login-form-input"
                   type="text"
                   id="nickName"
-                  placeholder="닉네임은 알파벳 소문자, _, 숫자만 가능합니다"
+                  placeholder="닉네임은 알파벳 소문자, _, 숫자만 가능합니다 (최소 4자~최대 12자)"
                   onChange={handleChange}
                   isInvalid={nickNameError}
                   required
