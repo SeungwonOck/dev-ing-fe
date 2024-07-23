@@ -71,7 +71,7 @@ const MyPage = () => {
     }
   }, [followSuccess, unfollowSuccess, nickName, dispatch]);
 
-  const handleFollow = () => {
+  const handleFollow = (nickName) => {
     if (!user) {
       navigate("/login")
     } else {
@@ -79,13 +79,17 @@ const MyPage = () => {
     }
   };
 
-  const handleUnfollow = () => {
+  const handleUnfollow = (nickName) => {
     dispatch(userActions.unfollowUser(nickName))
   }
 
   const handleShowModal = (type) => {
-    setModalType(type);
-    setShowModal(true);
+    if (!user) {
+      navigate("/login")
+    } else {
+      setModalType(type);
+      setShowModal(true);
+    }
   }
 
   const handleCloseModal = () => setShowModal(false);
@@ -158,7 +162,7 @@ const MyPage = () => {
             <h2 className="user-name">
               {uniqueUser.userName} <span className="user-rank">{uniqueUser.rank}</span>
               {!isCurrentUser && (
-                <button className="follow-button" onClick={isFollowing ? handleUnfollow : handleFollow}>
+                <button className="follow-button" onClick={isFollowing ? () => handleUnfollow(nickName) : () => handleFollow(nickName)}>
                   {isFollowing ? "언팔로우" : "팔로우"}
                 </button>
               )}
@@ -247,48 +251,104 @@ const MyPage = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modalType === 'following' ? (
-            following.map((user) => (
-              <div
-                key={user._id}
-                className='user-item'
-                onClick={() => {
-                  navigate(`/me/${user.nickName}`);
-                  handleCloseModal();
-                }
-                }>
-                <img src={user.profileImage} alt={user.nickName} className='user-profile-image' />
-                <div className='user-info'>
-                  <span className='user-nickName'>{user.nickName}</span>
-                  <span className='user-userName'>{user.userName}</span>
-                </div>
-              </div>
-            ))
-          ) : modalType === "followers" ? (
-            followers.map((user) => (
-              <div
-                key={user._id}
-                className='user-item'
-                onClick={() => {
-                  navigate(`/me/${user.nickName}`)
-                  handleCloseModal();
-                }
-                }>
-                <img src={user.profileImage} alt={user.nickName} className='user-profile-image' />
-                <div className='user-info'>
-                  <span className='user-nickName'>{user.nickName}</span>
-                  <span className='user-userName'>{user.userName}</span>
-                </div>
-              </div>
-            ))
-            ) : <div className="my-activity">
+          {modalType === 'following' && (
+            <div>
+              {following && following.length > 0 ? (
+                following.map((following) => (
+                  <div key={following._id} className="user-item">
+                    <img
+                      src={following.profileImage}
+                      alt={following.nickName}
+                      className='user-profile-image'
+                      onClick={() => {
+                      navigate(`/me/${following.nickName}`);
+                      handleCloseModal();
+                    }
+                    }/>
+                    <div
+                      className='user-info'
+                      onClick={() => {
+                      navigate(`/me/${following.nickName}`);
+                      handleCloseModal();
+                    }
+                    }>
+                      <span className='user-nickName'>{following.nickName}</span>
+                      <span className='user-userName'>{following.userName}</span>
+                    </div>
+                    {user && following.nickName !== user.nickName && (
+                      <>
+                        {!user.following.includes(following._id) ? (
+                          <button className="follow-button" onClick={() => handleFollow(following.nickName)}>
+                            팔로우
+                          </button>
+                        ) : (
+                          <button className="follow-button" onClick={() => handleUnfollow(following.nickName)}>
+                            언팔로우
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p>팔로잉 하는 유저가 없습니다</p>
+              )}
+            </div>
+          )}
+          {modalType === 'followers' && (
+            <div>
+              {followers && followers.length > 0 ? (
+                followers.map((follower) => (
+                  <div key={follower._id} className="user-item">
+                    <img
+                      src={follower.profileImage}
+                      alt={follower.nickName}
+                      className='user-profile-image'
+                      onClick={() => {
+                      navigate(`/me/${follower.nickName}`)
+                      handleCloseModal();
+                    }
+                    }/>
+                    <div
+                      className='user-info'
+                      onClick={() => {
+                      navigate(`/me/${follower.nickName}`)
+                      handleCloseModal();
+                    }
+                    }>
+                      <span className='user-nickName'>{follower.nickName}</span>
+                      <span className='user-userName'>{follower.userName}</span>
+                    </div>
+                    {user && follower.nickName !== user.nickName && (
+                      <>
+                        {!user.following.includes(follower._id) ? (
+                          <button className="follow-button" onClick={() => handleFollow(follower.nickName)}>
+                            팔로우
+                          </button>
+                        ) : (
+                          <button className="follow-button" onClick={() => handleUnfollow(follower.nickName)}>
+                            언팔로우
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p>팔로워가 없습니다</p>
+              )}
+            </div>
+          )}
+          {modalType === 'myActivity' && (
+            <div className="my-activity">
                 <p className='mb-1'>포스트: {uniqueUserPost.length}</p>
                 <p className='mb-1'>MeetUp: {uniqueUserMeetUp.length}</p>
                 <p className='mb-1'>Qna: {uniqueUserQna.length}</p>
                 <p className='mb-1'>스크랩: {uniqueUserScrap.length}</p>
                 <p className='mb-1'>나의 좋아요: {uniqueUserLikes.length}</p>
                 <p className='mb-1'>나의 댓글: {getTotalCommentsLength(uniqueUserPostComments) + getTotalAnswersLength(uniqueUserQnaComments)}</p>
-          </div>}
+            </div>
+          )}
         </Modal.Body>
       </Modal>
     </div>
